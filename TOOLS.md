@@ -21,9 +21,12 @@ Things like:
 - living-room → Main area, 180° wide angle
 - front-door → Entrance, motion-triggered
 
-### SSH
+### Strapi API
 
-- home-server → 192.168.1.100, user: admin
+- Location → `https://admin.benchgen.com/` (Strapi Base URL)
+- Configuration → Stored in workspace root `.env` as `STRAPI_API_KEY` and `STRAPI_BASE_URL` (Permissions restricted to 600)
+- Purpose → Reusable integration endpoints for managing `api::article.article` entries securely.
+
 
 ### TTS
 

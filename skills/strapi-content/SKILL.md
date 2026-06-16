@@ -1,3 +1,18 @@
+---
+name: strapi-content
+triggers:
+  - "publish to strapi"
+  - "update strapi"
+  - "create article in strapi"
+  - "sync to strapi"
+  - "strapi content"
+  - "post article"
+  - "update changelog"
+  - "publish changelog"
+  - "strapi api"
+  - "benchgen.com article"
+---
+
 # Strapi Content Management Skill
 
 This skill provides a standardized, reliable procedure for interacting with Strapi's \`/api/articles\` and \`/api/changelog-entries\` endpoints using secure Bearer authentication. It covers retrieving, creating, updating, and synchronizing markdown pages and changelog updates with Strapi.

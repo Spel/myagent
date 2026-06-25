@@ -1,10 +1,15 @@
 ---
 name: linkedin-publish
-version: 3.0.0
-description: |
-  Publish text or image posts to LinkedIn on behalf of multiple Telegram users.
-  Uses /data/openclaw/li-post.sh for all posting. Handles OAuth linking on
-  first use via pasted callback JSON.
+version: 3.1.0
+description: Publish text or image posts to LinkedIn on behalf of multiple Telegram users. Handles per-user OAuth linking automatically.
+user-invocable: true
+metadata:
+  openclaw:
+    requires:
+      env:
+        - LINKEDIN_CLIENT_ID
+        - LINKEDIN_CLIENT_SECRET
+        - LINKEDIN_REDIRECT_URI
 triggers:
   - "publish to linkedin"
   - "post to linkedin"
@@ -28,7 +33,7 @@ mutating: true
 > ⚠️ READ THIS FIRST — MANDATORY RULES:
 > 1. **NEVER write scripts to /tmp or anywhere else.** The helper already exists.
 > 2. **NEVER use grep/cut/sed/cat/read-tool to get the access token.** The helper handles it.
-> 3. **NEVER create a new bash script for LinkedIn.** Use ONLY `/data/openclaw/li-post.sh`.
+> 3. **NEVER create a new bash script for LinkedIn.** Use ONLY `{baseDir}/li-post.sh`.
 > 4. **NEVER analyze or describe an attached image.** Pass its path directly to li-post.sh.
 > 5. **DO NOT narrate steps.** Run the command, show the result.
 
@@ -149,7 +154,7 @@ If `REFRESHED` → go to **Publish**.
 ### Text post
 
 ```bash
-/data/openclaw/li-post.sh "$TELEGRAM_USER_ID" text "<POST_BODY_PLAIN_TEXT>"
+{baseDir}/li-post.sh "$TELEGRAM_USER_ID" text "<POST_BODY_PLAIN_TEXT>"
 ```
 
 ### Image post
@@ -161,13 +166,13 @@ The UUID is visible in the image URL shown in the chat context (e.g. `...media/i
 
 ```bash
 IMAGE_PATH="/data/openclaw/media/inbound/<uuid>.jpg"
-/data/openclaw/li-post.sh "$TELEGRAM_USER_ID" image "$IMAGE_PATH" "<POST_BODY_PLAIN_TEXT>"
+{baseDir}/li-post.sh "$TELEGRAM_USER_ID" image "$IMAGE_PATH" "<POST_BODY_PLAIN_TEXT>"
 ```
 
 If the image comes from a URL (not Telegram), download first:
 ```bash
 curl -sL "<IMAGE_URL>" -o /tmp/li_img
-/data/openclaw/li-post.sh "$TELEGRAM_USER_ID" image /tmp/li_img "<POST_BODY_PLAIN_TEXT>"
+{baseDir}/li-post.sh "$TELEGRAM_USER_ID" image /tmp/li_img "<POST_BODY_PLAIN_TEXT>"
 ```
 
 ### Reading output

@@ -28,6 +28,7 @@ mutating: true
 
 - One LinkedIn account per Telegram user; keyed by Telegram user ID
 - Token store: `/data/openclaw/linkedin-tokens.json` (Docker volume — survives restarts)
+- **Always read the token store via `bash`/`jq` — NEVER use the `read` file tool on it.** The `read` tool redacts `access_token` as `***` (security feature); this does NOT mean the token is missing or corrupted.
 - User pastes the callback JSON `{"code":"...","state":"..."}` back into the chat; agent exchanges it, saves the token, then publishes in the same turn
 - No unnecessary pre-flight checks — act immediately based on token presence
 - App credentials are in env vars: `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_REDIRECT_URI`
@@ -35,7 +36,7 @@ mutating: true
 ---
 
 ## Decision Tree — execute top-to-bottom, stop at first match
-
+**First action: run the bash block below. Do not use the `read` file tool. Do not output anything yet.**
 ```
 TOKEN_STORE=/data/openclaw/linkedin-tokens.json
 [ -f "$TOKEN_STORE" ] || echo "{}" > "$TOKEN_STORE"
@@ -227,8 +228,10 @@ On error:
 
 ## Anti-Patterns
 
-- **Never** narrate "let me check X" before acting — read the token store and act
+- **Never** narrate "let me check X" before acting — run bash and act silently
+- **Never** output anything to the user until STEP C is complete and you have the post URL (or a confirmed error)
 - **Never** call a token "corrupted", "invalid", or "bad" unless the LinkedIn API returned HTTP 401
+- **Never** use the `read` file tool on the token store — it redacts `access_token` as `***` which is normal; use `bash`/`jq` only
 - **Never** re-auth unless: (a) no token exists, (b) `expires_at` is past, or (c) LinkedIn API returned HTTP 401
 - **Never** require the user to repeat their publish request after pasting the callback — do STEP A2 + STEP C in one turn
 - **Never** post raw markdown — strip to plain text first

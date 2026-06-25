@@ -44,18 +44,22 @@ Read the file at `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md`
 
 ## Onboarding Interview (first-time only)
 
-Ask all 6 questions in ONE message. Do not drip them one at a time.
+Ask all 8 questions in ONE message. Do not drip them one at a time.
 
 ```
 To help you post in your own voice, I need to understand you a bit first.
 Answer however you like — a few words per question is fine.
 
 1. **Who is your target audience?** (e.g. "B2B SaaS founders", "junior developers", "HR professionals")
-2. **What's your main LinkedIn goal?** (build thought leadership / get clients / grow my network / share knowledge / other)
-3. **What 3 topics do you post about most?**
-4. **How would you describe your communication style?** (e.g. "direct and practical", "storytelling", "technical deep-dives", "motivational", "casual and humorous")
-5. **What do you dislike seeing in LinkedIn posts?** (e.g. "vague humble-brags", "excessive emojis", "too long", "salesy CTAs")
-6. **Any hashtags you always include?** (list them, or say "none")
+2. **Who are your ideal buyers / personas?** For each type: role, company size, industry, and their main pain point.
+   (e.g. "CTO at 100+ person tech company — needs to ship AI faster without vendor lock-in")
+3. **What's your main LinkedIn goal?** (build thought leadership / get clients / grow my network / share knowledge / other)
+4. **What 3 topics do you post about most?**
+5. **How would you describe your communication style?** (e.g. "direct and practical", "storytelling", "technical deep-dives", "motivational", "casual and humorous")
+6. **What do you dislike seeing in LinkedIn posts?** (e.g. "vague humble-brags", "excessive emojis", "too long", "salesy CTAs")
+7. **Any hashtags you always include?** (list them, or say "none")
+8. **Do you want posts to reference a specific company or product?** If yes: name, one-line description, and 2–3 key differentiators.
+   (say "no" if purely personal brand)
 ```
 
 **STOP. Wait for answers.**
@@ -79,29 +83,89 @@ After onboarding answers, write the profile using the file `write` tool:
 ## Identity & Goals
 
 - **Target audience:** <from Q1>
-- **Primary goal:** <from Q2>
+- **Primary goal:** <from Q3>
+
+## Buyer Personas
+
+*(Who specifically should feel spoken to by every post)*
+
+- **Persona 1:** <role> at <company type/size> — Pain: <main struggle>
+- **Persona 2:** <role> at <company type/size> — Pain: <main struggle>
+*(add more as needed)*
 
 ## Content Pillars
 
-1. <topic 1 from Q3>
-2. <topic 2 from Q3>
-3. <topic 3 from Q3>
+1. <topic 1 from Q4>
+2. <topic 2 from Q4>
+3. <topic 3 from Q4>
 
 ## Voice & Tone
 
-- **Style:** <from Q4>
-- **Avoid:** <from Q5>
+- **Style:** <from Q5>
+- **Avoid:** <from Q6>
+
+## Company / Product Context
+
+*(Leave blank if purely personal brand)*
+- **Company:** <from Q8 — name>
+- **What it does:** <from Q8 — one-line description>
+- **Key differentiators:** <from Q8>
 
 ## Hashtag Strategy
 
-- Always use: <from Q6, or "(none set)">
+- Always use: <from Q7, or "(none set)">
 - Topic-specific: *(add as you go)*
+
+## Post Production Rules
+
+*(These rules apply to EVERY post drafted from this profile — non-negotiable)*
+
+### Length & Structure
+- Target: 900–1,300 characters (hard min 800, max 1,400)
+- Max 14 lines total
+- 1–2 short sentences per line
+- Structure: 1–3 hook lines → 6–10 body lines → 1–2 CTA lines
+
+### Hook rules
+- Must create a pattern interrupt — choose ONE: contrarian statement, direct challenge, or consequence reveal
+- Use Unicode bold sans (e.g. 𝗵𝗲𝗿𝗲’𝘀 𝙷𝙩𝙺) for the hook line ONLY
+- No Markdown, no asterisks (*), no underscores (_)
+
+### Body rules
+- Include ONE comment trigger: a direct question, A vs B choice, or unfinished thought
+- Introduce contrast: old belief vs reality, OR comfort now vs pain later
+- Include ONE save-worthy insight: a rule, checklist, or named pattern
+- Use "you" and "your" frequently
+- ALL CAPS for 1–2 key words maximum per post
+- Speak to the buyer persona pain points — make them feel understood
+
+### CTA rules
+- Must be a question, not a command
+- No direct selling, no "book a call", no "reach out to us"
+- Prefer: "What’s your experience with X?" / "Are you doing this?" / "What would you add?"
+
+### Hashtag rules
+- 3–6 hashtags ONLY, placed at the END of the post
+- Never inside sentences
+- Prefer industry/role/topic-specific; avoid generic (#success, #motivation)
+
+### Formatting rules
+- NO Markdown of any kind (no *, _, #heading)
+- Unicode Mathematical Alphanumeric Symbols for emphasis ONLY on hooks or single key phrases, never full paragraphs
+  - Bold sans: 𝗴𝗲𝗹𝗹𝗼 𝗹𝗶𝗸𝗲 𝗴𝗲𝗹𝗹
+  - Italic sans: 𝘨𝘦𝘭𝘭𝘰 𝘭𝘪𝘬𝘦 𝘨𝘦𝘭𝘭
+- Emojis: 0–3 per post maximum
+
+### News framing (when post is based on an article or announcement)
+- Reframe using ONE angle: "What this means for you" / "Why this is underestimated" / "The mistake most people will make" / "The second-order effect nobody mentions"
+- Never neutral reporting — always add perspective, judgment, or implication
+- If engagement potential feels weak after drafting, rewrite the hook and CTA once before finalizing
 
 ## Post Style Guide
 
-- Length: *(calibrate from first drafts)*
+- Length: 900–1,300 characters
 - Format: *(calibrate from feedback)*
-- CTA style: *(calibrate from feedback)*
+- CTA style: question-based
 
 ## History
 
@@ -123,23 +187,47 @@ If missing (ENOENT) → run **Onboarding Interview** first, then come back here.
 
 ### Step 2 — Draft
 
-Write a post that strictly follows the loaded profile:
-- Match the **style** and **tone** fields
-- Include the **always-use hashtags** at the end
-- Stay within 1,300 characters unless the user asks for long-form (max 3,000)
-- Avoid everything listed under **Avoid**
-- Cover one of the **Content Pillars** if the brief fits
+Apply the **Post Production Rules** from the profile in strict order:
 
-Format the draft in a code block so the user can copy it cleanly. **Output the draft directly in the reply — do NOT write it to any file first.**
+**Before writing, identify:**
+- Which **Content Pillar** the brief fits
+- Which **Buyer Persona** to speak to (pick the one most relevant to the topic)
+- Whether this is a **news post** (article/announcement) or an **original insight post**
+- Whether the brief involves the user’s **company/product** (if yes, weave it naturally — never as a hard sell)
+
+**Hook (lines 1–3):**
+- Pattern interrupt — ONE of: contrarian statement, direct challenge, consequence reveal
+- Unicode bold sans for hook line only (e.g. 𝗵𝗲𝗿𝗲’𝘀 𝗵𝗼𝘄 𝗶𝘁 𝗴𝗼𝗲𝘀)
+- No Markdown, no asterisks, no underscores
+
+**Body (lines 4–12):**
+- ONE comment trigger (direct question, A vs B, or unfinished thought)
+- Contrast: old belief vs reality, OR short-term comfort vs long-term cost
+- ONE save-worthy insight (a rule, checklist, or named pattern the reader will screenshot)
+- "you" and "your" throughout
+- ALL CAPS on 1–2 key words max
+- Speak directly to the buyer persona’s pain
+
+**CTA (lines 13–14):**
+- A question, never a command
+- No selling language unless user explicitly asks for it
+
+**If news post:** pick ONE framing angle from profile’s News Framing rules. Never summarize neutrally.
+
+**After drafting:** if engagement potential feels weak — hook is generic or CTA is passive — rewrite hook and CTA once before showing the result.
+
+Output the draft directly in the reply — no files, no variables:
 
 ````
-Here's your draft:
+Here’s your draft:
 
 ```
 <DRAFTED POST TEXT>
 ```
 
 **Characters:** <count>/1,400
+**Pillar:** <which pillar>
+**Persona:** <which buyer persona>
 **Hashtags used:** <list>
 
 Want me to adjust the tone, length, or anything else — or publish this now?
@@ -192,8 +280,12 @@ Then offer to update the profile's topic-specific list if user likes them.
 | Tone match | Matches **Style** field in profile |
 | Avoid list | None of the **Avoid** patterns present |
 | Content pillar | Fits at least one pillar (or is explicitly off-pillar by user choice) |
-| Hashtags | Always-use hashtags are present |
-| Length | Within user's preferred range |
+| Buyer persona | Speaks to at least one defined persona |
+| Hook pattern | Creates a pattern interrupt (contrarian / challenge / consequence) |
+| Comment trigger | ONE question, A vs B, or unfinished thought present |
+| Hashtags | 3–6 at end, none inside sentences |
+| Formatting | No Markdown (*/_), Unicode emphasis on hook only |
+| Length | 800–1,400 characters |
 
 4. If all pass → reply `✅ Style check passed.` and let publish proceed
 5. If any fail → reply:

@@ -58,8 +58,10 @@ Answer however you like — a few words per question is fine.
 5. **How would you describe your communication style?** (e.g. "direct and practical", "storytelling", "technical deep-dives", "motivational", "casual and humorous")
 6. **What do you dislike seeing in LinkedIn posts?** (e.g. "vague humble-brags", "excessive emojis", "too long", "salesy CTAs")
 7. **Any hashtags you always include?** (list them, or say "none")
-8. **Do you want posts to reference a specific company or product?** If yes: name, one-line description, and 2–3 key differentiators.
-   (say "no" if purely personal brand)
+8. **Are you promoting a specific company or product, or is this a personal brand?**
+   - Personal brand only: say "personal brand"
+   - Company/product: give the name, a one-line description, and 2-3 key differentiators.
+   (e.g. "UBOS - AI Agent Orchestration Platform, open-source, no vendor lock-in, 100+ LLMs")
 ```
 
 **STOP. Wait for answers.**
@@ -106,8 +108,8 @@ After onboarding answers, write the profile using the file `write` tool:
 
 ## Company / Product Context
 
-*(Leave blank if purely personal brand)*
-- **Company:** <from Q8 — name>
+*(Skip this section entirely if personal brand only)*
+- **Company:** <from Q8 — name, or omit section>
 - **What it does:** <from Q8 — one-line description>
 - **Key differentiators:** <from Q8>
 
@@ -193,7 +195,7 @@ Apply the **Post Production Rules** from the profile in strict order:
 - Which **Content Pillar** the brief fits
 - Which **Buyer Persona** to speak to (pick the one most relevant to the topic)
 - Whether this is a **news post** (article/announcement) or an **original insight post**
-- Whether the brief involves the user’s **company/product** (if yes, weave it naturally — never as a hard sell)
+- Whether the profile has a **Company / Product Context** section — if yes and the brief relates to it, weave it naturally (never as a hard sell); if personal brand only, keep posts in first-person voice with no product references unless user explicitly asks
 
 **Hook (lines 1–3):**
 - Pattern interrupt — ONE of: contrarian statement, direct challenge, consequence reveal
@@ -309,6 +311,50 @@ Then offer to update the profile's topic-specific list if user likes them.
 3. Add a history entry: `- **<YYYY-MM-DD>** | <what changed>`
 4. Write back with the file `write` tool to the same path
 5. Confirm: `✅ Profile updated: <what changed>`
+
+---
+
+## Profile Completeness Check
+
+**Trigger:** user asks "how complete is my profile?", "what's missing from my voice profile?", or after onboarding/update.  
+Also run automatically after writing a new profile — append the score to the confirmation reply.
+
+### Scoring (10 fields, 10 points each)
+
+Read `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` and check each field:
+
+| Field | Passes if |
+|-------|-----------|
+| Target audience | Present and not `(not set)` |
+| Primary goal | Present and not `(not set)` |
+| Buyer Personas | At least 1 persona defined |
+| Content Pillars | At least 2 pillars listed |
+| Voice & Tone — Style | Present and not `(not set)` |
+| Voice & Tone — Avoid | Present and not `(not set)` |
+| Hashtag Strategy | At least one hashtag or explicit "none" |
+| Company/Product Context | Present OR explicitly marked "personal brand" |
+| Post Production Rules | Section exists |
+| History | At least 1 entry |
+
+### Reply format
+
+```
+**Profile completeness: <score>/100**
+
+Complete:
+- Target audience ✅
+- Content pillars ✅
+...
+
+Missing or incomplete:
+- Buyer Personas ❌ — add at least one persona with role, company size, and pain point
+- Company/Product Context ❌ — tell me if this is personal brand or add company details
+...
+
+<score >= 80: "Your profile is solid. Ready to draft great posts.">
+<score 50-79: "A few gaps — fill them for better-targeted posts.">
+<score < 50: "Profile is thin — let's fill in the gaps now. Which would you like to tackle first?">
+```
 
 ---
 

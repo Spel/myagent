@@ -56,13 +56,8 @@ fi
 Generate auth URL and send to user. Stop and wait for them to paste the callback JSON.
 
 ```bash
-python3 -c "
-import urllib.parse, os
-p = {'response_type':'code','client_id':os.environ['LINKEDIN_CLIENT_ID'],
-     'redirect_uri':os.environ['LINKEDIN_REDIRECT_URI'],
-     'scope':'openid profile w_member_social','state':os.environ['TELEGRAM_USER_ID']}
-print('https://www.linkedin.com/oauth/v2/authorization?'+urllib.parse.urlencode(p))
-"
+ENC_REDIRECT=$(printf '%s' "$LINKEDIN_REDIRECT_URI" | jq -sRr @uri)
+echo "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${LINKEDIN_CLIENT_ID}&redirect_uri=${ENC_REDIRECT}&scope=openid%20profile%20w_member_social&state=${TELEGRAM_USER_ID}"
 ```
 
 Reply:
@@ -80,35 +75,15 @@ When they paste it → run **Exchange Code**, then immediately run **Publish**.
 
 ### Exchange Code
 
+Extract the `code` value from the JSON the user pasted. Verify `state` matches `$TELEGRAM_USER_ID`. Then run ONE command:
+
 ```bash
-CODE="<parsed from user message>"
-# Verify state matches TELEGRAM_USER_ID before proceeding
-
-RESP=$(curl -s -X POST "https://www.linkedin.com/oauth/v2/accessToken" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  --data-urlencode "grant_type=authorization_code" \
-  --data-urlencode "code=$CODE" \
-  --data-urlencode "redirect_uri=$LINKEDIN_REDIRECT_URI" \
-  --data-urlencode "client_id=$LINKEDIN_CLIENT_ID" \
-  --data-urlencode "client_secret=$LINKEDIN_CLIENT_SECRET")
-
-ACCESS_TOKEN=$(echo "$RESP" | jq -r '.access_token')
-REFRESH_TOKEN=$(echo "$RESP" | jq -r '.refresh_token // empty')
-EXPIRES_AT=$(($(date +%s) + $(echo "$RESP" | jq -r '.expires_in')))
-
-PROFILE=$(curl -s -H "Authorization: Bearer $ACCESS_TOKEN" "https://api.linkedin.com/v2/userinfo")
-LINKEDIN_URN="urn:li:person:$(echo "$PROFILE" | jq -r '.sub')"
-DISPLAY_NAME=$(echo "$PROFILE" | jq -r '.name')
-
-TOKEN_STORE=/data/openclaw/linkedin-tokens.json
-jq --arg u "$TELEGRAM_USER_ID" --arg t "$ACCESS_TOKEN" --arg r "$REFRESH_TOKEN" \
-   --argjson e "$EXPIRES_AT" --arg urn "$LINKEDIN_URN" --arg n "$DISPLAY_NAME" \
-   --arg l "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-   '.[$u]={"access_token":$t,"refresh_token":$r,"expires_at":$e,"linkedin_urn":$urn,"display_name":$n,"linked_at":$l}' \
-   "$TOKEN_STORE" > /tmp/.li_tmp && mv /tmp/.li_tmp "$TOKEN_STORE"
-
-echo "LINKED: $DISPLAY_NAME"
+{baseDir}/li-auth.sh exchange "$TELEGRAM_USER_ID" "<CODE_FROM_USER_MESSAGE>"
 ```
+
+Output:
+- `LINKED: <name>` → success, proceed to Publish
+- `ERROR: <msg>` → show error, offer to retry
 
 Reply `✅ LinkedIn account linked: <DISPLAY_NAME>` then immediately run **Publish**.
 
@@ -117,27 +92,12 @@ Reply `✅ LinkedIn account linked: <DISPLAY_NAME>` then immediately run **Publi
 ## Refresh Token (EXPIRED only)
 
 ```bash
-TOKEN_STORE=/data/openclaw/linkedin-tokens.json
-REFRESH_TOKEN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].refresh_token' "$TOKEN_STORE")
-RESP=$(curl -s -X POST "https://www.linkedin.com/oauth/v2/accessToken" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  --data-urlencode "grant_type=refresh_token" \
-  --data-urlencode "refresh_token=$REFRESH_TOKEN" \
-  --data-urlencode "client_id=$LINKEDIN_CLIENT_ID" \
-  --data-urlencode "client_secret=$LINKEDIN_CLIENT_SECRET")
-NEW_TOKEN=$(echo "$RESP" | jq -r '.access_token')
-NEW_EXPIRES=$(($(date +%s) + $(echo "$RESP" | jq -r '.expires_in')))
-NEW_REFRESH=$(echo "$RESP" | jq -r '.refresh_token // empty')
-[ -z "$NEW_TOKEN" ] && echo "REFRESH_FAILED" && exit 1
-jq --arg u "$TELEGRAM_USER_ID" --arg t "$NEW_TOKEN" --argjson e "$NEW_EXPIRES" \
-   --arg r "${NEW_REFRESH:-$REFRESH_TOKEN}" \
-   '.[$u] |= . + {"access_token":$t,"expires_at":$e,"refresh_token":$r}' \
-   "$TOKEN_STORE" > /tmp/.li_tmp && mv /tmp/.li_tmp "$TOKEN_STORE"
-echo "REFRESHED"
+{baseDir}/li-auth.sh refresh "$TELEGRAM_USER_ID"
 ```
 
-If `REFRESH_FAILED` → go to **OAuth Flow**.  
-If `REFRESHED` → go to **Publish**.
+Output:
+- `REFRESHED` → go to **Publish**
+- `REFRESH_FAILED: ...` → go to **OAuth Flow**
 
 ---
 

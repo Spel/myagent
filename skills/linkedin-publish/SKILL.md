@@ -1,15 +1,8 @@
 ---
 name: linkedin-publish
-version: 3.1.0
 description: Publish text or image posts to LinkedIn on behalf of multiple Telegram users. Handles per-user OAuth linking automatically.
 user-invocable: true
-metadata:
-  openclaw:
-    requires:
-      env:
-        - LINKEDIN_CLIENT_ID
-        - LINKEDIN_CLIENT_SECRET
-        - LINKEDIN_REDIRECT_URI
+metadata: {"openclaw":{"requires":{"env":["LINKEDIN_CLIENT_ID","LINKEDIN_CLIENT_SECRET","LINKEDIN_REDIRECT_URI"]}}}
 triggers:
   - "publish to linkedin"
   - "post to linkedin"
@@ -25,7 +18,6 @@ triggers:
   - "linkedin post with image"
   - "post image to linkedin"
   - "share image on linkedin"
-mutating: true
 ---
 
 # LinkedIn Publish Skill
@@ -150,6 +142,26 @@ If `REFRESHED` → go to **Publish**.
 ---
 
 ## Publish
+
+### Step 0 — Style gate (optional, fast)
+
+If a `linkedin-brand-voice` profile exists for this user, invoke the **Style Gate** from that skill before posting:
+- Run `get_page social/linkedin/<TELEGRAM_USER_ID>/profile`
+- If page found → run the style gate check from `linkedin-brand-voice` SKILL.md
+- If page not found → skip silently and continue
+
+### Step 1 — Check for image
+
+Before calling `li-post.sh`, check whether the user provided an image:
+
+- **Image present** (Telegram photo or URL in message) → use **Image post** below
+- **No image provided** → ask the user first:
+  ```
+  Would you like to add an image to this post? 📸 Send one now, or reply *no* to post as text.
+  ```
+  **STOP. Wait for user response.**
+  - User sends an image → use **Image post**
+  - User replies "no" / "skip" / confirms text only → use **Text post**
 
 ### Text post
 

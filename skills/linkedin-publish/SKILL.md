@@ -76,6 +76,9 @@ Telegram ID). This is the key used for all token lookups.
 TOKEN_STORE=/data/openclaw/linkedin-tokens.json
 TELEGRAM_USER_ID="<sender_id>"
 
+# Initialize store if it doesn't exist yet
+[ -f "$TOKEN_STORE" ] || echo "{}" > "$TOKEN_STORE"
+
 # Check if token exists for this user
 ACCESS_TOKEN=$(jq -r --arg uid "$TELEGRAM_USER_ID" '.[$uid].access_token // empty' "$TOKEN_STORE" 2>/dev/null)
 EXPIRES_AT=$(jq -r --arg uid "$TELEGRAM_USER_ID" '.[$uid].expires_at // 0' "$TOKEN_STORE" 2>/dev/null)

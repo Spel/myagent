@@ -93,37 +93,59 @@ When they paste it → run Exchange Code from `linkedin-publish`, then immediate
 
 ## Flow: OAuth done, no profile (OAUTH=true, PROFILE=false)
 
-Reply:
+Reply with:
 
 ```
 ✅ LinkedIn connected as <DISPLAY_NAME>.
 
-Next: let's set up your brand voice so every post sounds like you, not generic AI. I'll ask you 8 quick questions — takes about 2 minutes.
+Next: set up your brand voice so every post sounds like you, not generic AI. I'll ask you 8 quick questions — takes 2 minutes.
+```
 
-Ready? Reply **yes** to start, or **skip** to go straight to posting.
+And this `presentation` block:
+
+```json
+{
+  "blocks": [
+    { "type": "buttons", "buttons": [
+      { "label": "🎯 Set up brand voice", "action": { "type": "callback", "value": "voice_yes" }, "style": "primary" },
+      { "label": "Skip for now", "action": { "type": "callback", "value": "voice_skip" }, "style": "secondary" }
+    ]}
+  ]
+}
 ```
 
 **STOP.** Wait for user.
-- User replies yes / ok / sure / ready → start `linkedin-brand-voice` onboarding interview immediately
-- User replies skip / no / later → show full menu (Fully set up flow)
+- `voice_yes` / yes / ok / ready → start `linkedin-brand-voice` onboarding interview immediately
+- `voice_skip` / skip / no / later → show full menu (Fully set up flow)
 
 ---
 
 ## Flow: OAuth + profile done, no strategy (OAUTH=true, PROFILE=true, STRATEGY=false)
 
-Reply:
+Reply with:
 
 ```
 ✅ LinkedIn connected | ✅ Brand voice configured
 
-One optional step left: your content strategy. This sets your posting frequency, content pillars, and ensures every post ties to a business goal.
+One optional step: your content strategy. This sets posting frequency, content pillars, and ensures every post ties to a business goal.
+```
 
-Want me to set it up now? Reply **yes**, or just tell me what you want to post and I'll get started.
+And this `presentation` block:
+
+```json
+{
+  "blocks": [
+    { "type": "buttons", "buttons": [
+      { "label": "📅 Set up strategy", "action": { "type": "callback", "value": "strategy_yes" }, "style": "primary" },
+      { "label": "Skip, just post", "action": { "type": "callback", "value": "strategy_skip" }, "style": "secondary" }
+    ]}
+  ]
+}
 ```
 
 **STOP.** Wait for user.
-- User replies yes → start `linkedin-strategy` setup immediately
-- User gives a topic / says skip → go to `linkedin-publish`
+- `strategy_yes` / yes → start `linkedin-strategy` setup immediately
+- `strategy_skip` / skip / topic given → go to `linkedin-publish`
 
 ---
 

@@ -110,18 +110,54 @@ If a `linkedin-brand-voice` profile exists for this user, invoke the **Style Gat
 - If file found → run the style gate check from `linkedin-brand-voice` SKILL.md
 - If file not found (ENOENT) → skip silently and continue
 
-### Step 1 — Check for image
+### Step 1 — Confirm publish with buttons
 
-Before calling `li-post.sh`, check whether the user provided an image:
+Before calling `li-post.sh`, always show the draft and ask for confirmation using inline buttons.
+
+Send the draft text and the following `presentation` block:
+
+```json
+{
+  "blocks": [
+    { "type": "text", "text": "<DRAFT POST TEXT>" },
+    { "type": "divider" },
+    { "type": "buttons", "buttons": [
+      { "label": "✅ Publish", "action": { "type": "callback", "value": "publish_yes" }, "style": "success" },
+      { "label": "✏️ Edit", "action": { "type": "callback", "value": "publish_edit" } },
+      { "label": "❌ Cancel", "action": { "type": "callback", "value": "publish_no" }, "style": "danger" }
+    ]}
+  ]
+}
+```
+
+**STOP. Wait for user to tap a button or reply.**
+
+- `publish_yes` / user says "publish" / "yes" / "go" → proceed to **Step 2**
+- `publish_edit` / user says "edit" / "change" / gives feedback → revise draft, show buttons again
+- `publish_no` / user says "no" / "cancel" → reply "Cancelled." and stop
+
+### Step 2 — Check for image
+
+After the user confirms publish, check whether they provided an image:
 
 - **Image present** (Telegram photo or URL in message) → use **Image post** below
-- **No image provided** → ask the user first:
-  ```
-  Would you like to add an image to this post? 📸 Send one now, or reply *no* to post as text.
-  ```
+- **No image provided** → ask with buttons:
+
+```json
+{
+  "blocks": [
+    { "type": "text", "text": "Add an image to this post?" },
+    { "type": "buttons", "buttons": [
+      { "label": "📸 Send image", "action": { "type": "callback", "value": "img_send" } },
+      { "label": "No image", "action": { "type": "callback", "value": "img_skip" }, "style": "secondary" }
+    ]}
+  ]
+}
+```
+
   **STOP. Wait for user response.**
-  - User sends an image → use **Image post**
-  - User replies "no" / "skip" / confirms text only → use **Text post**
+  - User sends an image or taps "Send image" → use **Image post**
+  - User taps "No image" or replies "no" / "skip" → use **Text post**
 
 ### Text post
 

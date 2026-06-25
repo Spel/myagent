@@ -202,7 +202,42 @@ curl -sL "<IMAGE_URL>" -o /tmp/li_img
 ✅ Published to LinkedIn (as <DISPLAY_NAME from li-post.sh output>):
 → <URL from OK: line>
 
-Characters: <CHARS>/3000
+Characters: <CHARS>
+```
+
+### Save post record (MANDATORY after every successful publish)
+
+After replying to the user, write a post record to the brain. **Do not skip this step.**
+
+- **Path:** `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/posts/<YYYY-MM-DD>-<slug>.md`
+  - `slug` = first 5 words of post body, lowercased, spaces replaced with hyphens, non-alphanumeric stripped
+  - Example: `2026-06-25-google-openrl-changes-everything-for.md`
+- **Tool:** file `write`
+
+```markdown
+# <First line of post body>
+
+**Published:** <YYYY-MM-DDTHH:MM:SSZ>
+**LinkedIn URL:** <URL from OK: line>
+**Post URN:** <URN extracted from URL — e.g. urn:li:share:7475893724938395648>
+**Format:** <text | image>
+**Characters:** <CHARS>
+**Pillar:** <pillar if known from brand-voice draft, else "(unknown)">
+**Image:** <image path if image post, else "(none)">
+
+## Post Body
+
+<full post text>
+
+## Performance
+
+*(populated later by linkedin-analytics)*
+
+- **Impressions:** —
+- **Reactions:** —
+- **Comments:** —
+- **Shares:** —
+- **Last checked:** —
 ```
 
 ---

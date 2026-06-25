@@ -26,18 +26,19 @@ triggers:
 
 > ⚠️ MANDATORY RULES:
 > 1. **Always check for an existing profile before onboarding.** Never run the interview twice.
-> 2. **Profile page path:** `social/linkedin/<TELEGRAM_USER_ID>/profile` — use exact slug.
+> 2. **Profile file path:** `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` — read and write using the **file `read`/`write` tools**, NOT `get_page`/`put_page`.
 > 3. **Never publish.** This skill drafts and checks. Actual posting is done by `linkedin-publish`.
 > 4. **DO NOT narrate steps.** Show results directly.
+> 5. **NEVER write a post draft to `/tmp` or any file.** Output drafts directly in the reply message.
 
 ---
 
 ## Step 1 — Load profile
 
-Use `get_page` with slug `social/linkedin/<TELEGRAM_USER_ID>/profile`.
+Read the file at `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` using the file `read` tool.
 
-- **Page found** → profile loaded → go to the appropriate flow below
-- **Page not found / empty** → go to **Onboarding Interview**
+- **File found** → profile loaded → go to the appropriate flow below
+- **File not found (ENOENT) or empty** → go to **Onboarding Interview**
 
 ---
 
@@ -65,8 +66,8 @@ Once the user replies → go to **Write Profile Page**.
 
 ## Write Profile Page
 
-After onboarding answers, write the profile. Use `put_page` with:
-- **slug:** `social/linkedin/<TELEGRAM_USER_ID>/profile`
+After onboarding answers, write the profile using the file `write` tool:
+- **path:** `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md`
 - **content:** the formatted profile below
 
 ```markdown
@@ -117,8 +118,8 @@ After writing: reply `✅ Brand voice profile saved. Now I can draft posts in yo
 
 ### Step 1 — Load profile (if not already loaded)
 
-Read `social/linkedin/<TELEGRAM_USER_ID>/profile` with `get_page`.  
-If missing → run **Onboarding Interview** first, then come back here.
+Read `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` with the file `read` tool.  
+If missing (ENOENT) → run **Onboarding Interview** first, then come back here.
 
 ### Step 2 — Draft
 
@@ -129,7 +130,7 @@ Write a post that strictly follows the loaded profile:
 - Avoid everything listed under **Avoid**
 - Cover one of the **Content Pillars** if the brief fits
 
-Format the draft in a code block so the user can copy it cleanly:
+Format the draft in a code block so the user can copy it cleanly. **Output the draft directly in the reply — do NOT write it to any file first.**
 
 ````
 Here's your draft:
@@ -138,7 +139,7 @@ Here's your draft:
 <DRAFTED POST TEXT>
 ```
 
-**Characters:** <count>/3000
+**Characters:** <count>/1,400
 **Hashtags used:** <list>
 
 Want me to adjust the tone, length, or anything else — or publish this now?
@@ -153,7 +154,7 @@ If the user says "publish" or "post it" → hand off to `linkedin-publish` skill
 
 **Trigger:** user asks for hashtag suggestions for a given topic or post.
 
-1. Load profile with `get_page social/linkedin/<TELEGRAM_USER_ID>/profile`
+1. Read `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` with the file `read` tool
 2. Read **Hashtag Strategy** section
 3. Look at **Content Pillars** — identify which pillar the topic fits
 4. Suggest:
@@ -182,8 +183,8 @@ Then offer to update the profile's topic-specific list if user likes them.
 
 **Trigger:** invoked by `linkedin-publish` skill when a post draft is ready, or when user explicitly asks "check this post".
 
-1. Load profile with `get_page social/linkedin/<TELEGRAM_USER_ID>/profile`
-2. If profile not found → skip gate, let publish proceed (no voice profile means no gate)
+1. Read `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` with the file `read` tool
+2. If file not found (ENOENT) → skip gate, let publish proceed (no voice profile means no gate)
 3. Check the draft against:
 
 | Check | Pass condition |
@@ -211,10 +212,10 @@ Then offer to update the profile's topic-specific list if user likes them.
 
 **Trigger:** user says "update my voice", "change my hashtags", "I want shorter posts", etc.
 
-1. Load current profile with `get_page social/linkedin/<TELEGRAM_USER_ID>/profile`
+1. Read `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` with the file `read` tool
 2. Apply the specific change (patch only the relevant section — do not rewrite the whole page)
 3. Add a history entry: `- **<YYYY-MM-DD>** | <what changed>`
-4. Write back with `put_page`
+4. Write back with the file `write` tool to the same path
 5. Confirm: `✅ Profile updated: <what changed>`
 
 ---

@@ -146,9 +146,9 @@ If `REFRESHED` → go to **Publish**.
 ### Step 0 — Style gate (optional, fast)
 
 If a `linkedin-brand-voice` profile exists for this user, invoke the **Style Gate** from that skill before posting:
-- Run `get_page social/linkedin/<TELEGRAM_USER_ID>/profile`
-- If page found → run the style gate check from `linkedin-brand-voice` SKILL.md
-- If page not found → skip silently and continue
+- Read `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` with the file `read` tool
+- If file found → run the style gate check from `linkedin-brand-voice` SKILL.md
+- If file not found (ENOENT) → skip silently and continue
 
 ### Step 1 — Check for image
 

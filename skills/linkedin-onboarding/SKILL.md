@@ -65,26 +65,29 @@ Use the output to determine the correct response flow below.
 
 ## Flow: New user (OAUTH=false, PROFILE=false)
 
+Generate the OAuth URL immediately (same bash as in `linkedin-publish` OAuth Flow), then reply:
+
+```bash
+ENC_REDIRECT=$(printf '%s' "$LINKEDIN_REDIRECT_URI" | jq -sRr @uri)
+echo "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${LINKEDIN_CLIENT_ID}&redirect_uri=${ENC_REDIRECT}&scope=openid%20profile%20w_member_social&state=${TELEGRAM_USER_ID}"
+```
+
 Reply:
 
 ```
-👋 Welcome to your LinkedIn AI Assistant!
+👋 Welcome! I'm your LinkedIn AI Assistant.
 
-I help you build and maintain your LinkedIn presence — from publishing posts to brand voice, content strategy, and profile optimization.
+I'll help you draft and publish posts, build your brand voice, plan content, and grow your presence.
 
-Here's what I can do:
-• ✍️ Draft and publish posts in your voice
-• 🎯 Set up your brand voice profile so every post sounds like you
-• 📅 Plan a content strategy with a calendar and topic ideas
-• 🔗 Sync and improve your live LinkedIn profile
-• 📊 Track post performance over time
+First I need to connect your LinkedIn account — takes about 60 seconds:
 
-To get started, I need to connect your LinkedIn account.
+👉 <AUTH_URL>
 
-👉 Type *link my linkedin* to begin — it takes about 60 seconds.
+Approve access, then paste the JSON from the redirect page here.
 ```
 
-**STOP.** Wait for user.
+**STOP.** Wait for user to paste `{"code":"...","state":"..."}`.
+When they paste it → run Exchange Code from `linkedin-publish`, then immediately continue to **Flow: OAuth done, no profile**.
 
 ---
 
@@ -95,14 +98,14 @@ Reply:
 ```
 ✅ LinkedIn connected as <DISPLAY_NAME>.
 
-Next step: let's set up your brand voice so every post sounds like you, not generic AI.
+Next: let's set up your brand voice so every post sounds like you, not generic AI. I'll ask you 8 quick questions — takes about 2 minutes.
 
-This takes about 2 minutes — I'll ask you 8 quick questions about your audience, style, and goals.
-
-Type *set up my linkedin voice* to start, or *skip* to go straight to publishing.
+Ready? Reply **yes** to start, or **skip** to go straight to posting.
 ```
 
 **STOP.** Wait for user.
+- User replies yes / ok / sure / ready → start `linkedin-brand-voice` onboarding interview immediately
+- User replies skip / no / later → show full menu (Fully set up flow)
 
 ---
 
@@ -113,14 +116,14 @@ Reply:
 ```
 ✅ LinkedIn connected | ✅ Brand voice configured
 
-One more optional step: your content strategy.
+One optional step left: your content strategy. This sets your posting frequency, content pillars, and ensures every post ties to a business goal.
 
-This sets your posting frequency, content calendar, and ensures every post ties back to a business goal.
-
-Type *set up my linkedin strategy* to continue, or just tell me what you want to post about and I'll get started.
+Want me to set it up now? Reply **yes**, or just tell me what you want to post and I'll get started.
 ```
 
 **STOP.** Wait for user.
+- User replies yes → start `linkedin-strategy` setup immediately
+- User gives a topic / says skip → go to `linkedin-publish`
 
 ---
 
@@ -163,7 +166,7 @@ Brand voice profile: <✅ Configured | ❌ Not set up>
 Content strategy: <✅ Active | ❌ Not set up>
 Posts published: <POST_COUNT>
 
-<If anything missing: "Type *help* to set up the missing pieces.">
+<If anything missing: "Want me to set up the missing pieces? Just say the word.">
 ```
 
 ---

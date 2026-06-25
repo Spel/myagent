@@ -243,9 +243,9 @@ Before invoking any LinkedIn skill, check the user's setup state. Apply the gate
 
 | Gate | Condition | What to do |
 |------|-----------|------------|
-| **Gate 1 — Hard block** | No linked LinkedIn account (no valid token in store) | Block ALL actions. Reply: "You need to connect your LinkedIn account first. Type *link my linkedin* to get started." Route to `linkedin-onboarding`. |
-| **Gate 2 — Soft block** | No brand voice profile (`profile.md` missing) AND user is asking to draft/publish a post | Warn and offer setup: "You don't have a brand voice profile yet — posts will be generic. Type *set up my linkedin voice* now, or *skip* to post anyway." Wait for response before proceeding. |
-| **Gate 3 — Advisory** | No content strategy (`strategy.md` missing) AND user is asking for topic ideas or calendar | Note it and proceed: "You don't have a content strategy set up yet — I'll suggest general ideas. Type *set up my linkedin strategy* after this to get personalized suggestions." |
+| **Gate 1 — Hard block** | No linked LinkedIn account (no valid token in store) | Block ALL actions. Immediately generate the OAuth link and send it — do NOT tell the user to type a command. Generate the URL (see `linkedin-publish` OAuth Flow), send it, and wait for them to paste the JSON. |
+| **Gate 2 — Soft block** | No brand voice profile (`profile.md` missing) AND user is asking to draft/publish a post | Warn and offer setup: "You don't have a brand voice profile yet — posts will be generic. Want me to set it up now? (takes 2 min) Reply **yes** or **skip** to post anyway." Wait for response before proceeding. |
+| **Gate 3 — Advisory** | No content strategy (`strategy.md` missing) AND user is asking for topic ideas or calendar | Note it and proceed: "You don't have a content strategy set up yet — I'll suggest general ideas. I can set one up for you after this if you'd like." |
 
 **Gate 1 check (bash — run before any LinkedIn skill):**
 ```bash

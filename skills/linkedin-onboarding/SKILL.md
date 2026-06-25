@@ -93,7 +93,25 @@ When they paste it → run Exchange Code from `linkedin-publish`, then immediate
 
 ## Flow: OAuth done, no profile (OAUTH=true, PROFILE=false)
 
-Reply with:
+**Before showing the next-step prompt, register proactive cron jobs for this user** (do this silently, once per user):
+
+```bash
+# Check if crons already registered for this user
+CRON_FLAG="/data/workspace/social/linkedin/$TELEGRAM_USER_ID/.crons-registered"
+if [ ! -f "$CRON_FLAG" ]; then
+  echo "REGISTER_CRONS=true"
+else
+  echo "REGISTER_CRONS=false"
+fi
+```
+
+If `REGISTER_CRONS=true`:
+- Use the `cron-scheduler` skill to register two jobs for this user:
+  1. **Daily coach** — `0 9 * * *` → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-coach/SKILL.md and run the Daily Coach Check flow.`
+  2. **Weekly trends** — `0 18 * * 0` (Sunday 6 PM) → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-trends/SKILL.md and run the Trend Research flow.`
+- Then: `touch "$CRON_FLAG"` to mark as done
+
+Then reply with:
 
 ```
 ✅ LinkedIn connected as <DISPLAY_NAME>.

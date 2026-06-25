@@ -1,13 +1,12 @@
 ---
 name: linkedin-publish
-version: 2.0.0
+version: 2.2.0
 description: |
-  Publish articles and posts to LinkedIn on behalf of multiple users.
-  Each Telegram user is linked to their own LinkedIn OAuth token. If no
-  token exists for the requesting Telegram user, the skill generates a
-  personalised OAuth authorisation URL and sends it via Telegram. After the
-  user completes the OAuth flow the callback saves their tokens; subsequent
-  publish requests use those tokens automatically.
+  Publish articles and posts to LinkedIn on behalf of multiple Telegram users.
+  Each Telegram user is linked to their own LinkedIn OAuth token stored in
+  /data/openclaw/linkedin-tokens.json. First-time users get an OAuth URL;
+  after approving they paste the callback JSON back into the chat and the agent
+  exchanges the code, saves the token, and publishes — all in one turn.
 triggers:
   - "publish to linkedin"
   - "post to linkedin"
@@ -27,201 +26,152 @@ mutating: true
 
 ## Contract
 
-This skill guarantees:
-- One LinkedIn account per Telegram user — tokens are stored and looked up by Telegram user ID
-- First-time users receive an OAuth authorisation URL via Telegram; no manual token management needed
-- Tokens are stored in `/data/openclaw/linkedin-tokens.json` (persisted via the Docker volume)
-- Idempotency: duplicate-post check runs before every publish
-- Returns a direct URL to the published post on success
-- App credentials (`client_id`, `client_secret`) come from env vars — never hardcoded in the skill
+- One LinkedIn account per Telegram user; keyed by Telegram user ID
+- Token store: `/data/openclaw/linkedin-tokens.json` (Docker volume — survives restarts)
+- User pastes the callback JSON `{"code":"...","state":"..."}` back into the chat; agent exchanges it, saves the token, then publishes in the same turn
+- No unnecessary pre-flight checks — act immediately based on token presence
+- App credentials are in env vars: `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_REDIRECT_URI`
 
 ---
 
-## App Credentials (already in `.env`)
+## Decision Tree — execute top-to-bottom, stop at first match
 
 ```
-LINKEDIN_CLIENT_ID=773oa2pre7xcem
-LINKEDIN_CLIENT_SECRET=IQRDBCjvk5vMMo8G
-LINKEDIN_REDIRECT_URI=https://nodered-5234-671620977218781100000035.ubosaibotprod.ubos.tech/auth/linkedin/callback
-```
-
-The **token store** lives at `/data/openclaw/linkedin-tokens.json`.  
-Schema (one entry per user):
-
-```json
-{
-  "<telegram_user_id>": {
-    "access_token": "...",
-    "refresh_token": "...",
-    "expires_at": 1234567890,
-    "linkedin_urn": "urn:li:person:...",
-    "display_name": "Jane Doe",
-    "linked_at": "2026-06-25T12:00:00Z"
-  }
-}
-```
-
----
-
-## Phases
-
-### Phase 0 — Identify the Requesting Telegram User
-
-Read `telegram_user_id` from the message context (available as the sender's
-Telegram ID). This is the key used for all token lookups.
-
-### Phase 1 — Token Lookup
-
-```bash
 TOKEN_STORE=/data/openclaw/linkedin-tokens.json
-TELEGRAM_USER_ID="<sender_id>"
-
-# Initialize store if it doesn't exist yet
 [ -f "$TOKEN_STORE" ] || echo "{}" > "$TOKEN_STORE"
 
-# Check if token exists for this user
-ACCESS_TOKEN=$(jq -r --arg uid "$TELEGRAM_USER_ID" '.[$uid].access_token // empty' "$TOKEN_STORE" 2>/dev/null)
-EXPIRES_AT=$(jq -r --arg uid "$TELEGRAM_USER_ID" '.[$uid].expires_at // 0' "$TOKEN_STORE" 2>/dev/null)
+ACCESS_TOKEN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].access_token // empty' "$TOKEN_STORE")
+EXPIRES_AT=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].expires_at // 0' "$TOKEN_STORE")
 NOW=$(date +%s)
+
+if   [ -z "$ACCESS_TOKEN" ];              then → STEP A (send auth URL, stop)
+elif [ "$EXPIRES_AT" -lt $((NOW+3600)) ]; then → STEP B (refresh token, then STEP C)
+else                                           → STEP C (publish immediately)
+fi
 ```
 
-- If `ACCESS_TOKEN` is empty → **go to Phase 2 (OAuth flow)**
-- If `EXPIRES_AT` < `NOW + 3600` → **go to Phase 1b (token refresh)**
-- Otherwise → **proceed to Phase 3 (publish)**
+**A token is valid if `access_token` is a non-empty string and `expires_at > NOW`.  
+Do NOT re-auth or call the token "corrupted" for any other reason.  
+The only legitimate trigger for re-auth is receiving HTTP 401 from the LinkedIn API in STEP C.**
 
-#### Phase 1b — Refresh Expired Token
+---
+
+## STEP A — No token: send OAuth URL and stop
+
+Generate the auth URL and send it. Then wait — when the user pastes back the callback JSON, detect it (contains `"code"` and `"state"` keys) and proceed to **STEP A2** to exchange the code.
 
 ```bash
-REFRESH_TOKEN=$(jq -r --arg uid "$TELEGRAM_USER_ID" '.[$uid].refresh_token' "$TOKEN_STORE")
-
-RESPONSE=$(curl -s -X POST "https://www.linkedin.com/oauth/v2/accessToken" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=refresh_token" \
-  -d "refresh_token=${REFRESH_TOKEN}" \
-  -d "client_id=${LINKEDIN_CLIENT_ID}" \
-  -d "client_secret=${LINKEDIN_CLIENT_SECRET}")
-
-NEW_TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
-NEW_EXPIRES_IN=$(echo "$RESPONSE" | jq -r '.expires_in')
-NEW_REFRESH=$(echo "$RESPONSE" | jq -r '.refresh_token // empty')
-NEW_EXPIRES_AT=$((NOW + NEW_EXPIRES_IN))
-
-# Update token store
-jq --arg uid "$TELEGRAM_USER_ID" \
-   --arg tok "$NEW_TOKEN" \
-   --arg exp "$NEW_EXPIRES_AT" \
-   --arg ref "${NEW_REFRESH:-$REFRESH_TOKEN}" \
-   '.[$uid].access_token = $tok | .[$uid].expires_at = ($exp|tonumber) | .[$uid].refresh_token = $ref' \
-   "$TOKEN_STORE" > /tmp/li_tokens_tmp.json && mv /tmp/li_tokens_tmp.json "$TOKEN_STORE"
+python3 - <<'EOF'
+import urllib.parse, os
+params = {
+    "response_type": "code",
+    "client_id": os.environ["LINKEDIN_CLIENT_ID"],
+    "redirect_uri": os.environ["LINKEDIN_REDIRECT_URI"],
+    "scope": "openid profile w_member_social",
+    "state": os.environ["TELEGRAM_USER_ID"],
+}
+print("https://www.linkedin.com/oauth/v2/authorization?" + urllib.parse.urlencode(params))
+EOF
 ```
 
-### Phase 2 — First-Time OAuth: Send Auth URL to User
-
-If no token exists for this Telegram user, generate the authorisation URL and
-send it back via Telegram. Use the Telegram user ID as the `state` parameter
-so the callback can match the authorisation to the right user.
-
-```bash
-SCOPE="openid%20profile%20w_member_social"
-STATE="${TELEGRAM_USER_ID}"   # passed through OAuth round-trip; callback uses this to store tokens
-
-AUTH_URL="https://www.linkedin.com/oauth/v2/authorization?\
-response_type=code\
-&client_id=${LINKEDIN_CLIENT_ID}\
-&redirect_uri=$(python3 -c "import urllib.parse; print(urllib.parse.quote('${LINKEDIN_REDIRECT_URI}'))")\
-&scope=${SCOPE}\
-&state=${STATE}"
+Reply exactly:
 ```
-
-Reply to the user in Telegram:
-
-```
-To publish on LinkedIn I need your authorisation.
-
-Please click the link below, sign in with LinkedIn, and allow access:
+To publish on LinkedIn I need your authorisation first.
 
 👉 <AUTH_URL>
 
-Once you've approved, come back here and repeat your publish request.
+After approving, paste the JSON from the redirect page here and I'll link your account and publish immediately.
 ```
 
-**Stop here.** Do not proceed to publish until the callback has saved the
-token for this user.
-
-#### OAuth Callback (handled by Node-RED at `LINKEDIN_REDIRECT_URI`)
-
-The Node-RED flow receives `?code=...&state=<telegram_user_id>` and must:
-
-1. Exchange the code for tokens:
-```bash
-curl -s -X POST "https://www.linkedin.com/oauth/v2/accessToken" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=authorization_code" \
-  -d "code=<CODE>" \
-  -d "redirect_uri=<LINKEDIN_REDIRECT_URI>" \
-  -d "client_id=<LINKEDIN_CLIENT_ID>" \
-  -d "client_secret=<LINKEDIN_CLIENT_SECRET>"
-```
-
-2. Fetch the user's LinkedIn profile URN and display name:
-```bash
-curl -s -H "Authorization: Bearer <ACCESS_TOKEN>" \
-  "https://api.linkedin.com/v2/userinfo"
-# Returns: { "sub": "<numeric_id>", "name": "Jane Doe", ... }
-# URN = "urn:li:person:" + sub
-```
-
-3. Write to `/data/openclaw/linkedin-tokens.json` (append/update by `state` key):
-```json
-{
-  "<telegram_user_id>": {
-    "access_token": "...",
-    "refresh_token": "...",
-    "expires_at": <unix_timestamp>,
-    "linkedin_urn": "urn:li:person:...",
-    "display_name": "Jane Doe",
-    "linked_at": "2026-06-25T12:00:00Z"
-  }
-}
-```
-
-4. Send a Telegram message to the user (using `TELEGRAM_BOT_TOKEN` and the `state` as chat ID):
-```
-✅ LinkedIn account linked: Jane Doe
-You can now publish posts to LinkedIn. Repeat your last request.
-```
+**STOP and wait for the user to paste the callback JSON.**
 
 ---
 
-### Phase 3 — Prepare Content
+## STEP A2 — User pasted callback JSON: exchange code and save token
 
-1. Read the source content (brain page, markdown file, or inline text).
-2. Strip markdown syntax — LinkedIn feed posts render plain text only.
-3. Determine post type:
-   - **Short post** (≤ 3000 chars): `shareMediaCategory: NONE`
-   - **Post with URL**: `shareMediaCategory: ARTICLE` + `originalUrl`
-4. Trim to 3000 characters; append `\n\nRead more: <url>` if truncated.
-5. Append 3–5 relevant hashtags.
-
-### Phase 4 — Duplicate Check
+Triggered when the user's message contains a JSON object with `code` and `state` fields.
+Extract both fields, exchange the code, fetch the profile, save to token store, then **proceed to STEP C**.
 
 ```bash
-LINKEDIN_URN=$(jq -r --arg uid "$TELEGRAM_USER_ID" '.[$uid].linkedin_urn' "$TOKEN_STORE")
+# CODE and STATE are parsed from the user's pasted JSON
+CODE="<parsed code>"
+# Verify STATE matches the expected TELEGRAM_USER_ID; abort if not
 
-curl -s \
-  -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -H "X-Restli-Protocol-Version: 2.0.0" \
-  "https://api.linkedin.com/v2/ugcPosts?q=authors&authors=List($(python3 -c "import urllib.parse; print(urllib.parse.quote('$LINKEDIN_URN'))"))" \
-  | jq -r '.elements[0].specificContent."com.linkedin.ugc.ShareContent".shareCommentary.text // ""' \
-  | head -c 100
+RESP=$(curl -s -X POST "https://www.linkedin.com/oauth/v2/accessToken" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "grant_type=authorization_code" \
+  --data-urlencode "code=$CODE" \
+  --data-urlencode "redirect_uri=$LINKEDIN_REDIRECT_URI" \
+  --data-urlencode "client_id=$LINKEDIN_CLIENT_ID" \
+  --data-urlencode "client_secret=$LINKEDIN_CLIENT_SECRET")
+
+ACCESS_TOKEN=$(echo "$RESP" | jq -r '.access_token')
+REFRESH_TOKEN=$(echo "$RESP" | jq -r '.refresh_token // empty')
+EXPIRES_AT=$(($(date +%s) + $(echo "$RESP" | jq -r '.expires_in')))
+
+# Fetch LinkedIn profile
+PROFILE=$(curl -s -H "Authorization: Bearer $ACCESS_TOKEN" "https://api.linkedin.com/v2/userinfo")
+LINKEDIN_SUB=$(echo "$PROFILE" | jq -r '.sub')
+LINKEDIN_URN="urn:li:person:$LINKEDIN_SUB"
+DISPLAY_NAME=$(echo "$PROFILE" | jq -r '.name')
+
+# Save to token store
+jq --arg u "$TELEGRAM_USER_ID" \
+   --arg t "$ACCESS_TOKEN" --arg r "$REFRESH_TOKEN" \
+   --argjson e "$EXPIRES_AT" \
+   --arg urn "$LINKEDIN_URN" --arg name "$DISPLAY_NAME" \
+   --arg linked "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+   '.[$u] = {"access_token":$t,"refresh_token":$r,"expires_at":$e,"linkedin_urn":$urn,"display_name":$name,"linked_at":$linked}' \
+   "$TOKEN_STORE" > /tmp/.li_tmp && mv /tmp/.li_tmp "$TOKEN_STORE"
 ```
 
-If the first 100 characters match the new post (published within the last 24 h), abort and notify user.
+If `ACCESS_TOKEN` is empty → reply with the error from `$RESP` and stop.
 
-### Phase 5 — Publish
+On success, reply `✅ LinkedIn account linked: <display_name>` then **immediately continue to STEP C** to publish (do not ask the user to repeat the request).
+
+---
+
+## STEP B — Token expired: refresh silently, then proceed to STEP C
 
 ```bash
-curl -s -X POST "https://api.linkedin.com/v2/ugcPosts" \
+REFRESH_TOKEN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].refresh_token' "$TOKEN_STORE")
+
+RESP=$(curl -s -X POST "https://www.linkedin.com/oauth/v2/accessToken" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "grant_type=refresh_token" \
+  --data-urlencode "refresh_token=$REFRESH_TOKEN" \
+  --data-urlencode "client_id=$LINKEDIN_CLIENT_ID" \
+  --data-urlencode "client_secret=$LINKEDIN_CLIENT_SECRET")
+
+ACCESS_TOKEN=$(echo "$RESP" | jq -r '.access_token')
+NEW_EXPIRES=$((NOW + $(echo "$RESP" | jq -r '.expires_in')))
+NEW_REFRESH=$(echo "$RESP" | jq -r '.refresh_token // empty')
+
+jq --arg u "$TELEGRAM_USER_ID" --arg t "$ACCESS_TOKEN" --argjson e "$NEW_EXPIRES" \
+   --arg r "${NEW_REFRESH:-$REFRESH_TOKEN}" \
+   '.[$u] |= . + {"access_token":$t,"expires_at":$e,"refresh_token":$r}' \
+   "$TOKEN_STORE" > /tmp/.li_tmp && mv /tmp/.li_tmp "$TOKEN_STORE"
+```
+
+If `ACCESS_TOKEN` is empty after refresh → fall back to STEP A (token revoked, need re-auth).
+
+---
+
+## STEP C — Publish
+
+**1. Prepare post body**
+
+- Strip markdown to plain text
+- Truncate to 3000 chars; if truncated append `\n\nRead more: <url>`
+- Add 3–5 hashtags at the end if not already present
+
+**2. Publish**
+
+```bash
+LINKEDIN_URN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].linkedin_urn' "$TOKEN_STORE")
+DISPLAY_NAME=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].display_name' "$TOKEN_STORE")
+
+RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://api.linkedin.com/v2/ugcPosts" \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -H "X-Restli-Protocol-Version: 2.0.0" \
@@ -234,191 +184,55 @@ curl -s -X POST "https://api.linkedin.com/v2/ugcPosts" \
         "shareMediaCategory": "NONE"
       }
     },
-    "visibility": {
-      "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
-    }
-  }'
+    "visibility": { "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC" }
+  }')
+
+HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+BODY=$(echo "$RESPONSE" | head -1)
+POST_URN=$(echo "$BODY" | jq -r '.id // empty')
 ```
 
-For a post with an article link, replace `shareMediaCategory` and add:
+For a post with a URL, set `"shareMediaCategory": "ARTICLE"` and add:
 ```json
-"shareMediaCategory": "ARTICLE",
-"media": [{
-  "status": "READY",
-  "originalUrl": "<ARTICLE_URL>",
-  "title": { "text": "<TITLE>" },
-  "description": { "text": "<EXCERPT>" }
-}]
+"media": [{"status":"READY","originalUrl":"<URL>","title":{"text":"<TITLE>"},"description":{"text":"<EXCERPT>"}}]
 ```
 
-### Phase 6 — Confirm
+**3. Reply**
 
-Parse HTTP 201 response; extract `x-restli-id` header for the post URN.
-
-```
-Published to LinkedIn (as Jane Doe):
-→ https://www.linkedin.com/feed/update/urn:li:ugcPost:<id>/
-
-Characters: <n>/3000
-Hashtags: #tag1 #tag2 #tag3
-```
-
----
-
-## Output Format
-
-**Success:**
+On HTTP 201:
 ```
 ✅ Published to LinkedIn (as <display_name>):
-→ https://www.linkedin.com/feed/update/<urn>/
+→ https://www.linkedin.com/feed/update/<POST_URN>/
 
 Characters: <n>/3000
-Hashtags: #tag1 #tag2
 ```
 
-**Not yet linked:**
+On error:
 ```
-⚠️ No LinkedIn account linked for your Telegram user.
-Please authorise via the link I've sent you, then retry.
-```
-
-**Error:**
-```
-❌ LinkedIn publish failed (HTTP <code>): <error_message>
+❌ LinkedIn publish failed (HTTP <HTTP_CODE>): <error detail from BODY>
 ```
 
 ---
 
 ## Error Reference
 
-| HTTP | Meaning | Fix |
-|------|---------|-----|
-| 401 | Token expired or invalid | Trigger Phase 1b refresh; if that fails, re-run Phase 2 |
-| 403 | Missing `w_member_social` scope | User must re-authorise with correct scopes |
-| 422 | Malformed payload | Check JSON; verify author URN format |
-| 429 | Rate limited (>100 posts/day) | Wait and retry |
+| HTTP | Cause | Action |
+|------|-------|--------|
+| 401 | Token invalid | Run STEP B refresh; if still 401 → STEP A |
+| 403 | Missing `w_member_social` scope | STEP A with re-auth message |
+| 422 | Bad payload | Check URN format and JSON structure |
+| 429 | Rate limit (>100/day) | Tell user to retry later |
 
 ---
 
 ## Anti-Patterns
 
-- **Do not** store tokens anywhere except `/data/openclaw/linkedin-tokens.json`
-- **Do not** share one token across multiple Telegram users
-- **Do not** post raw markdown — strip to plain text first
-- **Do not** exceed 3000 characters in `shareCommentary.text`
-- **Do not** skip the duplicate check (Phase 4)
-- **Do not** use the deprecated `/v2/shares` endpoint — use `/v2/ugcPosts`
+- **Never** narrate "let me check X" before acting — read the token store and act
+- **Never** call a token "corrupted", "invalid", or "bad" unless the LinkedIn API returned HTTP 401
+- **Never** re-auth unless: (a) no token exists, (b) `expires_at` is past, or (c) LinkedIn API returned HTTP 401
+- **Never** require the user to repeat their publish request after pasting the callback — do STEP A2 + STEP C in one turn
+- **Never** post raw markdown — strip to plain text first
+- **Never** exceed 3000 chars in `shareCommentary.text`
+- **Never** hardcode `client_id` or `client_secret` in messages or logs
+- **Never** ignore a pasted `{"code":...,"state":...}` message — always treat it as a STEP A2 trigger
 
-### Phase 1 — Prepare Content
-
-1. Read the source content (brain page, markdown file, or inline text provided by the user).
-2. Determine post type:
-   - **Short post** (≤ 3000 chars): plain `TEXT` share via `/ugcPosts`
-   - **Article / long-form**: use LinkedIn Articles endpoint (`/articles`) or summarise + link back
-   - **Post with URL**: extract URL, use `ARTICLE` share type with `originalUrl`
-3. Strip markdown syntax for the LinkedIn body text (LinkedIn renders plain text only in feed posts).
-4. Trim to 3000 characters max for feed posts; add a "Read more:" link if truncating.
-5. Optionally generate 3–5 relevant hashtags from the content.
-
-### Phase 2 — Duplicate Check
-
-Before posting, search recent activity to avoid double-posting:
-
-```bash
-curl -s -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
-  "https://api.linkedin.com/v2/ugcPosts?q=authors&authors=List($LINKEDIN_AUTHOR_URN)&count=5" \
-  | jq '.elements[].specificContent.com.linkedin.ugc.ShareContent.shareCommentary.text' \
-  | head -5
-```
-
-If the first 100 characters of the new post match an existing post from the last 24 hours, abort and report to the user.
-
-### Phase 3 — Publish
-
-#### Option A: Text / Link Post (most common)
-
-```bash
-curl -s -X POST "https://api.linkedin.com/v2/ugcPosts" \
-  -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -H "X-Restli-Protocol-Version: 2.0.0" \
-  -d '{
-    "author": "'"$LINKEDIN_AUTHOR_URN"'",
-    "lifecycleState": "PUBLISHED",
-    "specificContent": {
-      "com.linkedin.ugc.ShareContent": {
-        "shareCommentary": {
-          "text": "<POST_BODY_WITH_HASHTAGS>"
-        },
-        "shareMediaCategory": "NONE"
-      }
-    },
-    "visibility": {
-      "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
-    }
-  }'
-```
-
-#### Option B: Post with Article Link
-
-Replace `shareMediaCategory` and add a `media` array:
-
-```json
-"shareMediaCategory": "ARTICLE",
-"media": [
-  {
-    "status": "READY",
-    "originalUrl": "<ARTICLE_URL>",
-    "title": { "text": "<ARTICLE_TITLE>" },
-    "description": { "text": "<SHORT_EXCERPT>" }
-  }
-]
-```
-
-### Phase 4 — Confirm & Report
-
-1. Parse the response: success returns HTTP 201 with header `x-restli-id` containing the post URN.
-2. Construct the post URL:
-   ```
-   https://www.linkedin.com/feed/update/<post_urn>/
-   ```
-3. Report back to the user with the direct URL to the published post.
-4. Optionally write a brain page at `social/linkedin/<slug>.md` recording the publish event.
-
----
-
-## Output Format
-
-On success, respond with:
-
-```
-Published to LinkedIn:
-→ https://www.linkedin.com/feed/update/urn:li:ugcPost:<id>/
-
-Title: <title or first line>
-Characters: <n>/3000
-Hashtags: #tag1 #tag2 #tag3
-```
-
-On failure, include the HTTP status code and full error response body for diagnosis.
-
----
-
-## Error Reference
-
-| HTTP | Meaning | Fix |
-|------|---------|-----|
-| 401 | Token expired or invalid | Re-run OAuth flow, update `LINKEDIN_ACCESS_TOKEN` |
-| 403 | Missing `w_member_social` scope | Re-authorise app with correct scopes |
-| 422 | Malformed payload | Check JSON structure; ensure `author` URN is correct |
-| 429 | Rate limited | LinkedIn allows ~100 posts/day per member; wait and retry |
-
----
-
-## Anti-Patterns
-
-- **Do not** hardcode tokens in scripts — always read from env vars
-- **Do not** post raw markdown — strip to plain text first
-- **Do not** exceed 3000 characters in the `shareCommentary.text` field
-- **Do not** post more than once per article — always run the duplicate check (Phase 2)
-- **Do not** use the deprecated `/v2/shares` endpoint — use `/v2/ugcPosts`

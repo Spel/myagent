@@ -19,6 +19,9 @@ triggers:
   - "cross-post to linkedin"
   - "connect linkedin"
   - "link linkedin account"
+  - "linkedin post with image"
+  - "post image to linkedin"
+  - "share image on linkedin"
 mutating: true
 ---
 
@@ -158,7 +161,7 @@ If `ACCESS_TOKEN` is empty after refresh → fall back to STEP A (token revoked,
 
 ---
 
-## STEP C — Publish
+## STEP C — Publish (text or URL post)
 
 **1. Prepare post body**
 
@@ -215,6 +218,126 @@ On error:
 
 ---
 
+## STEP D — Publish with Image
+
+LinkedIn image upload is 3 sub-steps: **register → upload binary → post**.
+
+### D1. Register the image upload
+
+```bash
+# Read token with jq — the only correct way; never use grep/cut on the token store
+TOKEN_STORE=/data/openclaw/linkedin-tokens.json
+ACCESS_TOKEN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].access_token' "$TOKEN_STORE")
+LINKEDIN_URN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].linkedin_urn' "$TOKEN_STORE")
+DISPLAY_NAME=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].display_name' "$TOKEN_STORE")
+
+REGISTER=$(curl -s -X POST \
+  "https://api.linkedin.com/v2/assets?action=registerUpload" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "X-Restli-Protocol-Version: 2.0.0" \
+  -d '{
+    "registerUploadRequest": {
+      "recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
+      "owner": "'"$LINKEDIN_URN"'",
+      "serviceRelationships": [{
+        "relationshipType": "OWNER",
+        "identifier": "urn:li:userGeneratedContent"
+      }]
+    }
+  }')
+
+UPLOAD_URL=$(echo "$REGISTER" | jq -r '.value.uploadMechanism["com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest"].uploadUrl')
+MEDIA_TYPE=$(echo "$REGISTER" | jq -r '.value.uploadMechanism["com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest"].headers["media-type-family"] // empty')
+ASSET_URN=$(echo "$REGISTER" | jq -r '.value.asset')
+```
+
+If `UPLOAD_URL` is empty or null → abort with the full `$REGISTER` response as error.
+
+### D2. Upload the image binary
+
+The image can come from:
+- A local file path provided by the user (e.g. `/data/media/inbound/photo.jpg`)
+- A Telegram photo — download it first to `/tmp/li_upload_image` using the Telegram file API, then upload
+
+```bash
+# IMAGE_PATH = local path to the image file
+UPLOAD_RESULT=$(curl -s -o /dev/null -w "%{http_code}" -X PUT "$UPLOAD_URL" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-Type: application/octet-stream" \
+  -H "media-type-family: ${MEDIA_TYPE:-STILLIMAGE}" \
+  --upload-file "$IMAGE_PATH")
+# LinkedIn returns HTTP 201 with empty body on success
+# If UPLOAD_RESULT != 201, abort and show the HTTP code
+```
+
+**Supported formats:** JPEG, PNG, GIF (static), BMP, TIFF  
+**Max size:** 5 MB (warn user if file is larger)
+
+### D3. Post with the image asset
+
+```bash
+RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://api.linkedin.com/v2/ugcPosts" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -H "X-Restli-Protocol-Version: 2.0.0" \
+  -d '{
+    "author": "'"$LINKEDIN_URN"'",
+    "lifecycleState": "PUBLISHED",
+    "specificContent": {
+      "com.linkedin.ugc.ShareContent": {
+        "shareCommentary": { "text": "<POST_BODY>" },
+        "shareMediaCategory": "IMAGE",
+        "media": [{
+          "status": "READY",
+          "description": { "text": "<IMAGE_ALT_TEXT_OR_EMPTY>" },
+          "media": "'"$ASSET_URN"'",
+          "title": { "text": "<IMAGE_TITLE_OR_EMPTY>" }
+        }]
+      }
+    },
+    "visibility": { "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC" }
+  }')
+
+HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+BODY=$(echo "$RESPONSE" | head -1)
+POST_URN=$(echo "$BODY" | jq -r '.id // empty')
+```
+
+**Reply on HTTP 201:**
+```
+✅ Published to LinkedIn with image (as <display_name>):
+→ https://www.linkedin.com/feed/update/<POST_URN>/
+
+Characters: <n>/3000
+```
+
+**Reply on error:**
+```
+❌ LinkedIn image post failed (HTTP <HTTP_CODE>): <error detail from BODY>
+```
+
+### D — Notes
+
+- If the user sends a Telegram photo, download it with:
+  ```bash
+  # Get file_path from Telegram Bot API
+  curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getFile?file_id=<FILE_ID>" \
+    | jq -r '.result.file_path'
+  # Download
+  curl -s "https://api.telegram.org/file/bot$TELEGRAM_BOT_TOKEN/<file_path>" \
+    -o /tmp/li_upload_image
+  IMAGE_PATH=/tmp/li_upload_image
+  ```
+- If the user provides a URL to an image (not a local file), download it first:
+  ```bash
+  curl -sL "<IMAGE_URL>" -o /tmp/li_upload_image
+  IMAGE_PATH=/tmp/li_upload_image
+  ```
+- Image processing is async on LinkedIn's side; the asset may not be immediately visible but the post URN is valid
+
+---
+
 ## Error Reference
 
 | HTTP | Cause | Action |
@@ -232,6 +355,8 @@ On error:
 - **Never** output anything to the user until STEP C is complete and you have the post URL (or a confirmed error)
 - **Never** call a token "corrupted", "invalid", or "bad" unless the LinkedIn API returned HTTP 401
 - **Never** use the `read` file tool on the token store — it redacts `access_token` as `***` which is normal; use `bash`/`jq` only
+- **Never** use `grep`/`cut`/`sed` to extract the access token — always use `jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].access_token'`
+- **Never** skip the `media-type-family` header in the D2 upload PUT — use the value returned by D1 register response
 - **Never** re-auth unless: (a) no token exists, (b) `expires_at` is past, or (c) LinkedIn API returned HTTP 401
 - **Never** require the user to repeat their publish request after pasting the callback — do STEP A2 + STEP C in one turn
 - **Never** post raw markdown — strip to plain text first

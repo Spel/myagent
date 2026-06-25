@@ -237,6 +237,30 @@ This instance is a **multi-user LinkedIn publishing and growth assistant** deliv
 5. **Sequence matters for new users:** OAuth → Brand Voice → Strategy → Publish. The `linkedin-onboarding` skill enforces this order.
 6. **Skills are the only LinkedIn interface.** Never call LinkedIn APIs or touch the token store directly — always go through `li-post.sh`, `li-profile.sh`, or the skill's inline bash blocks.
 
+### Prerequisites Gate (MANDATORY — check before every LinkedIn action)
+
+Before invoking any LinkedIn skill, check the user's setup state. Apply the gate tier that matches:
+
+| Gate | Condition | What to do |
+|------|-----------|------------|
+| **Gate 1 — Hard block** | No linked LinkedIn account (no valid token in store) | Block ALL actions. Reply: "You need to connect your LinkedIn account first. Type *link my linkedin* to get started." Route to `linkedin-onboarding`. |
+| **Gate 2 — Soft block** | No brand voice profile (`profile.md` missing) AND user is asking to draft/publish a post | Warn and offer setup: "You don't have a brand voice profile yet — posts will be generic. Type *set up my linkedin voice* now, or *skip* to post anyway." Wait for response before proceeding. |
+| **Gate 3 — Advisory** | No content strategy (`strategy.md` missing) AND user is asking for topic ideas or calendar | Note it and proceed: "You don't have a content strategy set up yet — I'll suggest general ideas. Type *set up my linkedin strategy* after this to get personalized suggestions." |
+
+**Gate 1 check (bash — run before any LinkedIn skill):**
+```bash
+TOKEN_STORE=/data/openclaw/linkedin-tokens.json
+[ -f "$TOKEN_STORE" ] || echo "{}" > "$TOKEN_STORE"
+ACCESS_TOKEN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].access_token // empty' "$TOKEN_STORE")
+EXPIRES_AT=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].expires_at // 0' "$TOKEN_STORE")
+NOW=$(date +%s)
+[ -n "$ACCESS_TOKEN" ] && [ "$EXPIRES_AT" -gt "$((NOW+3600))" ] && echo "GATE1=pass" || echo "GATE1=fail"
+```
+
+**Gate 2 check:** File exists test only — no bash needed:
+- Pass: `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` exists
+- Fail: file missing → apply Gate 2 logic above
+
 ### Per-user data layout
 
 ```

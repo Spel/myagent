@@ -91,16 +91,21 @@ Here's the thing — your audience doesn't remember you if you're not showing up
 Ready to write it now?
 ```
 
-Send with buttons:
+Send with buttons (put the message text above in the top-level `message`
+field — Telegram ignores text inside `presentation.blocks`):
 ```json
 {
-  "blocks": [
-    { "type": "buttons", "buttons": [
-      { "label": "✍️ Write it now", "action": { "type": "callback", "value": "coach_write_now" }, "style": "primary" },
-      { "label": "💡 Give me another idea", "action": { "type": "callback", "value": "coach_new_idea" } },
-      { "label": "Later", "action": { "type": "callback", "value": "coach_later" }, "style": "secondary" }
-    ]}
-  ]
+  "action": "send",
+  "message": "<the coach message text above>",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "✍️ Write it now", "action": { "type": "callback", "value": "coach_write_now" }, "style": "primary" },
+        { "label": "💡 Give me another idea", "action": { "type": "callback", "value": "coach_new_idea" } },
+        { "label": "Later", "action": { "type": "callback", "value": "coach_later" }, "style": "secondary" }
+      ]}
+    ]
+  }
 }
 ```
 
@@ -128,15 +133,19 @@ Keep the momentum. Here's what's up next in your calendar:
 Write it now or save it for later?
 ```
 
-Buttons:
+Buttons (message text goes in the top-level `message` field):
 ```json
 {
-  "blocks": [
-    { "type": "buttons", "buttons": [
-      { "label": "✍️ Write next post", "action": { "type": "callback", "value": "coach_write_now" }, "style": "primary" },
-      { "label": "💡 Suggest something else", "action": { "type": "callback", "value": "coach_new_idea" } }
-    ]}
-  ]
+  "action": "send",
+  "message": "<the coach message text above>",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "✍️ Write next post", "action": { "type": "callback", "value": "coach_write_now" }, "style": "primary" },
+        { "label": "💡 Suggest something else", "action": { "type": "callback", "value": "coach_new_idea" } }
+      ]}
+    ]
+  }
 }
 ```
 

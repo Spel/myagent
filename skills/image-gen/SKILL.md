@@ -131,19 +131,23 @@ Then hand `$OUT` to LinkedIn mode's Step 3 (single publish).
 
 ## Follow-up buttons
 
-After sending a casual image, reply WITH TEXT plus buttons (a buttons-only
-message fails on Telegram):
+After sending a casual image, offer tweak buttons. **Put the body text in the
+top-level `message` field** — text inside `presentation.blocks` is ignored by
+Telegram and a buttons-only presentation fails empty:
 
 ```json
 {
-  "blocks": [
-    {"type": "text", "text": "✅ Done! Want to tweak it?"},
-    {"type": "buttons", "buttons": [
-      {"label": "🔄 Regenerate", "action": {"type": "callback", "value": "imagegen_regenerate"}, "style": "secondary"},
-      {"label": "✏️ Change prompt", "action": {"type": "callback", "value": "imagegen_change_prompt"}, "style": "secondary"},
-      {"label": "📤 Post to LinkedIn", "action": {"type": "callback", "value": "imagegen_post_linkedin"}, "style": "primary"}
-    ]}
-  ]
+  "action": "send",
+  "message": "✅ Done! Want to tweak it?",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        {"label": "🔄 Regenerate", "action": {"type": "callback", "value": "imagegen_regenerate"}, "style": "secondary"},
+        {"label": "✏️ Change prompt", "action": {"type": "callback", "value": "imagegen_change_prompt"}, "style": "secondary"},
+        {"label": "📤 Post to LinkedIn", "action": {"type": "callback", "value": "imagegen_post_linkedin"}, "style": "primary"}
+      ]}
+    ]
+  }
 }
 ```
 

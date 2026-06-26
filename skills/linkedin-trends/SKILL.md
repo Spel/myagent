@@ -113,16 +113,21 @@ Here's what's hot in your space:
 All added to your content calendar. Want to write any of these now?
 ```
 
-With buttons:
+With buttons (message text goes in the top-level `message` field — Telegram
+ignores text inside `presentation.blocks`):
 ```json
 {
-  "blocks": [
-    { "type": "buttons", "buttons": [
-      { "label": "✍️ Write the top one now", "action": { "type": "callback", "value": "trends_write_top" }, "style": "primary" },
-      { "label": "📅 See full calendar", "action": { "type": "callback", "value": "trends_see_calendar" } },
-      { "label": "Later", "action": { "type": "callback", "value": "trends_later" }, "style": "secondary" }
-    ]}
-  ]
+  "action": "send",
+  "message": "<the trends message text above>",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "✍️ Write the top one now", "action": { "type": "callback", "value": "trends_write_top" }, "style": "primary" },
+        { "label": "📅 See full calendar", "action": { "type": "callback", "value": "trends_see_calendar" } },
+        { "label": "Later", "action": { "type": "callback", "value": "trends_later" }, "style": "secondary" }
+      ]}
+    ]
+  }
 }
 ```
 

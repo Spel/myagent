@@ -119,16 +119,21 @@ Then reply with:
 Next: set up your brand voice so every post sounds like you, not generic AI. I'll ask you 8 quick questions — takes 2 minutes.
 ```
 
-And this `presentation` block:
+And this `send` action (the reply text above goes in the top-level `message`
+field):
 
 ```json
 {
-  "blocks": [
-    { "type": "buttons", "buttons": [
-      { "label": "🎯 Set up brand voice", "action": { "type": "callback", "value": "voice_yes" }, "style": "primary" },
-      { "label": "Skip for now", "action": { "type": "callback", "value": "voice_skip" }, "style": "secondary" }
-    ]}
-  ]
+  "action": "send",
+  "message": "<the reply text above>",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "🎯 Set up brand voice", "action": { "type": "callback", "value": "voice_yes" }, "style": "primary" },
+        { "label": "Skip for now", "action": { "type": "callback", "value": "voice_skip" }, "style": "secondary" }
+      ]}
+    ]
+  }
 }
 ```
 
@@ -148,16 +153,21 @@ Reply with:
 One optional step: your content strategy. This sets posting frequency, content pillars, and ensures every post ties to a business goal.
 ```
 
-And this `presentation` block:
+And this `send` action (the reply text above goes in the top-level `message`
+field):
 
 ```json
 {
-  "blocks": [
-    { "type": "buttons", "buttons": [
-      { "label": "📅 Set up strategy", "action": { "type": "callback", "value": "strategy_yes" }, "style": "primary" },
-      { "label": "Skip, just post", "action": { "type": "callback", "value": "strategy_skip" }, "style": "secondary" }
-    ]}
-  ]
+  "action": "send",
+  "message": "<the reply text above>",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "📅 Set up strategy", "action": { "type": "callback", "value": "strategy_yes" }, "style": "primary" },
+        { "label": "Skip, just post", "action": { "type": "callback", "value": "strategy_skip" }, "style": "secondary" }
+      ]}
+    ]
+  }
 }
 ```
 

@@ -138,21 +138,24 @@ If a `linkedin-brand-voice` profile exists for this user, invoke the **Style Gat
 
 ### Step 1 — Confirm publish with buttons
 
-Before calling `li-post.sh`, always show the draft and ask for confirmation using inline buttons.
-
-Send the draft text and the following `presentation` block:
+Before calling `li-post.sh`, always show the draft and ask for confirmation using
+inline buttons. **Put the draft text in the top-level `message` field** — text
+inside `presentation.blocks` is NOT shown on Telegram and the send will fail
+empty. Buttons go in `presentation`:
 
 ```json
 {
-  "blocks": [
-    { "type": "text", "text": "<DRAFT POST TEXT>" },
-    { "type": "divider" },
-    { "type": "buttons", "buttons": [
-      { "label": "✅ Publish", "action": { "type": "callback", "value": "publish_yes" }, "style": "success" },
-      { "label": "✏️ Edit", "action": { "type": "callback", "value": "publish_edit" } },
-      { "label": "❌ Cancel", "action": { "type": "callback", "value": "publish_no" }, "style": "danger" }
-    ]}
-  ]
+  "action": "send",
+  "message": "<DRAFT POST TEXT>\n\nReady to publish?",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "✅ Publish", "action": { "type": "callback", "value": "publish_yes" }, "style": "success" },
+        { "label": "✏️ Edit", "action": { "type": "callback", "value": "publish_edit" } },
+        { "label": "❌ Cancel", "action": { "type": "callback", "value": "publish_no" }, "style": "danger" }
+      ]}
+    ]
+  }
 }
 ```
 
@@ -167,17 +170,21 @@ Send the draft text and the following `presentation` block:
 After the user confirms publish, check whether they provided an image:
 
 - **Image present** (Telegram photo or URL in message) → use **Image post** below
-- **No image provided** → ask with buttons:
+- **No image provided** → ask with buttons (body text in `message`, buttons in
+  `presentation`):
 
 ```json
 {
-  "blocks": [
-    { "type": "text", "text": "Add an image to this post?" },
-    { "type": "buttons", "buttons": [
-      { "label": "📸 Send image", "action": { "type": "callback", "value": "img_send" } },
-      { "label": "No image", "action": { "type": "callback", "value": "img_skip" }, "style": "secondary" }
-    ]}
-  ]
+  "action": "send",
+  "message": "Add an image to this post?",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "📸 Send image", "action": { "type": "callback", "value": "img_send" } },
+        { "label": "No image", "action": { "type": "callback", "value": "img_skip" }, "style": "secondary" }
+      ]}
+    ]
+  }
 }
 ```
 

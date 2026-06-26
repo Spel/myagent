@@ -242,11 +242,40 @@ thrash through the unavailable tools above.
 **Aspect ratio:** use `16:9` for LinkedIn images. `1.91:1` is NOT a valid
 ratio and will be rejected.
 
-## Telegram message rule
+## Telegram message rule (buttons / presentation)
 
-Every `presentation` block that contains buttons MUST also contain a `text`
-block. A buttons-only message fails with `Message must be non-empty for
-Telegram sends`. Always pair buttons with at least one line of text.
+When sending interactive buttons via the message `send` action, the body text
+MUST go in the top-level `message` field. Telegram reads the message body ONLY
+from the top-level `message` / `text` / `content` / `caption` params — it does
+**NOT** read text from inside `presentation.blocks`. If you put all text inside
+`presentation.blocks` and leave `message` empty, the whole send (buttons
+included) is rejected with `Message must be non-empty for Telegram sends`, and
+the user sees nothing to tap.
+
+**Correct shape** — top-level `message` for the body, `presentation` for buttons
+only:
+
+```json
+{
+  "action": "send",
+  "message": "Ready to publish?",
+  "presentation": {
+    "blocks": [
+      { "type": "buttons", "buttons": [
+        { "label": "✅ Publish", "action": { "type": "callback", "value": "publish_yes" }, "style": "success" },
+        { "label": "✏️ Edit",    "action": { "type": "callback", "value": "publish_edit" } },
+        { "label": "❌ Cancel",  "action": { "type": "callback", "value": "publish_no" }, "style": "danger" }
+      ]}
+    ]
+  }
+}
+```
+
+The button shape `{ "label": ..., "action": { "type": "callback", "value": ... } }`
+is correct — it maps to a Telegram inline button whose callback delivers
+`<value>` back to you as the next inbound message. Do NOT nest the body text in a
+`{ "type": "text" }` block as the only source of text; always also set the
+top-level `message`.
 
 ## No duplicate posts
 

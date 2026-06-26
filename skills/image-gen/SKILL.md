@@ -1,10 +1,10 @@
 # Image Generation Skill
 
-Generates images from a text prompt using Vertex AI Imagen 4.0 via OpenClaw's built-in image generation plugin.
+Generates images from a text prompt using Vertex AI Imagen 4.0 via the LiteLLM gateway.
 
-## Important
+## CRITICAL — Do NOT use the built-in image generation tool
 
-OpenClaw has a native image generation tool. **Use that tool** — do NOT use curl to call the images API directly. The native tool handles the model routing and file delivery automatically.
+OpenClaw's native image generation plugin is not configured for this deployment. **Always use exec bash with curl** to call the images API directly. Never use the native image tool — it will fail.
 
 ## Trigger
 
@@ -19,14 +19,58 @@ If the user gave a clear prompt, skip to Step 2.
 If the prompt is vague (e.g. "generate something cool"), ask once:
 > What would you like me to generate? Describe the scene, style, mood, or subject.
 
-### Step 2: Generate the image
+### Step 2: Generate the image via curl
 
-Call the native image generation tool with the user's prompt. The model configured is `vertex_ai/imagen-4.0-fast-generate-001` via LiteLLM — do not specify a model yourself, just pass the prompt.
+```bash
+PROMPT_JSON=$(printf '%s' "<AGENT: user's full prompt>" | jq -Rs '.')
+RESPONSE=$(curl -s -X POST "${LITELLM_BASE_URL}/images/generations" \
+  -H "Authorization: Bearer ${LITELLM_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "{\"model\": \"vertex_ai/imagen-4.0-fast-generate-001\", \"prompt\": $PROMPT_JSON, \"n\": 1}")
 
-### Step 3: Follow-up buttons
+ERROR=$(printf '%s' "$RESPONSE" | jq -r '.error.message // empty')
+if [ -n "$ERROR" ]; then
+  echo "GENERATE_ERROR=$ERROR"
+  exit 0
+fi
 
-After successfully delivering the image, reply with:
+IMG_B64=$(printf '%s' "$RESPONSE" | jq -r '.data[0].b64_json // empty')
+IMG_URL=$(printf '%s' "$RESPONSE" | jq -r '.data[0].url // empty')
 
+if [ -n "$IMG_B64" ]; then
+  printf '%s' "$IMG_B64" | base64 -d > /tmp/generated_image.png
+  echo "IMAGE_READY=file"
+elif [ -n "$IMG_URL" ]; then
+  echo "IMAGE_READY=url"
+  echo "IMAGE_URL=$IMG_URL"
+else
+  echo "IMAGE_READY=none"
+fi
+```
+
+### Step 3: Send the image to the user
+
+**If `IMAGE_READY=file`:**
+```bash
+curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto" \
+  -F "chat_id=${TELEGRAM_USER_ID}" \
+  -F "photo=@/tmp/generated_image.png" \
+  -F "caption=🎨 Generated!"
+```
+
+**If `IMAGE_READY=url`:**
+```bash
+curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto" \
+  -H "Content-Type: application/json" \
+  -d "{\"chat_id\": \"${TELEGRAM_USER_ID}\", \"photo\": \"$IMAGE_URL\", \"caption\": \"🎨 Generated!\"}"
+```
+
+**If `IMAGE_READY=none` or `GENERATE_ERROR` is set:**
+> ❌ Image generation failed: [error]. Try rephrasing your prompt — be more specific about the subject, style, or mood.
+
+### Step 4: Follow-up buttons
+
+After successfully sending the image, reply with:
 > ✅ Done! Want to tweak it?
 
 With presentation buttons:
@@ -43,16 +87,9 @@ With presentation buttons:
 }
 ```
 
-**`imagegen_regenerate` callback:** Re-run Step 2 with the same prompt.
-
-**`imagegen_change_prompt` callback:** Ask the user for a new prompt, then re-run Step 2.
-
-**`imagegen_post_linkedin` callback:** Pass the generated image to the `linkedin-publish` skill's image upload flow.
-
-## If generation fails
-
-Tell the user:
-> ❌ Image generation failed. Try rephrasing your prompt — be more specific about the subject, style, or mood.
+**`imagegen_regenerate`:** Re-run Step 2 with the same prompt.
+**`imagegen_change_prompt`:** Ask for a new prompt, re-run Step 2.
+**`imagegen_post_linkedin`:** Pass the generated image to the `linkedin-publish` skill's image upload flow.
 
 
 Generates images from a text prompt using Vertex AI Imagen 4.0 via the LiteLLM gateway.

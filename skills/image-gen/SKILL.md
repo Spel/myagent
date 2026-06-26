@@ -21,30 +21,38 @@ If the prompt is vague (e.g. "generate something cool"), ask once:
 
 ### Step 2: Generate the image via curl
 
+The response may contain a large base64 payload — never store it in a variable or echo it. Write directly to file and only report status back.
+
 ```bash
 PROMPT_JSON=$(printf '%s' "<AGENT: user's full prompt>" | jq -Rs '.')
-RESPONSE=$(curl -s -X POST "${LITELLM_BASE_URL}/images/generations" \
+IMG_FILE=/data/workspace/media/generated/$(date +%s).png
+mkdir -p /data/workspace/media/generated
+
+# Stream response to a temp JSON file — never into a variable
+curl -s -X POST "${LITELLM_BASE_URL}/images/generations" \
   -H "Authorization: Bearer ${LITELLM_API_KEY}" \
   -H "Content-Type: application/json" \
-  -d "{\"model\": \"vertex_ai/imagen-4.0-fast-generate-001\", \"prompt\": $PROMPT_JSON, \"n\": 1}")
+  -d "{\"model\": \"vertex_ai/imagen-4.0-fast-generate-001\", \"prompt\": $PROMPT_JSON, \"n\": 1}" \
+  -o /tmp/imggen_response.json
 
-ERROR=$(printf '%s' "$RESPONSE" | jq -r '.error.message // empty')
+ERROR=$(jq -r '.error.message // empty' /tmp/imggen_response.json)
 if [ -n "$ERROR" ]; then
+  rm -f /tmp/imggen_response.json
   echo "GENERATE_ERROR=$ERROR"
   exit 0
 fi
 
-IMG_B64=$(printf '%s' "$RESPONSE" | jq -r '.data[0].b64_json // empty')
-IMG_URL=$(printf '%s' "$RESPONSE" | jq -r '.data[0].url // empty')
-
-if [ -n "$IMG_B64" ]; then
-  printf '%s' "$IMG_B64" | base64 -d > /tmp/generated_image.png
-  echo "IMAGE_READY=file"
-elif [ -n "$IMG_URL" ]; then
+IMG_URL=$(jq -r '.data[0].url // empty' /tmp/imggen_response.json)
+if [ -n "$IMG_URL" ]; then
+  rm -f /tmp/imggen_response.json
   echo "IMAGE_READY=url"
   echo "IMAGE_URL=$IMG_URL"
 else
-  echo "IMAGE_READY=none"
+  # Decode base64 directly from jq into file — no variable holding the data
+  jq -r '.data[0].b64_json' /tmp/imggen_response.json | base64 -d > "$IMG_FILE"
+  rm -f /tmp/imggen_response.json
+  echo "IMAGE_READY=file"
+  echo "IMAGE_FILE=$IMG_FILE"
 fi
 ```
 
@@ -54,8 +62,9 @@ fi
 ```bash
 curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto" \
   -F "chat_id=${TELEGRAM_USER_ID}" \
-  -F "photo=@/tmp/generated_image.png" \
+  -F "photo=@${IMAGE_FILE}" \
   -F "caption=🎨 Generated!"
+rm -f "$IMAGE_FILE"
 ```
 
 **If `IMAGE_READY=url`:**
@@ -65,7 +74,7 @@ curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto" \
   -d "{\"chat_id\": \"${TELEGRAM_USER_ID}\", \"photo\": \"$IMAGE_URL\", \"caption\": \"🎨 Generated!\"}"
 ```
 
-**If `IMAGE_READY=none` or `GENERATE_ERROR` is set:**
+**If `GENERATE_ERROR` is set:**
 > ❌ Image generation failed: [error]. Try rephrasing your prompt — be more specific about the subject, style, or mood.
 
 ### Step 4: Follow-up buttons

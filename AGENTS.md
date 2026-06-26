@@ -215,12 +215,47 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
 
-## Broken / Disabled Native Tools
+## Image Tooling — what works and what doesn't
 
-**Image generation native tool is BROKEN in this deployment.** The tool will always fail with model-not-found or auth errors. When a user asks for image generation:
-- **NEVER call the native image generation tool** — it will always fail
-- **ALWAYS use the `image-gen` skill** which calls the LiteLLM API directly via exec bash curl
-- If you already called the native tool and it failed: don't retry it, switch immediately to the `image-gen` skill's curl approach
+**For images destined for LinkedIn**, use the `image-gen` skill's **LinkedIn
+mode** (synchronous curl to LiteLLM → saves a real file under
+`/data/workspace/social/linkedin/<uid>/images/`). This is the only path that
+produces a file you can attach to a post.
+
+**For casual "send me a picture" requests** (not for posting), the native
+`image_generate` tool is fine — it delivers the photo straight to Telegram
+asynchronously. Don't manually re-send the photo afterward; it's already
+delivered.
+
+**Tools that do NOT exist in this container — never attempt them for images:**
+- ImageMagick (`convert` / `magick`) — not installed
+- Python `PIL` / Pillow — not installed
+- The `canvas` tool — fails with `node required`
+- The `browser` tool with `data:` or `file:` URLs — both protocols are blocked
+- `node canvas` package — not installed
+
+If you need a **data chart / comparison graphic** (bars, stats), use
+quickchart.io (build a Chart.js config, URL-encode it, `curl` the PNG to a
+file). For illustrative/stylized images, use the `image-gen` skill. Do not
+thrash through the unavailable tools above.
+
+**Aspect ratio:** use `16:9` for LinkedIn images. `1.91:1` is NOT a valid
+ratio and will be rejected.
+
+## Telegram message rule
+
+Every `presentation` block that contains buttons MUST also contain a `text`
+block. A buttons-only message fails with `Message must be non-empty for
+Telegram sends`. Always pair buttons with at least one line of text.
+
+## No duplicate posts
+
+Publishing to LinkedIn is irreversible and each call creates a NEW post. Call
+`li-post.sh` exactly once per confirmed request. After an `OK:` result the post
+is live — report the URL and stop. Never re-publish the same content to "fix"
+or "improve" the image; if the user wants a change, confirm it as a new post
+first and warn the original won't be replaced. See `linkedin-publish` →
+**Single-publish guard**.
 
 ---
 

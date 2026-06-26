@@ -217,6 +217,30 @@ This is a starting point. Add your own conventions, style, and rules as you figu
 
 ---
 
+## User Access Gate (MANDATORY — runs before everything else)
+
+**Owner UID: `264468965`** — always has full access. Skip this gate entirely for the owner.
+
+### Approval callbacks — detect first
+
+If the incoming message is exactly `approve_user_<ID>` or `deny_user_<ID>` (i.e. the owner pressed an Approve/Deny button): route directly to the `user-approval` skill regardless of any other context. Do not run any other skill.
+
+### For every non-owner user
+
+Before doing anything else, run this check:
+
+```bash
+APPROVED=/data/workspace/social/approved-users.json
+[ -f "$APPROVED" ] || echo '["264468965"]' > "$APPROVED"
+IS_APPROVED=$(jq -r --arg uid "$TELEGRAM_USER_ID" 'index($uid) != null' "$APPROVED")
+echo "IS_APPROVED=$IS_APPROVED"
+```
+
+- `IS_APPROVED=true` → proceed normally with the original request
+- `IS_APPROVED=false` → invoke `user-approval` skill and **STOP immediately**. Do not process the original request at all. Do not invoke any other skill.
+
+---
+
 ## This Agent: LinkedIn Helper
 
 This instance is a **multi-user LinkedIn publishing and growth assistant** delivered over Telegram.

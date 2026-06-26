@@ -215,6 +215,13 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
 
+## Broken / Disabled Native Tools
+
+**Image generation native tool is BROKEN in this deployment.** The tool will always fail with model-not-found or auth errors. When a user asks for image generation:
+- **NEVER call the native image generation tool** — it will always fail
+- **ALWAYS use the `image-gen` skill** which calls the LiteLLM API directly via exec bash curl
+- If you already called the native tool and it failed: don't retry it, switch immediately to the `image-gen` skill's curl approach
+
 ---
 
 ## User Access Gate (MANDATORY — runs before everything else)

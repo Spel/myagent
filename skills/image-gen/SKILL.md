@@ -1,5 +1,60 @@
 # Image Generation Skill
 
+Generates images from a text prompt using Vertex AI Imagen 4.0 via OpenClaw's built-in image generation plugin.
+
+## Important
+
+OpenClaw has a native image generation tool. **Use that tool** — do NOT use curl to call the images API directly. The native tool handles the model routing and file delivery automatically.
+
+## Trigger
+
+User asks to generate, create, draw, or make an image. Any variation — "generate an image of...", "draw me...", "create a picture of...", "make an image showing...".
+
+## Flow
+
+### Step 1: Clarify or proceed
+
+If the user gave a clear prompt, skip to Step 2.
+
+If the prompt is vague (e.g. "generate something cool"), ask once:
+> What would you like me to generate? Describe the scene, style, mood, or subject.
+
+### Step 2: Generate the image
+
+Call the native image generation tool with the user's prompt. The model configured is `vertex_ai/imagen-4.0-fast-generate-001` via LiteLLM — do not specify a model yourself, just pass the prompt.
+
+### Step 3: Follow-up buttons
+
+After successfully delivering the image, reply with:
+
+> ✅ Done! Want to tweak it?
+
+With presentation buttons:
+```json
+{
+  "blocks": [{
+    "type": "buttons",
+    "buttons": [
+      {"label": "🔄 Regenerate", "action": {"type": "callback", "value": "imagegen_regenerate"}, "style": "secondary"},
+      {"label": "✏️ Change prompt", "action": {"type": "callback", "value": "imagegen_change_prompt"}, "style": "secondary"},
+      {"label": "📤 Post to LinkedIn", "action": {"type": "callback", "value": "imagegen_post_linkedin"}, "style": "primary"}
+    ]
+  }]
+}
+```
+
+**`imagegen_regenerate` callback:** Re-run Step 2 with the same prompt.
+
+**`imagegen_change_prompt` callback:** Ask the user for a new prompt, then re-run Step 2.
+
+**`imagegen_post_linkedin` callback:** Pass the generated image to the `linkedin-publish` skill's image upload flow.
+
+## If generation fails
+
+Tell the user:
+> ❌ Image generation failed. Try rephrasing your prompt — be more specific about the subject, style, or mood.
+
+
 Generates images from a text prompt using Vertex AI Imagen 4.0 via the LiteLLM gateway.
 
 ## Trigger

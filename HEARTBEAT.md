@@ -2,6 +2,18 @@
 
 Run 2-3 of these per session (rotate, don't run all every time).
 
+## Daily Brief Freshness (run once per day, morning sessions)
+
+Check if today's morning brief has been sent for the owner (TELEGRAM_USER_ID=264468965):
+```bash
+TODAY=$(date +%Y-%m-%d)
+FLAG="/data/workspace/social/linkedin/264468965/pending/.brief-sent-$TODAY"
+[ -f "$FLAG" ] && echo "BRIEF_SENT=true" || echo "BRIEF_SENT=false"
+```
+- If `BRIEF_SENT=false` AND it's before 10 AM: read `skills/linkedin-daily-brief/SKILL.md` and run Flow A immediately.
+- If `BRIEF_SENT=false` AND it's after 10 AM: note it so the user can request it manually — don't auto-fire.
+- If `BRIEF_SENT=true`: skip silently.
+
 ## LinkedIn Coach Check (run every session for owner)
 
 Check if the owner (TELEGRAM_USER_ID=264468965) is on track with their LinkedIn posting cadence.
@@ -21,6 +33,7 @@ Track last checks in `/data/workspace/memory/heartbeat-state.json`:
 ```json
 {
   "lastChecks": {
+    "linkedin_daily_brief": 0,
     "linkedin_coach": 0,
     "linkedin_trends_flagged": 0
   }

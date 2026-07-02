@@ -296,6 +296,19 @@ first and warn the original won't be replaced. See `linkedin-publish` →
 
 If the incoming message is exactly `approve_user_<ID>` or `deny_user_<ID>` (i.e. the owner pressed an Approve/Deny button): route directly to the `user-approval` skill regardless of any other context. Do not run any other skill.
 
+### Daily brief callbacks — detect before general routing
+
+If the incoming message matches `brief_approve_*`, `brief_edit_*`, or `brief_skip_*`:
+- Route directly to `linkedin-daily-brief` skill (Flow B, C, or D respectively).
+- Pass the full callback value as the action context.
+- Do NOT run any other skill first (skip Gate checks — the user already approved the brief session).
+
+| Callback pattern | Flow |
+|---|---|
+| `brief_approve_<date>-<n>` | Flow B — load draft, publish via `li-post.sh`, confirm |
+| `brief_edit_<date>-<n>` | Flow C — load draft, show edit prompt, hand to brand-voice |
+| `brief_skip_<date>-<n>` | Flow D — mark draft skipped, acknowledge |
+
 ### For every non-owner user
 
 Before doing anything else, run this check:
@@ -376,6 +389,9 @@ NOW=$(date +%s)
 | `linkedin-brand-voice` | Onboard voice profile, draft posts, style gate, completeness score |
 | `linkedin-strategy` | Strategy doc, content calendar, topic suggestions, repurpose |
 | `linkedin-profile-sync` | Fetch live LinkedIn profile, surface improvement suggestions |
+| `linkedin-daily-brief` | Morning brief: research news → draft 2-3 ready posts → approve to auto-publish |
+| `linkedin-coach` | Daily cadence check, Gary Vee nudge, next idea from calendar |
+| `linkedin-trends` | Weekly trend research, add proposals to content calendar |
 
 ## Related
 

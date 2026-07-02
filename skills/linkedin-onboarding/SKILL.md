@@ -106,9 +106,10 @@ fi
 ```
 
 If `REGISTER_CRONS=true`:
-- Use the `cron-scheduler` skill to register two jobs for this user:
-  1. **Daily coach** — `0 9 * * *` → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-coach/SKILL.md and run the Daily Coach Check flow.`
-  2. **Weekly trends** — `0 18 * * 0` (Sunday 6 PM) → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-trends/SKILL.md and run the Trend Research flow.`
+- Use the `cron-scheduler` skill to register three jobs for this user:
+  1. **Daily brief** — `0 8 * * *` (8 AM) → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-daily-brief/SKILL.md and run Flow A: Generate Morning Brief.`
+  2. **Daily coach** — `0 9 * * *` (9 AM) → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-coach/SKILL.md and run the Daily Coach Check flow.`
+  3. **Weekly trends** — `0 18 * * 0` (Sunday 6 PM) → prompt: `TELEGRAM_USER_ID=<uid>. Read skills/linkedin-trends/SKILL.md and run the Trend Research flow.`
 - Then: `touch "$CRON_FLAG"` to mark as done
 
 Then reply with:

@@ -1,0 +1,179 @@
+{
+  "exportedAt": "2026-07-20T14:43:12.582Z",
+  "sourceFile": "4b0617e2-93d2-4610-9d5d-8665809c917f.jsonl.reset.2026-07-20T06-46-25.763Z",
+  "session": {
+    "file": "4b0617e2-93d2-4610-9d5d-8665809c917f.jsonl.reset.2026-07-20T06-46-25.763Z",
+    "sessionKey": "4b0617e2-93d2-4610-9d5d-8665809c917f",
+    "firstTs": "2026-07-16T05:00:00.696Z",
+    "lastTs": "2026-07-16T07:22:02.654Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "[cron:8e25d8a8-f1c0-4f9a-9b88-7e6675371b85 Catherine AI-Lab post - 2026-07-16 08:00 Kyiv] Publish scheduled post: /data/workspace/social/linkedin/547748231/pending/2026-07-16-ai-lab-session.md\nCurrent time: Thursday, July 16th, 2026 - 5:00 AM (UTC)\nReference UTC: 2026-07-16 05:00 UTC\n\nUse the message tool if you need to notify the user directly with an explicit target. If you do not send directly, your final plain-text reply will be delivered automatically.",
+        "ts": "2026-07-16T05:00:00.828Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'll publish the scheduled LinkedIn post for Catherine. Let me first read the post and verify the token state.",
+        "ts": "2026-07-16T05:00:08.793Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# AI-Lab post with photo\n\n**Scheduled for:** 2026-07-16T05:00:00Z (08:00 AM Kyiv)\n**Format:** image\n**Status:** ready\n\n## Post Body\n\nНАВЧИТИ ЛЮДЕЙ AI — НЕДОСТАТНЬО\n\nУ понеділок провели першу сесію AI-Lab. Ідея виникла завдяки клієнтам: \"Ми навчилися, а що далі?\"\n\nБо навчання — ще не результат. Результат починається, коли людина повертається на робоче місце і ставить собі просте запитання:\n\n«Що саме я зміню завтра?»\n\nСаме цим ми займалися — не вивчали нові функції ChatGPT чи Claude. Ми розбирали реальні бізнес-процеси.\n\nДе людина досі виконує роботу вручну, хоча її можна автоматизувати. Де керівник витрачає години на погодження. Де команда чекає відповіді.\n\nAI не створює ефективність сам по собі. Ефективність з'являється, коли компанія перебудовує процеси.\n\nТому після кожного навчання я хочу бачити не сертифікати чи \"вау\". Я хочу бачити НОВІ ПРАВИЛА РОБОТИ!\n\nУ корпоративному секторі ми рекомендуємо відразу переробляти посадові інструкції — додавати AI-інструменти як обов'язкові.\n\nБо справжнє впровадження AI починається не з промптів.\n\nВоно починається зі зміни способу мислення.\n\n#yourcoachcatherine #AIдлябізнесу #ефективність #впровадженняAI #коучинг\n\n## Image\n\n/data/workspace/social/linkedin/547748231/images/ai-lab-session-2026-07-14.jpg",
+        "ts": "2026-07-16T05:00:09.029Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "GATE1=pass",
+        "ts": "2026-07-16T05:00:09.041Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Token is valid. Now I'll publish the post with the image.",
+        "ts": "2026-07-16T05:00:15.248Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-publish\ndescription: Publish text or image posts to LinkedIn on behalf of multiple Telegram users. Handles per-user OAuth linking automatically.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\",\"LINKEDIN_CLIENT_SECRET\",\"LINKEDIN_REDIRECT_URI\"]}}}\ntriggers:\n  - \"publish to linkedin\"\n  - \"post to linkedin\"\n  - \"share on linkedin\"\n  - \"linkedin article\"\n  - \"publish article to linkedin\"\n  - \"post article on linkedin\"\n  - \"linkedin post\"\n  - \"share article linkedin\"\n  - \"cross-post to linkedin\"\n  - \"connect linkedin\"\n  - \"link linkedin account\"\n  - \"linkedin post with image\"\n  - \"post image to linkedin\"\n  - \"share image on linkedin\"\n---\n\n# LinkedIn Publish Skill\n\n> ⚠️ READ THIS FIRST — MANDATORY RULES:\n> 1. **NEVER write scripts to /tmp or anywhere else.** The helper already exists.\n> 2. **NEVER use grep/cut/sed/cat/read-tool to get the access token.** The helper handles it.\n> 3. **NEVER create a new bash script for LinkedIn.** Use ONLY `{baseDir}/li-post.sh`.\n> 4. **NEVER analyze or describe an attached image.** Pass its path directly to li-post.sh.\n> 5. **DO NOT narrate steps.** Run the command, show the result.\n> 6. **ONE PUBLISH PER REQUEST.** Call `li-post.sh` exactly once per confirmed\n>    request. The instant you get an `OK:` line, the post is LIVE and this flow\n>    is DONE — report the URL and STOP. Never call `li-post.sh` again to \"retry\",\n>    \"improve the image\", or \"use the real image\". Each call creates a brand-new\n>    LinkedIn post; LinkedIn has no edit-with-media API. If you couldn't get the\n>    image you wanted, do NOT silently post without it — ask the user first\n>    (see **Single-publish guard** below).\n\n---\n\n## Single-publish guard (READ BEFORE EVERY PUBLISH)\n\nPublishing is irreversible and creates a permanent post. To avoid the\nduplicate-post problem:\n\n- **Resolve the image BEFORE the single `li-post.sh` call.** Do all image\n  retrieval/generation first. Only call `li-post.sh` once everything",
+        "ts": "2026-07-16T05:00:15.307Z"
+      },
+      {
+        "role": "assistant",
+        "content": "This is a scheduled post with status \"ready\" - publishing now as planned.",
+        "ts": "2026-07-16T05:00:26.480Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "OK: https://www.linkedin.com/feed/update/urn:li:share:7483385041436332033/\nDISPLAY_NAME: Kateryna Miliutenko\nCHARS: 1835",
+        "ts": "2026-07-16T05:00:28.930Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 1563 bytes to /data/workspace/social/linkedin/547748231/posts/2026-07-16-navchiti-lyudei-ai-nedostatno.md",
+        "ts": "2026-07-16T05:00:40.095Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-16T05:00:40.108Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"592\"\n}",
+        "ts": "2026-07-16T05:00:48.514Z"
+      },
+      {
+        "role": "assistant",
+        "content": "✅ **Scheduled post published successfully!**\n\n- **Posted as:** Kateryna Miliutenko\n- **URL:** https://www.linkedin.com/feed/update/urn:li:share:7483385041436332033/\n- **Format:** Image post (1,835 characters)\n- **Scheduled time:** 08:00 AM Kyiv ✓\n\nPost record saved and pending file cleaned up.",
+        "ts": "2026-07-16T05:00:54.942Z"
+      },
+      {
+        "role": "user",
+        "content": "Надай статистику із 08.07 по 14.07\n\n- кількість лайків\n- кількість репостів\n- кількість коментарів\n- кількість переглядів/показів",
+        "ts": "2026-07-16T07:18:59.668Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(Command exited with code 1)",
+        "ts": "2026-07-16T07:19:15.739Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "2026-07-08-overwhelmed-again-tse-te-shcho.md\n2026-07-09-inodi-meni-zdaietsia-shcho-naiposhyrenisha.md\n2026-07-10-чому-без-мене-нічого-не.md\n2026-07-13-люди-обирають-понеділок-щоб.md\n2026-07-14-14-lipnya-tse-druge-sichnya.md",
+        "ts": "2026-07-16T07:19:15.752Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# 𝗢𝘃𝗲𝗿𝘄𝗵𝗲𝗹𝗺𝗲𝗱 𝗮𝗴𝗮𝗶𝗻.\n\n**Published:** 2026-07-08T06:00:00Z\n**LinkedIn URL:** https://www.linkedin.com/feed/update/urn:li:share:7480501162220097536/\n**Post URN:** urn:li:share:7480501162220097536\n**Format:** image\n**Characters:** 2181\n**Pillar:** (unknown)\n**Image:** /data/workspace/social/linkedin/547748231/images/cat-scheduled-1783416408.jpg\n\n## Post Body\n\n𝗢𝘃𝗲𝗿𝘄𝗵𝗲𝗹𝗺𝗲𝗱 𝗮𝗴𝗮𝗶𝗻.\n\nЦе те, що я чую від керівників щодня. Багато запитів на тренінги з тайм-менеджменту останнім часом — всі кажуть одне: \"не встигаю\", \"все на мені\", \"команда не тягне\".\n\nІ я їх розумію. Сама там була.\n\nАле от що дивно: чим більше ти намагаєшся \"все охопити сам\", тим менше часу в тебе залишається.\n\nТому що є три приховані витрати, які ти не бачиш:\n\n▫️ Перемикання контексту — кожна дріб'язкова задача з'їдає 15–20 хвилин фокусу\n▫️ Ментальне навантаження — ти тримаєш у голові те, що мав би тримати хтось інший\n▫️ Залежність команди — якщо ти все робиш сам, вони НІКОЛИ не навчаться\n\nПростий тест: якшо ти єдина людина в команді, яка знає, як зробити X — це не ефективність. Це ризик.\n\nОсь що працює для мене:\n1️⃣ Використовую правило 70% — якшо хтось може зробити задачу на 70% як я, я її віддаю\n2️⃣ Даю контекст, не лише інструкції — люди краще виконують, коли розуміють \"навіщо\"\n3️⃣ Починаю з малого — один простий кейс делегування на тиждень\n\nТвій хід: яка одна задача цього тижня, яку ти можеш передати комусь іншому?\n\nP.S. Якшо хочеш пропрацювати це на практиці — у нас ТаймКвест 13.07, онлайн-реаліті тренінг. Деталі в коментарях 👇\n\n#yourcoachcatherine #делегування #менеджмент #лідерство\n\n## Performance\n\n*(populated later by linkedin-analytics)*\n\n- **Impressions:** —\n- **Reactions:** —\n- **Comments:** —\n- **Shares:** —\n- **Last checked:** —",
+        "ts": "2026-07-16T07:19:39.613Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Іноді мені здається, що найпоширеніша посада українського керівника звучить так:\n\n**Published:** 2026-07-09T14:24:00Z\n**LinkedIn URL:** https://www.linkedin.com/feed/update/urn:li:share:7480990077242892288/\n**Post URN:** urn:li:share:7480990077242892288\n**Format:** image\n**Characters:** 2044\n**Pillar:** Управління персоналом та менеджмент\n**Image:** /data/workspace/social/linkedin/547748231/images/upload-1783607005.jpg\n\n## Post Body\n\nІноді мені здається, що найпоширеніша посада українського керівника звучить так:\n\n«Головний пожежник компанії».\n\nТелефон не замовкає. Команда чекає рішень. Усі питання — через керівника. І день закінчується відчуттям, що ти працював без зупинки, але так і не зробив нічого, що наблизило бізнес до наступного рівня.\n\nСаме тому я вирішила написати статтю не про ще одну «чарівну техніку управління», а про те, як хаос поступово перетворюється на систему.\n\nБез красивих лозунгів.\n\nЗ інструментами, які працюють у реальному бізнесі: від планування й мотивації команди до використання штучного інтелекту та переходу від постійного контролю до довіри й зрозумілих процесів.\n\nБо щоразу, коли працюю з власниками компаній, бачу одну й ту саму закономірність.\n\nПроблема майже ніколи не в людях.\n\nІ навіть не в нестачі часу.\n\nПроблема в тому, що система або відсутня, або вже не відповідає масштабу бізнесу.\n\nЯкщо ця тема вам зараз близька, буду рада, якщо прочитаєте мою нову статтю «Анатомія управління: від хаосу до системи» і поділитеся, у якому місці впізнали себе найбільше.\n\n#yourcoachcatherine #коучинг #лідерство #менеджмент #делегування\n\n## Performance\n\n*(populated later by linkedin-analytics)*\n\n- **Impressions:** —\n- **Reactions:** —\n- **Comments:** —\n- **Shares:** —\n- **Last checked:** —",
+        "ts": "2026-07-16T07:19:39.636Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Чому без мене нічого не рухується?\n\n**Published:** 2026-07-10T08:39:00Z\n**LinkedIn URL:** https://www.linkedin.com/feed/update/urn:li:share:7481265890152476672/\n**Post URN:** urn:li:share:7481265890152476672\n**Format:** text\n**Characters:** 2549\n**Pillar:** AI-рішення для бізнесу та управління\n**Image:** (none)\n\n## Post Body\n\nЧому без мене нічого не рухується?\n\nЦе питання я чую від керівників постійно і майже завжди проблема виявляється не в команді.\n\n«Вони постійно приходять із запитаннями.»\n\n«Без мого погодження нічого не відбувається.»\n\n«Я не можу навіть на день вимкнути телефон.»\n\nЗнайомо?\n\nНасправді дуже часто вузьким місцем стає не команда, а сам керівник.\n\nНе тому, що він поганий, а тому, що всі знання, правила, логіка прийняття рішень і відповіді на типові запитання живуть лише в його голові.\n\nІ тоді утворюється найдорожча черга в компанії.\n\n😈Черга до керівника😈\n\nСаме тому останнім часом я все частіше допомагаю створювати AI-клонів.\n\nНе для того, щоб:\n- замінити людину.\nчи\n- посадити штучний інтелект керувати бізнесом.\n\nА для того, щоб команда могла самостійно отримувати відповіді на типові запитання, працювати швидше й не чекати, поки керівник звільниться між зустрічами.\n\nКоли сьогодні ми тестували AI-клонів із клієнтами, після перевірки вони сказали одну фразу:\n\n«Все. Тепер можна давати посилання команді.»\n\nІ, зізнаюсь, це був один із найкращих відгуків, бо створити AI-клона - це не про нано-технології.\n\nЦе тільки про те, щоб перестати бути вузьким місцем у власній компанії.\n\nА що тоді? - А тоді керівник нарешті може займатися тим, заради чого й створював бізнес.\n\n❓А як у вас?\n\nЯкщо ви вимкнете телефон на один день - робота продовжиться чи зупиниться?\n\n#yourcoachcatherine #лідерство #делегування #AIдлябізнесу #коучинг\n\n## Performance\n\n*(populated later by linkedin-analytics)*\n\n- **Impressions:** —\n- **Reactions:** —\n- **Comments:** —\n- **Shares:** —\n- **Last checked:** —",
+        "ts": "2026-07-16T07:19:39.649Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Люди обирають понеділок, щоб почати спокійно\n\n**Published:** 2026-07-13T09:23:00Z\n**LinkedIn URL:** https://www.linkedin.com/feed/update/urn:li:share:7482363998491910144/\n**Post URN:** urn:li:share:7482363998491910144\n**Format:** image\n**Characters:** 1176\n**Pillar:** цілепокладання і планування\n**Image:** /data/workspace/social/linkedin/547748231/images/upload-1783934580.jpg\n\n## Post Body\n\nЛюди обирають понеділок, щоб почати спокійно. І саме тому понеділок стає найгіршим днем для старту.\n\nЯ довго думала, що неділя — це вихідний. Відключитися, не думати про роботу, відновити сили.\n\nАле от що спостерігаю останнім часом.\n\nПонеділок починається з хаосу. Команда вже пише, клієнти чекають, дзвінки, зустрічі. І до 10 ранку ти вже в режимі реагування.\n\nТи не плануєш — ти виживаєш.\n\nСаме тому я перенесла планування на неділю.\n\nНе на робочий час. Не між зустрічами.\n\nА на той момент, коли є простір подумати без тиску.\n\nОсь як це працює:\n\n▫️ Неділя — план тижня: що важливо, що можна відкласти\n▫️ Понеділок зранку — розклад дня: кожній задачі свій час, пріоритети, навчання, особисте\n▫️ Одна година фокусу до 9:00 — і ти вже не реагуєш, а ведеш\n\nРезультат? Понеділок починається не з хаосу, а з чіткого розуміння: що роблю, коли, навіщо.\n\n❓А ви коли плануєте?\n\nУ понеділок зранку — або заздалегідь, коли є простір подумати?\n\n#yourcoachcatherine #цілепокладання #планування #лідерство\n\n## Performance\n\n*(populated later by linkedin-analytics)*\n\n- **Impressions:** —\n- **Reactions:** —\n- **Comments:** —\n- **Shares:** —\n- **Last checked:** —",
+        "ts": "2026-07-16T07:19:39.662Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# 14 липня — це ДРУГЕ СІЧНЯ\n\n**Published:** 2026-07-14T16:31:00Z\n**LinkedIn URL:** https://www.linkedin.com/feed/update/urn:li:share:7482834291794702336/\n**Post URN:** urn:li:share:7482834291794702336\n**Format:** text\n**Characters:** 1112\n**Pillar:** цілепокладання і планування + досягнення\n**Image:** (none)\n\n## Post Body\n\n14 липня — це ДРУГЕ СІЧНЯ\n\nСерйозно. Подумай про це.\n\nНа початку року ти даєш обіцянки. Новий рік, нові цілі, нове життя. Потім лютий... і все зникає.\n\nАле 14 липня? Це інша історія.\n\n▫️ Рік вже наполовину минув\n▫️ Ти бачиш, що працює, а що ні\n▫️ У тебе є дані, яких не було на початку року\n\nЦе НЕ привід для провини. Це шанс.\n\nЯ називаю це \"друге січня\" — момент, коли ти прокидаєшся і кажеш: \"Окей, а що я РЕАЛЬНО хочу досягти до кінця року?\"\n\nНе все потрібно перероблювати. Але одне-два речі варто змінити.\n\nТи готовий до другого старту? Що зміниш вже цього тижня? 👇\n\n#yourcoachcatherine #цілепокладання #личнийріст #коучинг #новийстарт\n\n## Performance\n\n*(populated later by linkedin-analytics)*\n\n- **Impressions:** —\n- **Reactions:** —\n- **Comments:** —\n- **Shares:** —\n- **Last checked:** —",
+        "ts": "2026-07-16T07:19:39.673Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "/data/workspace/skills/linkedin-publish/li-auth.sh\n/data/workspace/skills/linkedin-publish/li-post.sh",
+        "ts": "2026-07-16T07:19:39.684Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "/usr/bin/sh: 5: Syntax error: \"(\" unexpected\n\n(Command exited with code 2)",
+        "ts": "2026-07-16T07:19:56.965Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "=== 08.07 ===\nПокази: —, Лайки: —, Коментарі: —, Репости: —\n=== 09.07 ===\nПокази: —, Лайки: —, Коментарі: —, Репости: —\n=== 10.07 ===\nПокази: —, Лайки: —, Коментарі: —, Репости: —\n=== 13.07 ===\nПокази: —, Лайки: —, Коментарі: —, Репости: —\n=== 14.07 ===\nПокази: —, Лайки: —, Коментарі: —, Репости: —",
+        "ts": "2026-07-16T07:20:20.469Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\"status\":400,\"code\":\"VERSION_MISSING\",\"message\":\"A version must be present. Please specify a version by adding the LinkedIn-Version header.\"}",
+        "ts": "2026-07-16T07:20:27.818Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\"status\":404,\"code\":\"RESOURCE_NOT_FOUND\",\"message\":\"No virtual resource found\"}",
+        "ts": "2026-07-16T07:20:37.958Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\"status\":403,\"serviceErrorCode\":100,\"code\":\"ACCESS_DENIED\",\"message\":\"Not enough permissions to access: shares.GET.NO_VERSION\"}",
+        "ts": "2026-07-16T07:20:50.120Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "linkedin-brand-voice\nlinkedin-coach\nlinkedin-daily-brief\nlinkedin-onboarding\nlinkedin-profile-sync\nlinkedin-publish\nlinkedin-strategy\nlinkedin-trends",
+        "ts": "2026-07-16T07:21:02.219Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Catherine, на жаль, неможливо автоматично отримати статистику з LinkedIn.\n\nПоточний токен авторизації не має доступу до аналітики постів — для цього потрібен додатковий дозвіл `r_socialstate` в LinkedIn.\n\n**Що можна зробити:**\n\n1. **Оновити авторизацію** — я можу згенерувати нове посилання з розширеними дозволами, щоб в майбутньому автоматично збирати статистику\n\n2. **Ввести вручну** — якщо вкажеш цифри з LinkedIn, я збережу їх у файли постів і зможу надавати звіти в майбутньому\n\nЯкий варіант обираєш?",
+        "ts": "2026-07-16T07:21:11.842Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Catherine, на жаль, неможливо автоматично отримати статистику з LinkedIn.\n\nПоточний токен авторизації не має доступу до аналітики постів — для цього потрібен додатковий дозвіл `r_socialstate` в LinkedIn.\n\n**Що можна зробити:**\n\n1. **Оновити авторизацію** — я можу згенерувати нове посилання з розширеними дозволами, щоб в майбутньому автоматично збирати статистику\n\n2. **Ввести вручну** — якщо вкажеш цифри з LinkedIn, я збережу їх у файли постів і зможу надавати звіти в майбутньому\n\nЯкий варіант обираєш?",
+        "ts": "2026-07-16T07:21:13.664Z"
+      },
+      {
+        "role": "user",
+        "content": "1",
+        "ts": "2026-07-16T07:21:32.542Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=773oa2pre7xcem&redirect_uri=https%3A%2F%2Fnodered-5234-671620977218781100000035.ubosaibotprod.ubos.tech%2Fauth%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social%20r_socialstate&state=547748231",
+        "ts": "2026-07-16T07:21:42.201Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Ось посилання для оновлення авторизації з доступом до статистики:\n\n👉 https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=773oa2pre7xcem&redirect_uri=https%3A%2F%2Fnodered-5234-671620977218781100000035.ubosaibotprod.ubos.tech%2Fauth%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social%20r_socialstate&state=547748231\n\nПісля підтвердження встав сюди JSON з redirect-сторінки.",
+        "ts": "2026-07-16T07:22:01.443Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Ось посилання для оновлення авторизації з доступом до статистики:\n\n👉 https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=773oa2pre7xcem&redirect_uri=https%3A%2F%2Fnodered-5234-671620977218781100000035.ubosaibotprod.ubos.tech%2Fauth%2Flinkedin%2Fcallback&scope=openid%20profile%20w_member_social%20r_socialstate&state=547748231\n\nПісля підтвердження встав сюди JSON з redirect-сторінки.",
+        "ts": "2026-07-16T07:22:02.654Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

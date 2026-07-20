@@ -1,0 +1,24 @@
+{
+  "exportedAt": "2026-07-20T14:43:12.289Z",
+  "sourceFile": "8bdb8c87-62bb-48e3-9173-02ff53049b64.jsonl",
+  "session": {
+    "file": "8bdb8c87-62bb-48e3-9173-02ff53049b64.jsonl",
+    "sessionKey": "8bdb8c87-62bb-48e3-9173-02ff53049b64",
+    "firstTs": "2026-07-02T11:09:22.941Z",
+    "lastTs": "2026-07-02T11:09:28.566Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Say hello in one sentence.",
+        "ts": "2026-07-02T11:09:23.142Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hey there — I'm Ubraine, your LinkedIn growth coach, ready to help you build a brand that actually opens doors.",
+        "ts": "2026-07-02T11:09:28.566Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

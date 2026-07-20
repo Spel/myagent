@@ -1,0 +1,64 @@
+{
+  "exportedAt": "2026-07-20T14:43:12.462Z",
+  "sourceFile": "4ba6f1d3-0a1b-4efb-add5-f9cdc1729f7a.jsonl.reset.2026-07-09T14-21-13.466Z",
+  "session": {
+    "file": "4ba6f1d3-0a1b-4efb-add5-f9cdc1729f7a.jsonl.reset.2026-07-09T14-21-13.466Z",
+    "sessionKey": "4ba6f1d3-0a1b-4efb-add5-f9cdc1729f7a",
+    "firstTs": "2026-07-08T06:00:00.357Z",
+    "lastTs": "2026-07-08T06:01:39.349Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "[cron:812d12a0-82d8-4ec2-bf94-a933f686150d LinkedIn Post - Catherine 2026-07-08 06:00] Read and execute /data/workspace/social/linkedin/547748231/pending/scheduled-2026-07-08-0600.md\nCurrent time: Wednesday, July 8th, 2026 - 6:00 AM (UTC)\nReference UTC: 2026-07-08 06:00 UTC",
+        "ts": "2026-07-08T06:00:00.464Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Scheduled LinkedIn Post\n\n**User ID:** 547748231\n**Scheduled for:** 2026-07-08T06:00:00Z\n**Display name:** Kateryna Miliutenko\n\n## Post Body\n\n𝗢𝘃𝗲𝗿𝘄𝗵𝗲𝗹𝗺𝗲𝗱 𝗮𝗴𝗮𝗶𝗻.\n\nЦе те, що я чую від керівників щодня. Багато запитів на тренінги з тайм-менеджменту останнім часом — всі кажуть одне: \"не встигаю\", \"все на мені\", \"команда не тягне\".\n\nІ я їх розумію. Сама там була.\n\nАле от що дивно: чим більше ти намагаєшся \"все охопити сам\", тим менше часу в тебе залишається.\n\nТому що є три приховані витрати, які ти не бачиш:\n\n▫️ Перемикання контексту — кожна дріб'язкова задача з'їдає 15–20 хвилин фокусу\n▫️ Ментальне навантаження — ти тримаєш у голові те, що мав би тримати хтось інший\n▫️ Залежність команди — якщо ти все робиш сам, вони НІКОЛИ не навчаться\n\nПростий тест: якшо ти єдина людина в команді, яка знає, як зробити X — це не ефективність. Це ризик.\n\nОсь що працює для мене:\n1️⃣ Використовую правило 70% — якшо хтось може зробити задачу на 70% як я, я її віддаю\n2️⃣ Даю контекст, не лише інструкції — люди краще виконують, коли розуміють \"навіщо\"\n3️⃣ Починаю з малого — один простий кейс делегування на тиждень\n\nТвій хід: яка одна задача цього тижня, яку ти можеш передати комусь іншому?\n\nP.S. Якшо хочеш пропрацювати це на практиці — у нас ТаймКвест 13.07, онлайн-реаліті тренінг. Деталі в коментарях 👇\n\n#yourcoachcatherine #делегування #менеджмент #лідерство\n\n## Image\n\n**Path:** /data/workspace/social/linkedin/547748231/images/cat-scheduled-1783416408.jpg\n\n## Event Link\n\nhttps://bogushtime.com/program/onlajn-realiti-trening-tajmkvest-taktyka/\n\n## Instructions for Agent\n\n1. Read this file\n2. Use linkedin-publish skill to publish this post with the image\n3. User ID: 547748231\n4. After publishing, save post record to /data/workspace/social/linkedin/547748231/posts/\n5. Delete this scheduled file after successful publish",
+        "ts": "2026-07-08T06:00:10.380Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-publish\ndescription: Publish text or image posts to LinkedIn on behalf of multiple Telegram users. Handles per-user OAuth linking automatically.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\",\"LINKEDIN_CLIENT_SECRET\",\"LINKEDIN_REDIRECT_URI\"]}}}\ntriggers:\n  - \"publish to linkedin\"\n  - \"post to linkedin\"\n  - \"share on linkedin\"\n  - \"linkedin article\"\n  - \"publish article to linkedin\"\n  - \"post article on linkedin\"\n  - \"linkedin post\"\n  - \"share article linkedin\"\n  - \"cross-post to linkedin\"\n  - \"connect linkedin\"\n  - \"link linkedin account\"\n  - \"linkedin post with image\"\n  - \"post image to linkedin\"\n  - \"share image on linkedin\"\n---\n\n# LinkedIn Publish Skill\n\n> ⚠️ READ THIS FIRST — MANDATORY RULES:\n> 1. **NEVER write scripts to /tmp or anywhere else.** The helper already exists.\n> 2. **NEVER use grep/cut/sed/cat/read-tool to get the access token.** The helper handles it.\n> 3. **NEVER create a new bash script for LinkedIn.** Use ONLY `{baseDir}/li-post.sh`.\n> 4. **NEVER analyze or describe an attached image.** Pass its path directly to li-post.sh.\n> 5. **DO NOT narrate steps.** Run the command, show the result.\n> 6. **ONE PUBLISH PER REQUEST.** Call `li-post.sh` exactly once per confirmed\n>    request. The instant you get an `OK:` line, the post is LIVE and this flow\n>    is DONE — report the URL and STOP. Never call `li-post.sh` again to \"retry\",\n>    \"improve the image\", or \"use the real image\". Each call creates a brand-new\n>    LinkedIn post; LinkedIn has no edit-with-media API. If you couldn't get the\n>    image you wanted, do NOT silently post without it — ask the user first\n>    (see **Single-publish guard** below).\n\n---\n\n## Single-publish guard (READ BEFORE EVERY PUBLISH)\n\nPublishing is irreversible and creates a permanent post. To avoid the\nduplicate-post problem:\n\n- **Resolve the image BEFORE the single `li-post.sh` call.** Do all image\n  retrieval/generation first. Only call `li-post.sh` once everything",
+        "ts": "2026-07-08T06:00:27.399Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "STATUS: OK",
+        "ts": "2026-07-08T06:00:40.235Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "-rw-r--r-- 1 root root 125347 Jul  7 09:26 /data/workspace/social/linkedin/547748231/images/cat-scheduled-1783416408.jpg",
+        "ts": "2026-07-08T06:00:44.486Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "OK: https://www.linkedin.com/feed/update/urn:li:share:7480501162220097536/\nDISPLAY_NAME: Kateryna Miliutenko\nCHARS: 2181",
+        "ts": "2026-07-08T06:00:58.557Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 1762 bytes to /data/workspace/social/linkedin/547748231/posts/2026-07-08-overwhelmed-again-tse-te-shcho.md",
+        "ts": "2026-07-08T06:01:15.640Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-08T06:01:21.342Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"523\"\n}",
+        "ts": "2026-07-08T06:01:31.965Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Scheduled LinkedIn post published successfully for Kateryna Miliutenko (user 547748231).\n\n✅ Published to LinkedIn:\n→ https://www.linkedin.com/feed/update/urn:li:share:7480501162220097536/\n\n**Post details:**\n- Format: Image post\n- Characters: 2181\n- Image: cat-scheduled-1783416408.jpg\n\n**Cleanup completed:**\n- Post record saved to `/data/workspace/social/linkedin/547748231/posts/2026-07-08-overwhelmed-again-tse-te-shcho.md`\n- Scheduled file deleted from `pending/`\n- Confirmation sent to user on Telegram",
+        "ts": "2026-07-08T06:01:39.349Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

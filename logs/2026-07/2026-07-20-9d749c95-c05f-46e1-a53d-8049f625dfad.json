@@ -1,0 +1,154 @@
+{
+  "exportedAt": "2026-07-20T14:43:12.659Z",
+  "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
+  "session": {
+    "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
+    "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
+    "firstTs": "2026-07-20T12:38:12.249Z",
+    "lastTs": "2026-07-20T14:13:47.313Z",
+    "turns": [
+      {
+        "role": "assistant",
+        "content": "Trajectory exports can include prompts, model messages, tool schemas, tool results, runtime events, and local paths.\nTreat trajectory bundles like secrets and review them before sharing: https://docs.openclaw.ai/tools/trajectory\n\nSession: agent:main:main\nWorkspace: /data/workspace\nOutput: (default)\nStore: /data/openclaw/agents/main/sessions/sessions.json\nAgent: main\n\nTrajectory bundle: requested `openclaw sessions export-trajectory --request-json-base64 eyJzZXNzaW9uS2V5IjoiYWdlbnQ6bWFpbjptYWluIiwid29ya3NwYWNlIjoiL2RhdGEvd29ya3NwYWNlIiwic3RvcmUiOiIvZGF0YS9vcGVuY2xhdy9hZ2VudHMvbWFpbi9zZXNzaW9ucy9zZXNzaW9ucy5qc29uIiwiYWdlbnQiOiJtYWluIn0 --json` through exec approval. Approve once to create the bundle; do not use allow-all for trajectory exports.\nApproval required (id 3fdf40c4, full 3fdf40c4-b4e0-4ee1-9360-88ad73524172).\nHost: gateway\nCWD: /data/workspace\nCommand:\n```sh\n'/usr/local/bin/node' '/app/node_modules/.bin/openclaw' 'sessions' 'export-trajectory' '--request-json-base64' 'eyJzZXNzaW9uS2V5IjoiYWdlbnQ6bWFpbjptYWluIiwid29ya3NwYWNlIjoiL2RhdGEvd29ya3NwYWNlIiwic3RvcmUiOiIvZGF0YS9vcGVuY2xhdy9hZ2VudHMvbWFpbi9zZXNzaW9ucy9zZXNzaW9ucy5qc29uIiwiYWdlbnQiOiJtYWluIn0' '--json'\n```\nMode: foreground (interactive approvals available).\nBackground mode requires an effective policy that allows pre-approval (for example ask=off).\nReply with: /approve 3fdf40c4 allow-once|deny\nThe effective approval policy requires approval every time, so Allow Always is unavailable.\nIf the short code is ambiguous, use the full id in /approve.",
+        "ts": "2026-07-20T12:38:12.249Z"
+      },
+      {
+        "role": "user",
+        "content": "An async command the user already approved has completed.\nDo not run the command again.\nIf the task requires more steps, continue from this result before replying to the user.\nOnly ask the user for help if you are actually blocked.\n\nExact completion details:\nExec finished (gateway id=3fdf40c4-b4e0-4ee1-9360-88ad73524172, session=fresh-bison, code 0)\nrkspace/.openclaw/trajectory-exports/openclaw-trajectory-9d749c95-2026-07-20T12-38-40\", \"displayPath\": \".openclaw/trajectory-exports/openclaw-trajectory-9d749c95-2026-07-20T12-38-40\", \"sessionId\": \"9d749c95-c05f-46e1-a53d-8049f625dfad\", \"eventCount\": 1, \"runtimeEventCount\": 0, \"transcriptEventCount\": 1, \"files\": [ \"manifest.json\", \"events.jsonl\", \"session-branch.json\" ] }\n\nContinue the task if needed, then reply to the user in a helpful way.\nIf it succeeded, share the relevant output.\nIf it failed, explain what went wrong.",
+        "ts": "2026-07-20T12:38:52.247Z"
+      },
+      {
+        "role": "assistant",
+        "content": "The trajectory export completed successfully! 📦\n\n**Exported to:** `.openclaw/trajectory-exports/openclaw-trajectory-9d749c95-2026-07-20T12-38-40/`\n\n**Files created:**\n- `manifest.json` — export metadata\n- `events.jsonl` — session events\n- `session-branch.json` — session branch data\n\nLet me check what's in the manifest to see what was captured:",
+        "ts": "2026-07-20T12:39:07.031Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"traceSchema\": \"openclaw-trajectory\",\n  \"schemaVersion\": 1,\n  \"generatedAt\": \"2026-07-20T12:38:40.051Z\",\n  \"traceId\": \"9d749c95-c05f-46e1-a53d-8049f625dfad\",\n  \"sessionId\": \"9d749c95-c05f-46e1-a53d-8049f625dfad\",\n  \"sessionKey\": \"agent:main:main\",\n  \"workspaceDir\": \"$WORKSPACE_DIR\",\n  \"leafId\": \"6286a6ce-80ea-4fca-aea0-1cb374cf45a7\",\n  \"eventCount\": 1,\n  \"runtimeEventCount\": 0,\n  \"transcriptEventCount\": 1,\n  \"sourceFiles\": {\n    \"session\": \"$OPENCLAW_STATE_DIR/agents/main/sessions/9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl\"\n  },\n  \"contents\": [\n    {\n      \"path\": \"events.jsonl\",\n      \"mediaType\": \"application/x-ndjson\",\n      \"bytes\": 2475\n    },\n    {\n      \"path\": \"session-branch.json\",\n      \"mediaType\": \"application/json\",\n      \"bytes\": 2850\n    }\n  ]\n}",
+        "ts": "2026-07-20T12:39:07.329Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Export summary:**\n- **Session:** `agent:main:main` (main session)\n- **Events captured:** 1 transcript event\n- **Schema version:** 1\n\nThe trajectory export is ready. You can use these files to:\n- Share the session trace\n- Replay or analyze the conversation\n- Import into another OpenClaw instance",
+        "ts": "2026-07-20T12:39:14.263Z"
+      },
+      {
+        "role": "user",
+        "content": "how i can download?",
+        "ts": "2026-07-20T12:41:39.864Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me package the trajectory export and send it to you as a downloadable file:",
+        "ts": "2026-07-20T12:41:46.735Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "openclaw-trajectory-9d749c95-2026-07-20T12-38-40/\nopenclaw-trajectory-9d749c95-2026-07-20T12-38-40/events.jsonl\nopenclaw-trajectory-9d749c95-2026-07-20T12-38-40/session-branch.json\nopenclaw-trajectory-9d749c95-2026-07-20T12-38-40/manifest.json\n-rw-r--r-- 1 root root 1.9K Jul 20 12:41 /data/workspace/trajectory-export.tar.gz",
+        "ts": "2026-07-20T12:41:47.542Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"652\"\n}",
+        "ts": "2026-07-20T12:41:56.375Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sent! You can download the `trajectory-export.tar.gz` file I just sent. Extract it to get the three files:\n- `manifest.json`\n- `events.jsonl`\n- `session-branch.json`",
+        "ts": "2026-07-20T12:42:01.931Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sent! You can download the `trajectory-export.tar.gz` file I just sent. Extract it to get the three files:\n- `manifest.json`\n- `events.jsonl`\n- `session-branch.json`",
+        "ts": "2026-07-20T12:42:03.747Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-20T12:43:36.722Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me check the heartbeat tasks:",
+        "ts": "2026-07-20T12:43:44.708Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1784512860,\n    \"linkedin_coach\": 1784512860,\n    \"linkedin_trends_flagged\": 1784512860,\n    \"posts_check\": 1784512860,\n    \"heartbeat\": 1784512860\n  },\n  \"notes\": {\n    \"brief_today\": \"2026-07-20 daily brief sent — 3 drafts ready\",\n    \"coaching_status\": \"7 days since last post. Multiple nudges sent.\",\n    \"posts_check\": \"0 posts Jul 20. Gap unchanged.\",\n    \"trends_stale\": \"17 days stale. FLAGGED for linkedin-trends refresh.\"\n  }\n}",
+        "ts": "2026-07-20T12:43:45.205Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-20",
+        "ts": "2026-07-20T12:43:45.217Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "LAST_TREND_SECTION: 76:## Trend Proposals — 2026-07-03",
+        "ts": "2026-07-20T12:43:45.232Z"
+      },
+      {
+        "role": "assistant",
+        "content": "All checks done:\n\n- **Daily brief**: ✅ Already sent today (2026-07-20)\n- **Trends research**: ⚠️ 17 days stale — already flagged for refresh\n- **Coach status**: 7-day posting gap, nudges already sent\n\nHEARTBEAT_OK",
+        "ts": "2026-07-20T12:43:54.233Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-20T13:13:36.642Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me check the heartbeat tasks:",
+        "ts": "2026-07-20T13:13:44.946Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\n{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753010400,\n    \"linkedin_coach\": 1753010760,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\"\n  }\n}",
+        "ts": "2026-07-20T13:13:45.416Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"read\",\n  \"error\": \"ENOENT: no such file or directory, access '/data/workspace/social/linkedin/264468965/content-calendar.md'\"\n}",
+        "ts": "2026-07-20T13:13:45.432Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 297 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-20T13:14:00.039Z"
+      },
+      {
+        "role": "assistant",
+        "content": "**Heartbeat checks:**\n- ✅ Daily brief: already sent today\n- ✅ LinkedIn coach: checked recently\n- ⚠️ Content calendar: missing (needs `linkedin-trends` setup)\n\nAll routine. Nothing urgent right now.",
+        "ts": "2026-07-20T13:14:06.621Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-20T13:43:36.627Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-20T13:43:42.400Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-20T14:13:36.667Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\n{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753010400,\n    \"linkedin_coach\": 1753010760,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\"\n  }\n}",
+        "ts": "2026-07-20T14:13:43.989Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-20T14:13:47.313Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

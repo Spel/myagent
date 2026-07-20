@@ -1,0 +1,204 @@
+{
+  "tasks": [
+    {
+      "id": "TASK-001",
+      "title": "Fix li-post.sh TELEGRAM_USER_ID variable passing",
+      "priority": "P1",
+      "status": "open",
+      "bug": "BUG-002",
+      "effort": "small",
+      "description": "li-post.sh fails with NO_TOKEN even when token is valid. Root cause: TELEGRAM_USER_ID env var not exported to subprocess context when skill calls li-post.sh.",
+      "steps": [
+        "Open /data/workspace/skills/linkedin-publish/SKILL.md",
+        "Find the bash block that calls li-post.sh",
+        "Add 'export TELEGRAM_USER_ID' before the call, OR use: TELEGRAM_USER_ID=\"$TELEGRAM_USER_ID\" li-post.sh ...",
+        "Test with Catherine (uid 547748231)"
+      ],
+      "files": [
+        "/data/workspace/skills/linkedin-publish/SKILL.md"
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "title": "Create Catherine's strategy.md and content-calendar.md",
+      "priority": "P1",
+      "status": "open",
+      "bug": "BUG-003",
+      "effort": "medium",
+      "description": "Catherine is missing strategy.md and content-calendar.md. Agent fails to read them on every session start (ENOENT). This limits content planning quality.",
+      "steps": [
+        "Ask Catherine about her content goals, posting frequency, target audience",
+        "Create /data/workspace/social/linkedin/547748231/strategy.md with: goals, posting cadence, key messages, topic pillars",
+        "Create /data/workspace/social/linkedin/547748231/content-calendar.md with upcoming content ideas",
+        "Verify brain-push.sh pushes these to git (already fixed)"
+      ],
+      "files": [
+        "/data/workspace/social/linkedin/547748231/strategy.md",
+        "/data/workspace/social/linkedin/547748231/content-calendar.md"
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "title": "Fix duplicate message / NO_REPLY ghost responses",
+      "priority": "P1",
+      "status": "open",
+      "bug": "BUG-001",
+      "effort": "medium",
+      "description": "Every assistant response appears twice in Telegram with a NO_REPLY ghost in between. Likely an OpenClaw delivery confirmation timing issue.",
+      "steps": [
+        "Review OpenClaw session delivery/ACK configuration",
+        "Check if there's a timeout setting for message delivery confirmation",
+        "Look at Telegram bot delivery confirmation logs",
+        "Consider adding deduplication at the session layer",
+        "Test fix with a new session"
+      ],
+      "files": [
+        "/data/workspace/AGENTS.md",
+        "OpenClaw config (openclaw.json)"
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "title": "Configure web_search provider",
+      "priority": "P2",
+      "status": "open",
+      "bug": "BUG-004",
+      "effort": "small",
+      "description": "web_search is disabled. Configure ZEROENTROPY_API_KEY or Brave/Perplexity search in OpenClaw config.",
+      "steps": [
+        "Get a ZeroEntropy API key OR a Brave Search API key",
+        "Add to container environment: ZEROENTROPY_API_KEY=<key>",
+        "Or add search provider config to openclaw config",
+        "Test by asking agent to search for trending topics"
+      ],
+      "files": [
+        "docker-compose.yml or Kubernetes deployment env vars"
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "title": "Set up Rudolf's brand voice and strategy",
+      "priority": "P2",
+      "status": "open",
+      "bug": null,
+      "effort": "medium",
+      "description": "Rudolf (373382939) is approved but has no brand voice profile or strategy. Next time he uses the bot, onboarding should be triggered.",
+      "steps": [
+        "When Rudolf next messages the bot, run linkedin-onboarding skill",
+        "Create /data/workspace/social/linkedin/373382939/ directory",
+        "Set up profile.md and strategy.md for Rudolf"
+      ],
+      "files": [
+        "/data/workspace/social/linkedin/373382939/"
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "title": "Fix LinkedIn token refresh — store refresh_token properly",
+      "priority": "P2",
+      "status": "open",
+      "bug": "BUG-007",
+      "effort": "small",
+      "description": "Catherine's refresh_token is empty. When access_token expires (~Aug 29 2026), she'll need to manually reconnect. Fix li-auth.sh to capture and store refresh token.",
+      "steps": [
+        "Check li-auth.sh OAuth exchange response parsing",
+        "Ensure refresh_token from LinkedIn OAuth response is stored",
+        "Add GATE1 auto-refresh: if token expires in <7 days, attempt refresh",
+        "Test refresh flow"
+      ],
+      "files": [
+        "/app/li-auth.sh",
+        "linkedin-publish SKILL.md GATE1 check"
+      ]
+    },
+    {
+      "id": "TASK-007",
+      "title": "Install browser/Playwright tool in container",
+      "priority": "P3",
+      "status": "open",
+      "bug": "BUG-005",
+      "effort": "large",
+      "description": "Browser tool unavailable. Needed for JS-rendered pages (SPAs). This affects trend research and blog post scraping.",
+      "steps": [
+        "Add Playwright to Dockerfile: RUN npx playwright install chromium --with-deps",
+        "Configure OpenClaw browser tool in openclaw config",
+        "Test with benchgen.com/blog pages",
+        "Note: increases container size significantly"
+      ],
+      "files": [
+        "Dockerfile"
+      ]
+    },
+    {
+      "id": "TASK-008",
+      "title": "Implement session continuity — auto-load last session summary on start",
+      "priority": "P2",
+      "status": "open",
+      "bug": "BUG-006",
+      "effort": "medium",
+      "description": "Sessions reset every few days, losing conversation context. Implement a protocol where agent reads previous session notes at the start of each session.",
+      "steps": [
+        "Update log-export.sh to also write a per-user latest-session-summary.md",
+        "Update AGENTS.md to instruct agent: on first turn in a new session, read /data/workspace/logs/summaries/<user_id>-latest.md",
+        "Or: when a session resets, agent writes a handoff note to memory before reset"
+      ],
+      "files": [
+        "/data/workspace/skills/log-analysis/SKILL.md",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "TASK-009",
+      "title": "Deploy updated container image (v0.0.22)",
+      "priority": "P1",
+      "status": "open",
+      "bug": null,
+      "effort": "small",
+      "description": "brain-push.sh fix and log-export.sh additions need to be deployed. Current container is betedo/cbrain:0.0.21. New image with fixes is built but not deployed.",
+      "steps": [
+        "Build new image: docker build -t betedo/cbrain:0.0.22 .",
+        "Push to registry: docker push betedo/cbrain:0.0.22",
+        "Update Kubernetes deployment to use 0.0.22",
+        "Verify brain-push.sh git sync works after deployment",
+        "Verify log-export.sh runs on schedule"
+      ],
+      "files": [
+        "Dockerfile",
+        "brain-push.sh",
+        "log-export.sh"
+      ]
+    },
+    {
+      "id": "TASK-010",
+      "title": "Pending user: Catherine Miliutenko approval in approved-users.json",
+      "priority": "P1",
+      "status": "open",
+      "bug": null,
+      "effort": "trivial",
+      "description": "Catherine (547748231) appears in pending-users.json in the git repo as of 2026-07-06. But she's been using the bot since early July. The server's approved-users.json on the pod likely already has her (since GATE1=pass, IS_APPROVED=true in her sessions). However, the git-tracked approved-users.json does NOT have her yet. This could cause issues after a pod restart (git reset --hard would restore the old approved-users.json without Catherine).",
+      "steps": [
+        "Add '547748231' to /data/workspace/social/approved-users.json",
+        "Remove her entry from pending-users.json",
+        "Verify brain-push.sh pushes this change to git",
+        "After next pod restart, confirm she still has access"
+      ],
+      "files": [
+        "/Users/admin/Desktop/myagent/social/approved-users.json",
+        "/Users/admin/Desktop/myagent/social/pending-users.json"
+      ]
+    }
+  ],
+  "last_updated": "2026-07-20",
+  "total_tasks": 10,
+  "by_priority": {
+    "P1": 4,
+    "P2": 4,
+    "P3": 1,
+    "trivial": 1
+  },
+  "by_status": {
+    "open": 10,
+    "in_progress": 0,
+    "done": 0
+  }
+}

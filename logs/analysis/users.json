@@ -1,0 +1,43 @@
+{
+  "264468965": {
+    "name": "Andrii (Owner)",
+    "telegram_uid": "264468965",
+    "role": "owner",
+    "language": "en/uk",
+    "topics": ["832", "849"],
+    "linkedin_folder": "/data/workspace/social/linkedin/264468965/",
+    "linkedin_urn": "set (see tokens)",
+    "profile_md": true,
+    "strategy_md": true,
+    "notes": "Primary user. Has full setup. Posts regularly."
+  },
+  "373382939": {
+    "name": "Rudolf",
+    "telegram_uid": "373382939",
+    "role": "approved_user",
+    "language": "en",
+    "topics": ["778"],
+    "linkedin_folder": "/data/workspace/social/linkedin/373382939/",
+    "linkedin_urn": "unknown",
+    "profile_md": false,
+    "strategy_md": false,
+    "notes": "Requested access July 3. Now in approved-users.json. No brand voice setup yet. Has NOT posted."
+  },
+  "547748231": {
+    "name": "Catherine Miliutenko",
+    "telegram_uid": "547748231",
+    "role": "approved_user",
+    "language": "uk",
+    "topics": ["695"],
+    "linkedin_folder": "/data/workspace/social/linkedin/547748231/",
+    "linkedin_urn": "urn:li:person:t6VVtMgI0q",
+    "display_name": "Kateryna Miliutenko",
+    "profile_md": true,
+    "strategy_md": false,
+    "content_calendar_md": false,
+    "linkedin_linked_at": "2026-06-29T12:04:19Z",
+    "linkedin_expires_at": 1788600376,
+    "linkedin_refresh_token_empty": true,
+    "notes": "Active user. Brand voice set up. Strategy/calendar missing (ENOENT every session). LinkedIn token valid but li-post.sh fails once (bug #2). Writes in Ukrainian. Posts about leadership/teams."
+  }
+}

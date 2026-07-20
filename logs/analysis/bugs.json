@@ -1,0 +1,184 @@
+{
+  "bugs": [
+    {
+      "id": "BUG-001",
+      "title": "NO_REPLY ghost responses + duplicate messages",
+      "severity": "high",
+      "status": "open",
+      "affected_users": ["264468965"],
+      "sessions": [
+        "89542e6b-1d77-4e49-91d9-19425f6fa698-topic-849.jsonl"
+      ],
+      "first_seen": "2026-07-03",
+      "last_seen": "2026-07-03",
+      "description": "Agent sends a response, then immediately sends NO_REPLY, then repeats the entire response again. This results in users seeing every assistant message twice plus a stray NO_REPLY.",
+      "evidence": [
+        "L29: [asst]: NO_REPLY",
+        "L30: [asst]: (same as L25 — full message repeated)",
+        "L43: [asst]: NO_REPLY",
+        "L44: [asst]: (same as L37 — full message repeated)",
+        "L122: [asst]: NO_REPLY"
+      ],
+      "root_cause": "OpenClaw delivery confirmation timing. Agent sends message, confirmation doesn't arrive before next turn, agent retries the entire response. The NO_REPLY sentinel is an OpenClaw signal that gets embedded in the session.",
+      "impact": "Every Telegram message appears twice. Poor UX. Wastes tokens.",
+      "fix": "Investigate OpenClaw delivery confirmation logic. Check if ACK timeout is too short. May need to configure deduplication on the session layer."
+    },
+    {
+      "id": "BUG-002",
+      "title": "li-post.sh fails to read access_token despite valid token",
+      "severity": "high",
+      "status": "open",
+      "affected_users": ["547748231"],
+      "sessions": [
+        "113b6347-30ab-48ac-8e9c-3179d73629cf-topic-695.jsonl"
+      ],
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-07-14",
+      "description": "When Catherine tries to publish a post, li-post.sh returns NO_TOKEN exit code 2, even though: (1) GATE1=pass, (2) token file has the correct keys, (3) token is not expired (expires_at=1788600376, now≈1784046709). Agent self-debugs by listing keys and checking timestamps, then succeeds by 'trying directly'. The exact cause is variable passing: TELEGRAM_USER_ID likely not set in the execution env when li-post.sh is called from the skill.",
+      "evidence": [
+        "L77: [toolResult]: NO_TOKEN: *** LinkedIn account linked for Telegram user (Command exited with code 2)",
+        "L79: [toolResult]: [access_token, display_name, expires_at, linked_at, linkedin_urn, refresh_token] (keys exist)",
+        "L83: [toolResult]: 1788600376 / 1784046709 (expires_at > now, token valid)",
+        "L84: [asst]: Токен валідний. Проблема в передачі змінної. Спробую напряму",
+        "L85: [toolResult]: OK: https://www.linkedin.com/feed/update/urn:li:share:7482834291794702336/"
+      ],
+      "root_cause": "TELEGRAM_USER_ID env var not available in the bash execution context when li-post.sh is invoked from inside the skill's bash block. The GATE1 check runs fine because it's inline bash with $TELEGRAM_USER_ID already set. But when the skill invokes li-post.sh as a subprocess, the env var may not be exported.",
+      "impact": "Publish fails on first attempt. Agent requires extra debugging turn to succeed. Catherine experiences a ~30-60 second delay and sees error output.",
+      "fix": "In the linkedin-publish skill, explicitly pass TELEGRAM_USER_ID as argument or ensure it is exported before calling li-post.sh. Add: export TELEGRAM_USER_ID before the li-post.sh call, or pass it as: TELEGRAM_USER_ID=$TELEGRAM_USER_ID li-post.sh ..."
+    },
+    {
+      "id": "BUG-003",
+      "title": "Catherine's strategy.md and content-calendar.md always missing",
+      "severity": "high",
+      "status": "open",
+      "affected_users": ["547748231"],
+      "sessions": [
+        "b97265ab-2809-4a46-8d24-b40848b3931e-topic-695.jsonl",
+        "113b6347-30ab-48ac-8e9c-3179d73629cf-topic-695.jsonl",
+        "86786875-f153-4e24-894c-a4ad3b9dc472-topic-695.jsonl.reset.2026-07-14"
+      ],
+      "first_seen": "2026-07-14",
+      "last_seen": "2026-07-20",
+      "description": "Every session for Catherine produces ENOENT errors for /data/workspace/social/linkedin/547748231/strategy.md and /data/workspace/social/linkedin/547748231/content-calendar.md. These files either were never created or were created but never pushed to git (brain-push was broken). After pod restart, git reset --hard wipes pod workspace to match remote, removing any locally-created files.",
+      "evidence": [
+        "L11 [toolResult]: {error: ENOENT: no such file or directory, access '/data/workspace/social/linkedin/547748231/strategy.md'}",
+        "L13 [toolResult]: {error: ENOENT: no such file or directory, access '/data/workspace/social/linkedin/547748231/content-calendar.md'}",
+        "Same error in session 113b6347 L41"
+      ],
+      "root_cause": "Files created on pod but brain-push was broken (diverged git history). Files never reached git remote. On pod restart: git reset --hard origin/master removes them. Now that brain-push is fixed, new files will persist — but existing ones need to be created.",
+      "impact": "Agent can't read content strategy or calendar. Falls back to generic suggestions. Agent reads brand voice but can't plan content systematically.",
+      "fix": "1) Create strategy.md and content-calendar.md for Catherine (uid 547748231). 2) Verify brain-push is now working (DONE). 3) Files will survive restarts once pushed to git."
+    },
+    {
+      "id": "BUG-004",
+      "title": "web_search disabled — no search provider configured",
+      "severity": "medium",
+      "status": "open",
+      "affected_users": ["264468965"],
+      "sessions": [
+        "89542e6b-1d77-4e49-91d9-19425f6fa698-topic-849.jsonl"
+      ],
+      "first_seen": "2026-07-03",
+      "last_seen": "2026-07-03",
+      "description": "Agent says 'Web search is offline' when trying to find trending topics. Falls back to browser scraping. linkedin-trends skill likely relies on web_search tool via ZeroEntropy or Perplexity.",
+      "evidence": [
+        "L15: [asst]: Web search is offline — let me pull trending articles directly",
+        "L32: [asst]: Web search is offline — let me pull trending articles directly"
+      ],
+      "root_cause": "ZEROENTROPY_API_KEY env var not set in the container, or search provider not configured in openclaw config.",
+      "impact": "Trend research quality reduced. Agent scrapes browser instead of proper search. Works around the issue successfully but less efficiently.",
+      "fix": "Set ZEROENTROPY_API_KEY in the container environment, OR configure an alternative search provider (Brave, Perplexity, etc.) in the OpenClaw config."
+    },
+    {
+      "id": "BUG-005",
+      "title": "Browser tool unavailable for JS-heavy pages",
+      "severity": "medium",
+      "status": "open",
+      "affected_users": ["264468965"],
+      "sessions": [
+        "89542e6b-1d77-4e49-91d9-19425f6fa698-topic-849.jsonl"
+      ],
+      "first_seen": "2026-07-03",
+      "last_seen": "2026-07-03",
+      "description": "When Andrii asks the agent to read benchgen.com blog pages (SPA / Next.js), the browser tool fails. Agent tried to use browser for JS-rendered content (L74: 'Browser unavailable') and fell back to raw HTML fetch. Some pages worked (SSR), others didn't.",
+      "evidence": [
+        "L74: [asst]: Browser unavailable. Let me check for an API or cached content",
+        "L77: The benchgen blog is a single-page app — content isn't extractable via web fetch and browser is unavailable",
+        "L102: same issue for /blog/rl-framework",
+        "L106: /blog/rl-framework page is client-rendered, API returns 404"
+      ],
+      "root_cause": "Browser/Playwright tool not installed or configured in the container.",
+      "impact": "Can't scrape JS-rendered website pages. Partially mitigated by raw HTML fallback for SSR pages. /blog pages fully inaccessible.",
+      "fix": "Install Playwright/Puppeteer in the container OR configure OpenClaw browser tool. Alternatively, add a Next.js SSR export for /blog pages."
+    },
+    {
+      "id": "BUG-006",
+      "title": "Frequent session resets cause context loss",
+      "severity": "medium",
+      "status": "open",
+      "affected_users": ["547748231"],
+      "sessions": [
+        "b7181a9f-topic-695 (reset 2026-07-06)",
+        "51631d10-topic-695 (reset 2026-07-07)",
+        "85e098e3-topic-695 (reset 2026-07-07)",
+        "b70ffecc-topic-695 (reset 2026-07-10)",
+        "4a87f71d-topic-695 (reset 2026-07-13)",
+        "4a87f71d-topic-695 (reset 2026-07-13)",
+        "86786875-topic-695 (reset 2026-07-14)"
+      ],
+      "first_seen": "2026-07-06",
+      "last_seen": "2026-07-14",
+      "description": "Catherine's session has been reset 7+ times in 18 days. Each reset starts a fresh context window. This means the agent forgets: previous post drafts, agreed content plans, user preferences communicated in conversation. Although scheduled cron jobs survive (they're separate OpenClaw tasks), the agent doesn't remember the history.",
+      "evidence": "7 .reset files for topic-695 in 18 days",
+      "root_cause": "OpenClaw automatic session compaction/reset when context window limit is reached. Sessions with many tool calls (image analysis, script execution, file reads) fill up the context faster.",
+      "impact": "Users must re-introduce themselves or re-explain context frequently. Agent can't learn from past interactions within the same session lineage. Scheduled posts created in old sessions may be forgotten.",
+      "fix": "1) Configure OpenClaw session memory settings to extend context limit. 2) Use log-export.sh + MEMORY.md to persist session summaries. 3) Add explicit 'session start' protocol where agent reads previous notes automatically."
+    },
+    {
+      "id": "BUG-007",
+      "title": "Empty refresh_token — LinkedIn token can't auto-renew",
+      "severity": "low",
+      "status": "open",
+      "affected_users": ["547748231"],
+      "sessions": [
+        "51631d10-e1b3-4ecd-be2b-ff45307ff0db-topic-695.jsonl"
+      ],
+      "first_seen": "2026-06-29",
+      "last_seen": "2026-07-07",
+      "description": "Catherine's LinkedIn token entry has empty refresh_token. LinkedIn OAuth supports refresh tokens (365-day expiry) for apps with the r_basicprofile scope. Without a refresh token, the access_token cannot be renewed automatically — Catherine must manually re-authenticate after it expires (~August 29, 2026).",
+      "evidence": [
+        "Session 51631d10 L28: STATUS: OK, {access_token: ***, refresh_token: '', expires_at: 1787918657, ...}"
+      ],
+      "root_cause": "li-auth.sh OAuth exchange didn't store the refresh_token (it may not be returned by LinkedIn API unless the app has the right scopes, or li-auth.sh doesn't capture it).",
+      "impact": "Token expires in ~60 days. Catherine will need to manually reconnect LinkedIn around Aug 29, 2026.",
+      "fix": "Check LinkedIn app permissions — add 'r_basicprofile' scope if missing. Update li-auth.sh to capture and store refresh_token. Implement auto-refresh logic in GATE1 check."
+    },
+    {
+      "id": "BUG-008",
+      "title": "brain-push.sh git sync was broken (482 diverged commits)",
+      "severity": "critical",
+      "status": "resolved",
+      "affected_users": ["264468965", "547748231", "373382939"],
+      "sessions": [],
+      "first_seen": "2026-07-03",
+      "last_seen": "2026-07-20",
+      "resolved_on": "2026-07-20",
+      "description": "brain-push.sh was silently failing on every push due to diverged git history. 482 orphaned commits accumulated. Workspace changes (new files, memory, LinkedIn profiles) were not persisted to git. On pod restart, git reset --hard restored the old state — wiping all recent agent work.",
+      "root_cause": "git push was failing due to diverged remote. Script had no error handling and kept creating unreachable commits.",
+      "fix_applied": "Added fetch→rebase -X ours→push HEAD:master pattern to brain-push.sh. All diverged history resolved and workspace fully synced to remote.",
+      "impact": "Catherine's strategy.md, content-calendar.md, and other files were repeatedly wiped. This is the root cause of BUG-003 and partly BUG-002."
+    }
+  ],
+  "last_updated": "2026-07-20",
+  "total_bugs": 8,
+  "by_severity": {
+    "critical": 1,
+    "high": 3,
+    "medium": 3,
+    "low": 1
+  },
+  "by_status": {
+    "open": 7,
+    "resolved": 1
+  }
+}

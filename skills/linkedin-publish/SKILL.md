@@ -195,6 +195,8 @@ After the user confirms publish, check whether they provided an image:
 ### Text post
 
 ```bash
+# Validate UID is set before calling li-post.sh (prevents silent NO_TOKEN failures)
+[ -z "$TELEGRAM_USER_ID" ] && { echo "ERROR: TELEGRAM_USER_ID is empty — cannot publish"; exit 1; }
 {baseDir}/li-post.sh "$TELEGRAM_USER_ID" text "<POST_BODY_PLAIN_TEXT>"
 ```
 
@@ -211,6 +213,7 @@ for it elsewhere.
 
 ```bash
 IMAGE_PATH="/data/workspace/social/linkedin/$TELEGRAM_USER_ID/images/<slug>.png"
+[ -z "$TELEGRAM_USER_ID" ] && { echo "ERROR: TELEGRAM_USER_ID is empty — cannot publish"; exit 1; }
 {baseDir}/li-post.sh "$TELEGRAM_USER_ID" image "$IMAGE_PATH" "<POST_BODY_PLAIN_TEXT>"
 ```
 
@@ -225,6 +228,7 @@ FILE_ID="<file_id from the photo in chat context>"
 FILE_PATH=$(curl -s "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getFile?file_id=${FILE_ID}" | jq -r '.result.file_path')
 IMAGE_PATH="/data/workspace/social/linkedin/$TELEGRAM_USER_ID/images/upload-$(date +%s).jpg"
 curl -sL "https://api.telegram.org/file/bot${TELEGRAM_BOT_TOKEN}/${FILE_PATH}" -o "$IMAGE_PATH"
+[ -z "$TELEGRAM_USER_ID" ] && { echo "ERROR: TELEGRAM_USER_ID is empty — cannot publish"; exit 1; }
 {baseDir}/li-post.sh "$TELEGRAM_USER_ID" image "$IMAGE_PATH" "<POST_BODY_PLAIN_TEXT>"
 ```
 
@@ -236,6 +240,7 @@ to resend the photo. Do NOT fall back to posting without the image.
 mkdir -p "/data/workspace/social/linkedin/$TELEGRAM_USER_ID/images"
 IMAGE_PATH="/data/workspace/social/linkedin/$TELEGRAM_USER_ID/images/url-$(date +%s).jpg"
 curl -sL "<IMAGE_URL>" -o "$IMAGE_PATH"
+[ -z "$TELEGRAM_USER_ID" ] && { echo "ERROR: TELEGRAM_USER_ID is empty — cannot publish"; exit 1; }
 {baseDir}/li-post.sh "$TELEGRAM_USER_ID" image "$IMAGE_PATH" "<POST_BODY_PLAIN_TEXT>"
 ```
 

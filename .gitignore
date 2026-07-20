@@ -1,3 +1,5 @@
 .env
 *.env
 tmp_brain_import/
+learning-loop/analysis.db
+.learnings/.ingest-state.json

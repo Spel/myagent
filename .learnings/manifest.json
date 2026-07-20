@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "description": "Company Brain custom learning loop manifest. Entries are synced from analysis.db by promote.py.",
+  "entries": {
+    "ERR-20260703-001": {
+      "type": "error",
+      "status": "pending_review",
+      "risk_tier": "medium",
+      "signal_type": "duplicate_response",
+      "bug_id": "BUG-001",
+      "created_at": "2026-07-03T00:00:00Z",
+      "title": "NO_REPLY ghost messages causing duplicate sends",
+      "summary": "Agent sends a response, receives NO_REPLY sentinel, resends the same content. User sees duplicate messages.",
+      "root_cause": "Delivery confirmation race condition in OpenClaw Telegram transport. The first message actually delivered but confirmation was delayed past the timeout.",
+      "proposed_rule": "On NO_REPLY sentinel: log once and do NOT resend the same content. The delivery likely succeeded — resending creates duplicates that confuse the user.",
+      "occurrence_count": 0,
+      "eval_required": false
+    },
+    "ERR-20260714-002": {
+      "type": "error",
+      "status": "pending_review",
+      "risk_tier": "high",
+      "signal_type": "publish_fail",
+      "bug_id": "BUG-002",
+      "created_at": "2026-07-14T00:00:00Z",
+      "title": "li-post.sh returns NO_TOKEN despite valid token",
+      "summary": "TELEGRAM_USER_ID env var not exported to bash subprocess context. jq looks up empty string key and finds nothing.",
+      "root_cause": "OpenClaw exec tool does not inherit all session env vars into subprocess. TELEGRAM_USER_ID is available in skill context but not in the shell spawned by exec.",
+      "proposed_rule": "Add guard before every li-post.sh call: [ -z \"$TELEGRAM_USER_ID\" ] && { echo \"ERROR: TELEGRAM_USER_ID is empty — cannot publish\"; exit 1; }. Also try passing UID explicitly: TELEGRAM_USER_ID=<uid> bash li-post.sh ...",
+      "occurrence_count": 0,
+      "eval_required": true
+    },
+    "ERR-20260703-003": {
+      "type": "error",
+      "status": "reviewed",
+      "risk_tier": "medium",
+      "signal_type": "file_missing",
+      "bug_id": "BUG-003",
+      "created_at": "2026-07-03T00:00:00Z",
+      "promoted_at": "2026-07-14T00:00:00Z",
+      "title": "strategy.md / profile.md / content-calendar.md missing on pod restart",
+      "summary": "Files created during session but not committed. git pull on restart wipes them. ENOENT on every session start.",
+      "root_cause": "brain-push.sh was silently failing due to 482 diverged commits. Files never made it to git.",
+      "proposed_rule": "Before using any per-user file (strategy.md, profile.md, content-calendar.md), check existence and create from template if missing. Never assume files persist between sessions.",
+      "occurrence_count": 0,
+      "eval_required": false
+    },
+    "ERR-20260703-004": {
+      "type": "error",
+      "status": "pending_review",
+      "risk_tier": "low",
+      "signal_type": "search_offline",
+      "bug_id": "BUG-004",
+      "created_at": "2026-07-03T00:00:00Z",
+      "title": "web_search disabled — ZEROENTROPY_API_KEY not configured",
+      "summary": "web_search tool returns 'offline' on every call. Research capability absent.",
+      "root_cause": "ZEROENTROPY_API_KEY env var not set in Kubernetes deployment.",
+      "proposed_rule": "When web_search returns offline/disabled: explicitly tell user 'web search is offline — I'll work from memory', then proceed without web context. Do not retry web_search in a loop.",
+      "occurrence_count": 0,
+      "eval_required": false
+    },
+    "ERR-20260629-007": {
+      "type": "error",
+      "status": "pending_review",
+      "risk_tier": "high",
+      "signal_type": "token_expired",
+      "bug_id": "BUG-007",
+      "created_at": "2026-06-29T00:00:00Z",
+      "title": "LinkedIn refresh_token is empty — token will expire ~2026-08-29 with no auto-renewal",
+      "summary": "At initial OAuth, refresh_token was empty string. Access token valid until ~Aug 29 2026. After that, GATE1=fail for all users with this token.",
+      "root_cause": "LinkedIn OAuth app may not have requested offline_access scope, or user did not grant it. Without refresh_token, silent renewal is impossible.",
+      "proposed_rule": "Track LinkedIn token expiry date. If expires_at < (now + 7days), proactively send re-auth message: 'Your LinkedIn connection expires in X days. Tap here to renew: [link]'. Do not wait for GATE1=fail.",
+      "occurrence_count": 0,
+      "eval_required": false
+    },
+    "PAT-20260706-006": {
+      "type": "pattern",
+      "status": "pending_review",
+      "risk_tier": "low",
+      "signal_type": "session_abandoned",
+      "bug_id": "BUG-006",
+      "created_at": "2026-07-06T00:00:00Z",
+      "title": "Frequent session resets (7+ resets in 18 days) cause context loss and abandonment",
+      "summary": "Topic-695 had 7+ resets. Each reset wipes conversation history. User has to re-explain their goal every time. High friction → session abandonment.",
+      "root_cause": "Session reset can be triggered by many things (restart, size limit, admin action). No mechanism to summarize/preserve context across resets.",
+      "proposed_rule": "After any session reset, on first user message: check for a recent summary file at /data/workspace/social/linkedin/<uid>/session-summary.md. If it exists (<24h old), include it as context. Always write a summary at session end.",
+      "occurrence_count": 0,
+      "eval_required": false
+    }
+  },
+  "metrics": {
+    "last_updated": "2026-07-20T00:00:00Z",
+    "total_entries": 6,
+    "by_status": {
+      "pending_review": 5,
+      "reviewed": 1,
+      "promoted": 0,
+      "archived": 0
+    },
+    "by_risk": {
+      "low": 2,
+      "medium": 2,
+      "high": 2
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "company-brain-dashboard",
+  "name": "Company Brain — Analysis Dashboard",
+  "version": "1.0.0",
+  "description": "Session analysis, bug tracker, task list, and user status for the company-brain LinkedIn agent",
+  "webEntry": "./dist/index.html"
+}

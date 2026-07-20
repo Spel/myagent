@@ -1,9 +1,0 @@
-{
-  "name": "@cbrain/dashboard-plugin",
-  "version": "1.0.0",
-  "type": "module",
-  "description": "Company Brain analysis dashboard plugin for OpenClaw",
-  "openclaw": {
-    "extensions": ["./index.js"]
-  }
-}

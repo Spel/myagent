@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-20T16:14:25.177Z",
+  "exportedAt": "2026-07-20T16:44:46.796Z",
   "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
   "session": {
     "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
     "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
     "firstTs": "2026-07-20T12:38:12.249Z",
-    "lastTs": "2026-07-20T16:13:56.446Z",
+    "lastTs": "2026-07-20T16:43:58.886Z",
     "turns": [
       {
         "role": "assistant",
@@ -206,6 +206,21 @@
         "role": "assistant",
         "content": "All good — brief sent, no new urgent items. Calendar still needs setup when you're ready.",
         "ts": "2026-07-20T16:13:56.446Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-20T16:43:36.356Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nCALENDAR=false",
+        "ts": "2026-07-20T16:43:55.886Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-20T16:43:58.886Z"
       }
     ],
     "toolCalls": [],

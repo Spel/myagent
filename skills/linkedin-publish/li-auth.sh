@@ -7,7 +7,12 @@
 set -euo pipefail
 
 MODE="$1"
-TELEGRAM_USER_ID="$2"
+# Accept UID from arg OR from env var (env takes precedence so export works as fallback)
+TELEGRAM_USER_ID="${2:-$TELEGRAM_USER_ID}"
+if [ -z "$TELEGRAM_USER_ID" ]; then
+  echo "ERROR: TELEGRAM_USER_ID is required (pass as arg 2 or export it)"
+  exit 1
+fi
 TOKEN_STORE="${LINKEDIN_TOKEN_STORE:-/data/openclaw/linkedin-tokens.json}"
 
 [ -f "$TOKEN_STORE" ] || echo '{}' > "$TOKEN_STORE"
@@ -50,6 +55,13 @@ if [ "$MODE" = "exchange" ]; then
      --arg l "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
      '.[$u]={"access_token":$t,"refresh_token":$r,"expires_at":$e,"linkedin_urn":$urn,"display_name":$n,"linked_at":$l}' \
      "$TOKEN_STORE" > /tmp/.li_auth_tmp && mv /tmp/.li_auth_tmp "$TOKEN_STORE"
+
+  # ── write non-sensitive status marker to workspace (persists via brain-push) ──
+  STATUS_DIR="/data/workspace/social/linkedin/$TELEGRAM_USER_ID"
+  mkdir -p "$STATUS_DIR"
+  printf 'linked_at=%s\ndisplay_name=%s\nlinkedin_urn=%s\nexpires_at=%s\n' \
+    "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$DISPLAY_NAME" "$LINKEDIN_URN" "$EXPIRES_AT" \
+    > "$STATUS_DIR/.linkedin-linked"
 
   echo "LINKED: $DISPLAY_NAME"
 

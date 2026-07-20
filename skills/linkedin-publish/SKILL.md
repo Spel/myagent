@@ -104,6 +104,9 @@ When they paste it → run **Exchange Code**, then immediately run **Publish**.
 Extract the `code` value from the JSON the user pasted. Verify `state` matches `$TELEGRAM_USER_ID`. Then run ONE command:
 
 ```bash
+# Always export so the subprocess inherits the value
+export TELEGRAM_USER_ID
+[ -z "$TELEGRAM_USER_ID" ] && { echo "ERROR: TELEGRAM_USER_ID is not set — cannot link"; exit 1; }
 {baseDir}/li-auth.sh exchange "$TELEGRAM_USER_ID" "<CODE_FROM_USER_MESSAGE>"
 ```
 
@@ -118,6 +121,7 @@ Reply `✅ LinkedIn account linked: <DISPLAY_NAME>` then immediately run **Publi
 ## Refresh Token (EXPIRED only)
 
 ```bash
+export TELEGRAM_USER_ID
 {baseDir}/li-auth.sh refresh "$TELEGRAM_USER_ID"
 ```
 

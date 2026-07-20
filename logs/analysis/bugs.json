@@ -10,18 +10,20 @@
         "89542e6b-1d77-4e49-91d9-19425f6fa698-topic-849.jsonl"
       ],
       "first_seen": "2026-07-03",
-      "last_seen": "2026-07-03",
-      "description": "Agent sends a response, then immediately sends NO_REPLY, then repeats the entire response again. This results in users seeing every assistant message twice plus a stray NO_REPLY.",
+      "last_seen": "2026-07-20",
+      "description": "Agent sends a response, then immediately sends NO_REPLY, then repeats the entire response again. This results in users seeing every assistant message twice (sometimes 3-4x) plus a stray NO_REPLY. Became severe on 2026-07-20 after the runtime image was rebuilt.",
       "evidence": [
         "L29: [asst]: NO_REPLY",
         "L30: [asst]: (same as L25 — full message repeated)",
         "L43: [asst]: NO_REPLY",
         "L44: [asst]: (same as L37 — full message repeated)",
-        "L122: [asst]: NO_REPLY"
+        "L122: [asst]: NO_REPLY",
+        "2026-07-20 session b97265ab L~340: [asst]:<draft> -> {ok,messageId:1149} -> NO_REPLY -> <same draft again>. Turn completed (message delivered + NO_REPLY) then RE-RAN, proving gateway re-dispatch, not agent double-send.",
+        "Control UI 'Connected Instances': one stable gateway but a storm of 'agent backend / operator.admin' beacons churning connect->disconnect every few seconds ('Reason disconnect')."
       ],
-      "root_cause": "OpenClaw delivery confirmation timing. Agent sends message, confirmation doesn't arrive before next turn, agent retries the entire response. The NO_REPLY sentinel is an OpenClaw signal that gets embedded in the session.",
-      "impact": "Every Telegram message appears twice. Poor UX. Wastes tokens.",
-      "fix": "Investigate OpenClaw delivery confirmation logic. Check if ACK timeout is too short. May need to configure deduplication on the session layer."
+      "root_cause": "Upstream openclaw regression. On 2026-07-20 the Docker image was rebuilt; npm pulled openclaw 2026.7.1-2 (a prerelease published 2026-07-18 that npm promoted to dist-tag 'latest'). Prior production images had run an older, stable openclaw. Under 2026.7.1-2 the agent backend completes a turn (delivers the Telegram message + emits NO_REPLY) but drops its gateway connection before the completion ACK registers; the gateway then re-dispatches the same turn to a fresh backend, which regenerates and re-sends a slightly reworded copy. Backend disconnect storm in the Instances panel is the same phenomenon. alphaclaw was also unpinned ('latest' -> 0.7.2) but is a dormant CLI tool (no install scripts, never invoked by start.sh) so not the live cause; pinned anyway for supply-chain hygiene.",
+      "impact": "Every Telegram message appears 2-4 times. Poor UX. Wastes tokens. Started/worsened 2026-07-20.",
+      "fix": "Pinned openclaw back to last clean stable 2026.7.1 (2026-07-13) in company-brain/package.json, away from the bad 2026.7.1-2 (2026-07-18) prerelease that npm 'latest' points to. Pinned alphaclaw to 0.7.2. Rebuild image + redeploy. If duplicates persist on 2026.7.1, drop to 2026.6.11 and capture pod logs for the backend-disconnect reason."
     },
     {
       "id": "BUG-002",
@@ -168,17 +170,37 @@
       "fix_applied": "Added fetch→rebase -X ours→push HEAD:master pattern to brain-push.sh. All diverged history resolved and workspace fully synced to remote.",
       "impact": "Catherine's strategy.md, content-calendar.md, and other files were repeatedly wiped. This is the root cause of BUG-003 and partly BUG-002."
     }
+    {
+      "id": "BUG-009",
+      "title": "Repeated LinkedIn auth requests — TELEGRAM_USER_ID not exported to subprocess",
+      "severity": "high",
+      "status": "fixed",
+      "affected_users": ["547748231", "373382939"],
+      "sessions": [],
+      "first_seen": "2026-07-20",
+      "last_seen": "2026-07-20",
+      "description": "Agent keeps asking users to re-authorize LinkedIn on every session or even mid-session. The root cause: TELEGRAM_USER_ID was not exported before calling li-auth.sh, so the variable may not be available to the subprocess. Additionally, if $TELEGRAM_USER_ID expands to empty string in the bash context when the script is invoked, the token gets saved under the empty-string key '' instead of the actual UID. Every subsequent GATE1 check then finds no token for the real UID and triggers OAuth again.",
+      "evidence": [
+        "User report: 'agent keeps asking again and again for user to authorize linkedin'",
+        "User report: 'just my linkedin got saved properly' (owner UID 264468965 works, others do not)",
+        "BUG-002 root cause was identical pattern for li-post.sh — same issue in li-auth.sh was not fixed at the same time"
+      ],
+      "root_cause": "li-auth.sh and li-post.sh both took TELEGRAM_USER_ID only from positional arg ($2 / $1). When the calling bash shell had the variable set but not exported, child processes could not inherit it. If the variable expansion resulted in an empty string, the token was silently saved under key '' and never found on future GATE1 checks.",
+      "fix_applied": "1) li-auth.sh and li-post.sh now use '${arg:-$TELEGRAM_USER_ID}' — arg takes precedence, env var is fallback. Both exit with a clear error if UID is empty. 2) linkedin-publish/SKILL.md Exchange Code and Refresh Token sections now include 'export TELEGRAM_USER_ID' before calling the scripts. 3) AGENTS.md GATE1 check now includes 'export TELEGRAM_USER_ID'. 4) li-auth.sh writes a non-sensitive .linkedin-linked status file to the workspace after successful exchange — this survives pod restarts via brain-push and allows GATE1 to detect 'token store wiped' vs 'never linked'.",
+      "impact": "Users had to re-authorize LinkedIn on every session or multiple times per session. Tokens were being saved under empty key and never found."
+    }
   ],
   "last_updated": "2026-07-20",
-  "total_bugs": 8,
+  "total_bugs": 9,
   "by_severity": {
     "critical": 1,
-    "high": 3,
+    "high": 4,
     "medium": 3,
     "low": 1
   },
   "by_status": {
-    "open": 7,
+    "open": 6,
+    "fixed": 1,
     "resolved": 1
   }
 }

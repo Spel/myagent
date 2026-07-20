@@ -359,11 +359,24 @@ Before invoking any LinkedIn skill, check the user's setup state. Apply the gate
 ```bash
 TOKEN_STORE=/data/openclaw/linkedin-tokens.json
 [ -f "$TOKEN_STORE" ] || echo "{}" > "$TOKEN_STORE"
+export TELEGRAM_USER_ID
 ACCESS_TOKEN=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].access_token // empty' "$TOKEN_STORE")
 EXPIRES_AT=$(jq -r --arg u "$TELEGRAM_USER_ID" '.[$u].expires_at // 0' "$TOKEN_STORE")
 NOW=$(date +%s)
-[ -n "$ACCESS_TOKEN" ] && [ "$EXPIRES_AT" -gt "$((NOW+3600))" ] && echo "GATE1=pass" || echo "GATE1=fail"
+if [ -n "$ACCESS_TOKEN" ] && [ "$EXPIRES_AT" -gt "$((NOW+3600))" ]; then
+  echo "GATE1=pass"
+elif [ -f "/data/workspace/social/linkedin/$TELEGRAM_USER_ID/.linkedin-linked" ]; then
+  # Token store was wiped (e.g. volume loss) but user was previously linked — tell them, don't silently re-ask OAuth
+  PREV=$(cat "/data/workspace/social/linkedin/$TELEGRAM_USER_ID/.linkedin-linked")
+  echo "GATE1=fail TOKEN_STORE_LOST=true PREVIOUS_LINK=$PREV"
+else
+  echo "GATE1=fail"
+fi
 ```
+
+> ⚠️ **Token store location:** `/data/openclaw/linkedin-tokens.json` — this is a docker bind-mount volume file, NOT backed by git. It survives container restarts but is lost if the volume is wiped. A non-sensitive status marker is backed up at `/data/workspace/social/linkedin/<uid>/.linkedin-linked` (git-tracked).
+>
+> If `TOKEN_STORE_LOST=true` is in the output, tell the user: *"Your LinkedIn was previously connected but the token storage was reset (likely a server migration). Please re-authorize — it only takes a moment."* Then run OAuth Flow.
 
 **Gate 2 check:** File exists test only — no bash needed:
 - Pass: `/data/workspace/social/linkedin/<TELEGRAM_USER_ID>/profile.md` exists
@@ -372,8 +385,9 @@ NOW=$(date +%s)
 ### Per-user data layout
 
 ```
-/data/openclaw/linkedin-tokens.json          ← OAuth tokens, keyed by TELEGRAM_USER_ID
+/data/openclaw/linkedin-tokens.json          ← OAuth tokens, keyed by TELEGRAM_USER_ID (docker volume — NOT git)
 /data/workspace/social/linkedin/<uid>/
+  .linkedin-linked    ← non-sensitive link status (display_name, expires_at, urn) — git-tracked via brain-push
   profile.md          ← brand voice, buyer personas, post production rules
   strategy.md         ← business goals, cadence, key messages, campaigns
   content-calendar.md ← planned posts

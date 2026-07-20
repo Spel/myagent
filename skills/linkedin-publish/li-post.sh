@@ -5,7 +5,12 @@
 #   Image post:  li-post.sh <telegram_user_id> image "<image_path>" "<post body>"
 set -e
 
-TELEGRAM_USER_ID="$1"
+# Accept UID from arg OR from env var (env takes precedence so export works as fallback)
+TELEGRAM_USER_ID="${1:-$TELEGRAM_USER_ID}"
+if [ -z "$TELEGRAM_USER_ID" ]; then
+  echo "NO_TOKEN: TELEGRAM_USER_ID is required (pass as arg 1 or export it)"
+  exit 2
+fi
 MODE="$2"            # "text" or "image"
 TOKEN_STORE="${LINKEDIN_TOKEN_STORE:-/data/openclaw/linkedin-tokens.json}"
 

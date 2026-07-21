@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T05:53:55.392Z",
+  "exportedAt": "2026-07-21T06:14:09.814Z",
   "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
   "session": {
     "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
     "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
     "firstTs": "2026-07-20T12:38:12.249Z",
-    "lastTs": "2026-07-21T05:46:26.439Z",
+    "lastTs": "2026-07-21T06:13:44.339Z",
     "turns": [
       {
         "role": "assistant",
@@ -621,6 +621,16 @@
         "role": "assistant",
         "content": "Morning brief sent! 3 posts queued with publish/edit/skip buttons. Ready when you are.",
         "ts": "2026-07-21T05:46:26.439Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T06:13:36.278Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brief sent. Posts waiting for your approval.",
+        "ts": "2026-07-21T06:13:44.339Z"
       }
     ],
     "toolCalls": [],

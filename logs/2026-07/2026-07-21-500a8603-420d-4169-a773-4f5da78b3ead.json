@@ -1,0 +1,24 @@
+{
+  "exportedAt": "2026-07-21T19:12:43.565Z",
+  "sourceFile": "500a8603-420d-4169-a773-4f5da78b3ead.jsonl",
+  "session": {
+    "file": "500a8603-420d-4169-a773-4f5da78b3ead.jsonl",
+    "sessionKey": "500a8603-420d-4169-a773-4f5da78b3ead",
+    "firstTs": "2026-07-21T19:03:42.630Z",
+    "lastTs": "2026-07-21T19:04:07.185Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "ergerwg",
+        "ts": "2026-07-21T19:03:46.568Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hey! Looks like that might've been a test message or accidental keyboard mash? \n\nI'm Ubraine 🧠 — your LinkedIn growth partner. I help with:\n- Drafting & publishing posts in your voice\n- Building your brand voice profile\n- Content strategy & calendar\n- Profile optimization\n\nWhat can I help you with today?",
+        "ts": "2026-07-21T19:04:07.185Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

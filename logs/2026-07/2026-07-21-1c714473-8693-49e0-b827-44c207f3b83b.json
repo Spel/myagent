@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T23:15:42.906Z",
+  "exportedAt": "2026-07-21T23:46:04.567Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-21T23:14:07.056Z",
+    "lastTs": "2026-07-21T23:43:55.942Z",
     "turns": [
       {
         "role": "user",
@@ -546,6 +546,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-21T23:14:07.056Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T23:43:36.315Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me check the heartbeat tasks:",
+        "ts": "2026-07-21T23:43:46.568Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-21",
+        "ts": "2026-07-21T23:43:46.671Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753087200,\n    \"linkedin_coach\": 1753152180,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\",\n    \"coach_check\": \"2026-07-21 22:13 UTC - User posted 1x today, all checks current. Late night - quiet.\",\n    \"heartbeat_2026-07-21_late\": \"23:13 UTC - All checks current. Brief sent, coach done, user posted today (2x actually, accidental duplicate). Late night - quiet.\"\n  }\n}",
+        "ts": "2026-07-21T23:43:46.673Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"read\",\n  \"error\": \"ENOENT: no such file or directory, access '/data/workspace/social/linkedin/264468965/content-calendar.md'\"\n}",
+        "ts": "2026-07-21T23:43:46.675Z"
+      },
+      {
+        "role": "assistant",
+        "content": "All good:\n- ✅ Daily brief already sent today\n- ✅ Coach check done at 22:13 UTC — you posted today\n- 📋 Trends research flagged (no calendar yet) but it's late night\n\nHEARTBEAT_OK",
+        "ts": "2026-07-21T23:43:55.942Z"
       }
     ],
     "toolCalls": [],

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T19:53:13.683Z",
+  "exportedAt": "2026-07-21T20:23:34.334Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-21T19:44:09.783Z",
+    "lastTs": "2026-07-21T20:13:51.126Z",
     "turns": [
       {
         "role": "user",
@@ -311,6 +311,31 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-21T19:44:09.783Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T20:13:36.270Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me check the heartbeat tasks:",
+        "ts": "2026-07-21T20:13:45.128Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-21\n20",
+        "ts": "2026-07-21T20:13:45.208Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753087200,\n    \"linkedin_coach\": 1753133580,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\",\n    \"coach_check\": \"2026-07-21 19:13 UTC - User posted 1x today (AI pilot post), on track for 2-3/day target. Offered next post or content calendar setup.\",\n    \"heartbeat_2026-07-21\": \"19:43 UTC - All checks current. Brief sent, coach done 30min ago, trends flagged.\"\n  }\n}",
+        "ts": "2026-07-21T20:13:45.210Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-21T20:13:51.126Z"
       }
     ],
     "toolCalls": [],

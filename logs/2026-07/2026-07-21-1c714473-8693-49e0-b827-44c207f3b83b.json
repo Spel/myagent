@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T22:15:00.110Z",
+  "exportedAt": "2026-07-21T22:45:22.046Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-21T22:14:20.900Z",
+    "lastTs": "2026-07-21T22:44:00.284Z",
     "turns": [
       {
         "role": "user",
@@ -476,6 +476,41 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-21T22:14:20.900Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T22:43:36.289Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753087200,\n    \"linkedin_coach\": 1753147980,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\",\n    \"coach_check\": \"2026-07-21 22:13 UTC - User posted 1x today, all checks current. Late night - quiet.\",\n    \"heartbeat_2026-07-21_late\": \"22:13 UTC - All checks current. Brief sent, coach done, user posted today. Quiet.\"\n  }\n}",
+        "ts": "2026-07-21T22:43:44.295Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true",
+        "ts": "2026-07-21T22:43:44.298Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "LAST_POST_DATE=2026-07-21\n**Published:** 2026-07-21T17:58:40Z",
+        "ts": "2026-07-21T22:43:44.300Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-21T22:43:53.730Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 534 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-21T22:43:53.752Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-21T22:44:00.284Z"
       }
     ],
     "toolCalls": [],

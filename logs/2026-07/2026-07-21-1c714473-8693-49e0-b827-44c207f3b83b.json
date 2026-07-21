@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T18:06:39.100Z",
+  "exportedAt": "2026-07-21T18:16:49.592Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-21T18:00:12.690Z",
+    "lastTs": "2026-07-21T18:14:15.482Z",
     "turns": [
       {
         "role": "user",
@@ -166,6 +166,36 @@
         "role": "assistant",
         "content": "Shit — my bad. I accidentally published this **twice**.\n\nLooking at the URNs:\n- First post: `urn:li:share:7485392980338434048`\n- Second post: `urn:li:share:7485393127449653249`\n\nI already had the first successful publish at 17:58 UTC, but then I ran it again after your \"are you sure I need to log in?\" question. That created a second identical post.\n\n**Two posts are now live on your LinkedIn.** Sorry about that — I should've checked my previous result before calling li-post.sh again.\n\nYou can delete one from LinkedIn directly (three dots → Delete post). The one you want to keep is probably the first one since it was already live when we confirmed.\n\nWon't happen again — I'll track publish state properly next time.",
         "ts": "2026-07-21T18:00:12.690Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T18:13:36.345Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753087200,\n    \"linkedin_coach\": 1753010760,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\"\n  }\n}",
+        "ts": "2026-07-21T18:13:43.792Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-21\nNOW=18",
+        "ts": "2026-07-21T18:13:43.795Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "total 20\ndrwxr-xr-x 2 root root 4096 Jul 21 17:59 .\ndrwxr-xr-x 5 root root 4096 Jul 20 13:07 ..\n-rw-r--r-- 1 root root 1318 Jun 25 15:55 2026-06-25-ai-isnt-coming-for-your.md\n-rw-r--r-- 1 root root 1500 Jun 25 17:40 2026-06-25-most-companies-are-building-ai.md\n-rw-r--r-- 1 root root 1773 Jul 21 17:59 2026-07-21-your-ai-pilot-didnt-fail.md",
+        "ts": "2026-07-21T18:14:01.399Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 375 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-21T18:14:08.751Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-21T18:14:15.482Z"
       }
     ],
     "toolCalls": [],

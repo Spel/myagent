@@ -1,11 +1,12 @@
 {
   "lastChecks": {
     "linkedin_daily_brief": 1753087200,
-    "linkedin_coach": 1753010760,
+    "linkedin_coach": 1753123200,
     "linkedin_trends_flagged": 1753010760
   },
   "notes": {
     "trends_needed": true,
-    "trends_reason": "No content-calendar.md exists - need to run linkedin-trends to create initial calendar"
+    "trends_reason": "No content-calendar.md exists - need to run linkedin-trends to create initial calendar",
+    "coach_check": "2026-07-21 - User posted today (AI pilot post), on track"
   }
 }

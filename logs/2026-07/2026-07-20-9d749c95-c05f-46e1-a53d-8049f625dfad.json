@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T00:20:03.256Z",
+  "exportedAt": "2026-07-21T00:50:24.426Z",
   "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
   "session": {
     "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
     "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
     "firstTs": "2026-07-20T12:38:12.249Z",
-    "lastTs": "2026-07-21T00:13:48.761Z",
+    "lastTs": "2026-07-21T00:43:41.705Z",
     "turns": [
       {
         "role": "assistant",
@@ -396,6 +396,16 @@
         "role": "assistant",
         "content": "New day, but it's midnight UTC — too early for the morning brief. Will trigger when you're active later.",
         "ts": "2026-07-21T00:13:48.761Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T00:43:36.251Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brief not sent yet — still night hours. Will run in the morning.",
+        "ts": "2026-07-21T00:43:41.705Z"
       }
     ],
     "toolCalls": [],

@@ -1,0 +1,24 @@
+{
+  "exportedAt": "2026-07-21T18:06:39.094Z",
+  "sourceFile": "d376996d-055d-4b80-9d70-03f785c8affd.jsonl",
+  "session": {
+    "file": "d376996d-055d-4b80-9d70-03f785c8affd.jsonl",
+    "sessionKey": "d376996d-055d-4b80-9d70-03f785c8affd",
+    "firstTs": "2026-07-21T17:59:16.792Z",
+    "lastTs": "2026-07-21T17:59:29.682Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "how are you?",
+        "ts": "2026-07-21T17:59:22.322Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm doing well! Ready to help you crush LinkedIn today.\n\nWhat's on your mind — working on a post, thinking about strategy, or just checking in?",
+        "ts": "2026-07-21T17:59:29.682Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

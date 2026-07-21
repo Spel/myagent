@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T18:47:10.576Z",
+  "exportedAt": "2026-07-21T19:22:52.831Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-21T18:43:56.169Z",
+    "lastTs": "2026-07-21T19:14:33.416Z",
     "turns": [
       {
         "role": "user",
@@ -216,6 +216,66 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-21T18:43:56.169Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T19:13:36.511Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true",
+        "ts": "2026-07-21T19:13:44.646Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753087200,\n    \"linkedin_coach\": 1753123200,\n    \"linkedin_trends_flagged\": 1753010760\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\",\n    \"coach_check\": \"2026-07-21 - User posted today (AI pilot post), on track\"\n  }\n}",
+        "ts": "2026-07-21T19:13:44.655Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-coach\ndescription: Proactive LinkedIn coach. Checks posting cadence, sends daily nudges, proposes next content idea. Run by cron or manually.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"coach me\"\n  - \"what should i post today\"\n  - \"am i on track\"\n  - \"linkedin check in\"\n  - \"how am i doing on linkedin\"\n  - \"push me to post\"\n  - \"content nudge\"\n---\n\n# LinkedIn Coach Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Never publish.** This skill motivates and proposes. Posting uses `linkedin-publish`.\n> 2. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID` (from env or cron prompt).\n> 3. **Always be a coach, not a reporter.** Don't just show stats — interpret them. Push the user to act.\n> 4. **DO NOT narrate steps.** Show results directly.\n\n---\n\n## When this skill runs\n\n- **Daily cron** (9 AM user timezone) — called with explicit `TELEGRAM_USER_ID` in prompt\n- **Heartbeat session** — owner gets a quick check each session\n- **User manually asks** — \"what should I post today?\", \"coach me\", etc.\n\n---\n\n## Flow: Daily Coach Check\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Strategy: extract cadence line\nCADENCE=\"unknown\"\nif [ -f \"$BASE/strategy.md\" ]; then\n  CADENCE=$(grep -i \"cadence\\|frequency\\|per week\\|posts/week\" \"$BASE/strategy.md\" | head -1 | sed 's/.*: //')\nfi\n\n# Posts in last 7 days\nPOST_COUNT=$(find \"$BASE/posts/\" -name \"*.md\" -newer \"$(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)\" 2>/dev/null | wc -l | tr -d ' ')\n\n# Days since last post\nLAST_POST_DATE=$(ls -t \"$BASE/posts/\"*.md 2>/dev/null | head -1 | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{",
+        "ts": "2026-07-21T19:13:44.659Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "NAME=Andrii Bidochko\nCADENCE=## Posting Cadence\nPOSTS_LAST_7=1\nLAST_POST=2026-07-21\nTODAY=2026-07-21\nNEXT_IDEA_BLOCK=",
+        "ts": "2026-07-21T19:13:55.606Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# LinkedIn Content Strategy — Andrii Bidochko\n\n**Owner:** 264468965\n**Last updated:** 2026-06-25\n\n## Business Goal\n\nGrow personal brand with focus on AI Autonomous Organizations and AI Agents. Position as a multi-company operator building at the intersection of AI and business transformation.\n\n## Posting Cadence\n\n- **Frequency:** 2-3 times per day\n- **Preferred schedule:** Every day\n\n## Content Pillars\n\n*(Carried from brand voice profile)*\n1. Business & entrepreneurship insights\n2. Technology & AI innovations\n3. Personal development & mindset\n\n## Key Messages\n\n*(The beliefs and positions every post should reinforce)*\n1. AI can be affordable and accessible — even for small businesses\n2. Implementing AI doesn't require a big team or deep tech expertise\n3. Every company will become AI-first — the question is when, not if\n\n## Target Buyer Personas\n\n*(Who you are writing for — each post should speak to at least one)*\n\n- **Persona 1:** Enterprise Innovation Officer / CTO at 200+ person company (Financial Services, Healthcare, Retail) — Pain: Needs rapid AI solution development without vendor lock-in or heavy internal R&D\n- **Persona 2:** CTO / Software Architect at 75+ person IT consultancy or agency — Pain: Needs to deliver AI-powered client projects faster with reusable components\n- **Persona 3:** Founder / CEO / Head of Operations at 10-200 person SMB — Pain: Wants automation and AI competitiveness but lacks the engineering resources or budget\n\n## Topics to Avoid\n\n(none — open to all topics)\n\n## Upcoming Campaigns\n\n- **Benchgen.com launch** — Benchmarking product (mention organically, not primary focus)\n- **UBOS.tech improvements** — AI Agent Orchestration Platform (mention organically, not primary focus)\n\n## Strategic Positioning\n\nPersonal brand > individual company promotion. Building reputation as an AI thought leader and multi-company operator. Content should position Andrii as the voice on AI Autonomous Organizations, not just a founder pushing products.\n\n## Pilla",
+        "ts": "2026-07-21T19:14:05.440Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"read\",\n  \"error\": \"ENOENT: no such file or directory, access '/data/workspace/social/linkedin/264468965/content-calendar.md'\"\n}",
+        "ts": "2026-07-21T19:14:05.443Z"
+      },
+      {
+        "role": "assistant",
+        "content": "You posted today (the AI pilot / data pipeline post). With a 2-3 posts/day target, you're on pace. One more post would hit your daily goal.\n\nNo content calendar yet — want me to generate topic ideas for your next post?",
+        "ts": "2026-07-21T19:14:14.396Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 410 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-21T19:14:14.412Z"
+      },
+      {
+        "role": "assistant",
+        "content": "You're on pace — posted once today, target is 2-3/day.\n\nNo content calendar yet. Want me to draft your next post or set up a content calendar with fresh ideas?",
+        "ts": "2026-07-21T19:14:29.584Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 453 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-21T19:14:29.607Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-21T19:14:33.416Z"
       }
     ],
     "toolCalls": [],

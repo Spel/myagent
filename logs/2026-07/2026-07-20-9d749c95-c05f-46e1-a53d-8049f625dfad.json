@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T05:23:31.123Z",
+  "exportedAt": "2026-07-21T05:43:45.779Z",
   "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
   "session": {
     "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
     "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
     "firstTs": "2026-07-20T12:38:12.249Z",
-    "lastTs": "2026-07-21T05:13:46.085Z",
+    "lastTs": "2026-07-21T05:43:42.038Z",
     "turns": [
       {
         "role": "assistant",
@@ -496,6 +496,21 @@
         "role": "assistant",
         "content": "Brief pending. Still early — will send when you're active.",
         "ts": "2026-07-21T05:13:46.085Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T05:43:36.265Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Morning time — running your daily brief:",
+        "ts": "2026-07-21T05:43:41.971Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-daily-brief\ndescription: Morning brief: researches today's news, drafts 2-3 ready-to-publish posts in user's brand voice. User taps Publish → auto-posts.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"morning brief\"\n  - \"daily brief\"\n  - \"give me posts for today\"\n  - \"what should i post today\"\n  - \"ready posts\"\n  - \"draft posts for me\"\n  - \"what's happening in my industry\"\n  - \"brief me\"\n  - \"show me today's posts\"\n---\n\n# LinkedIn Daily Brief Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Draft COMPLETE posts — not angles or ideas.** Every draft must be publish-ready in the user's voice.\n> 2. **Approve = immediate publish.** When the user taps ✅ Publish, call `li-post.sh` right away. No extra confirmation.\n> 3. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID`.\n> 4. **Source everything.** Every draft must have a real, recent (≤48h) source URL.\n> 5. **DO NOT narrate steps.** Show results directly.\n> 6. **Max 3 drafts per day.** Quality over quantity.\n\n---\n\n## When this runs\n\n- **Daily cron** (8 AM user timezone) — fires before the coach check at 9 AM\n- **User manually asks** — \"give me posts for today\", \"morning brief\", etc.\n\n---\n\n## Flow A: Generate Morning Brief (cron or manual trigger)\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\nTODAY=$(date +%Y-%m-%d)\nPENDING_DIR=\"$BASE/pending\"\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Check if brief already sent today\nBRIEF_FLAG=\"$PENDING_DIR/.brief-sent-$TODAY\"\n[ -f \"$BRIEF_FLAG\" ] && echo \"ALREADY_SENT=true\" || echo \"ALREADY_SENT=false\"\n\n# Load brand voice pillars and tone\nPILLARS=\"\"\nTONE=\"\"\nif [ -f \"$BASE/profile.md\" ]; then\n  PILLARS=$(grep -A 10 \"Content Pi",
+        "ts": "2026-07-21T05:43:42.038Z"
       }
     ],
     "toolCalls": [],

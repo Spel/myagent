@@ -1,0 +1,104 @@
+{
+  "exportedAt": "2026-07-21T15:10:40.202Z",
+  "sourceFile": "9c74d088-ccfa-4ada-aa91-7c9feb0d6244-topic-695.jsonl",
+  "session": {
+    "file": "9c74d088-ccfa-4ada-aa91-7c9feb0d6244-topic-695.jsonl",
+    "sessionKey": "9c74d088-ccfa-4ada-aa91-7c9feb0d6244",
+    "firstTs": "2026-07-21T15:00:43.565Z",
+    "lastTs": "2026-07-21T15:03:32.883Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Вівторок 21.07.\nМаю ось такий пост, давай опублікуємо.\n\n**Мене клонували. Без мого відома. 🙂**\nНасправді це один із найдивніших і поки найкайфовіших компліментів, які я отримувала.\n\nМи з Людмилою Богуш обговорювали лінійку нових AI-практикумів,вона в цей момент їхала зі Львова після конференції, ми говорили телефоном, сперечалися, думали одна об одну, будували стратегію, шукали рішення, відкидали ідеї, вигадували нові - працювали, одним словом!\n\nЧерез деякий час вона сказала:\n\n— Я зробила GPT-асистента з тебе.\n\nЯ засміялася.\n\n— Серйозно?\n\n— Так. Бо мені потрібен хтось, хто не погоджується з першою ж ідеєю.\n\nПотім вона сказала фразу, яку я, мабуть, ще довго пам’ятатиму:\n\n**«Будь ласка, ніколи не переставай ставити незручні запитання. Саме вони змушують дивитися туди, куди зазвичай не хочеться дивитися.»**\n\nІ я зрозуміла одну цікаву річ. - Моя робота як коуча не в тому, щоб давати правильні відповіді. Моя робота - поставити таке запитання, після якого людина вже не зможе зробити вигляд, що проблеми не існує і не боятися такі питання ставити.\n\nІ якщо вже мене клонувати, то саме цю рису я б теж залишила без змін ;)\nХоча… бути мною можу точно лише я 😈",
+        "ts": "2026-07-21T15:00:43.647Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "GATE1=pass",
+        "ts": "2026-07-21T15:00:57.666Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-publish\ndescription: Publish text or image posts to LinkedIn on behalf of multiple Telegram users. Handles per-user OAuth linking automatically.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\",\"LINKEDIN_CLIENT_SECRET\",\"LINKEDIN_REDIRECT_URI\"]}}}\ntriggers:\n  - \"publish to linkedin\"\n  - \"post to linkedin\"\n  - \"share on linkedin\"\n  - \"linkedin article\"\n  - \"publish article to linkedin\"\n  - \"post article on linkedin\"\n  - \"linkedin post\"\n  - \"share article linkedin\"\n  - \"cross-post to linkedin\"\n  - \"connect linkedin\"\n  - \"link linkedin account\"\n  - \"linkedin post with image\"\n  - \"post image to linkedin\"\n  - \"share image on linkedin\"\n---\n\n# LinkedIn Publish Skill\n\n> ⚠️ READ THIS FIRST — MANDATORY RULES:\n> 1. **NEVER write scripts to /tmp or anywhere else.** The helper already exists.\n> 2. **NEVER use grep/cut/sed/cat/read-tool to get the access token.** The helper handles it.\n> 3. **NEVER create a new bash script for LinkedIn.** Use ONLY `{baseDir}/li-post.sh`.\n> 4. **NEVER analyze or describe an attached image.** Pass its path directly to li-post.sh.\n> 5. **DO NOT narrate steps.** Run the command, show the result.\n> 6. **ONE PUBLISH PER REQUEST.** Call `li-post.sh` exactly once per confirmed\n>    request. The instant you get an `OK:` line, the post is LIVE and this flow\n>    is DONE — report the URL and STOP. Never call `li-post.sh` again to \"retry\",\n>    \"improve the image\", or \"use the real image\". Each call creates a brand-new\n>    LinkedIn post; LinkedIn has no edit-with-media API. If you couldn't get the\n>    image you wanted, do NOT silently post without it — ask the user first\n>    (see **Single-publish guard** below).\n\n---\n\n## Single-publish guard (READ BEFORE EVERY PUBLISH)\n\nPublishing is irreversible and creates a permanent post. To avoid the\nduplicate-post problem:\n\n- **Resolve the image BEFORE the single `li-post.sh` call.** Do all image\n  retrieval/generation first. Only call `li-post.sh` once everything",
+        "ts": "2026-07-21T15:01:07.917Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "PROFILE_EXISTS=true",
+        "ts": "2026-07-21T15:01:32.909Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Мене клонували. Без мого відома. 🙂\n\nНасправді це один із найдивніших і поки найкайфовіших компліментів, які я отримувала.\n\nМи з Людмилою Богуш обговорювали лінійку нових AI-практикумів, вона в цей момент їхала зі Львова після конференції, ми говорили телефоном, сперечалися, думали одна об одну, будували стратегію, шукали рішення, відкидали ідеї, вигадували нові — працювали, одним словом!\n\nЧерез деякий час вона сказала:\n\n— Я зробила GPT-асистента з тебе.\n\nЯ засміялася.\n\n— Серйозно?\n\n— Так. Бо мені потрібен хтось, хто не погоджується з першою ж ідеєю.\n\nПотім вона сказала фразу, яку я, мабуть, ще довго пам'ятатиму:\n\n«Будь ласка, ніколи не переставай ставити незручні запитання. Саме вони змушують дивитися туди, куди зазвичай не хочеться дивитися.»\n\nІ я зрозуміла одну цікаву річ. — Моя робота як коуча не в тому, щоб давати правильні відповіді. Моя робота — поставити таке запитання, після якого людина вже не зможе зробити вигляд, що проблеми не існує і не боятися такі питання ставити.\n\nІ якщо вже мене клонувати, то саме цю рису я б теж залишила без змін ;)\nХоча… бути мною можу точно лише я 😈\n\n---\n\nПублікуємо?",
+        "ts": "2026-07-21T15:01:45.768Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"1218\"\n}",
+        "ts": "2026-07-21T15:01:45.802Z"
+      },
+      {
+        "role": "assistant",
+        "content": "NO_REPLY",
+        "ts": "2026-07-21T15:02:12.989Z"
+      },
+      {
+        "role": "user",
+        "content": "Так",
+        "ts": "2026-07-21T15:02:12.993Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Додати зображення до посту?",
+        "ts": "2026-07-21T15:02:25.948Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"1220\"\n}",
+        "ts": "2026-07-21T15:02:25.974Z"
+      },
+      {
+        "role": "assistant",
+        "content": "NO_REPLY",
+        "ts": "2026-07-21T15:02:31.522Z"
+      },
+      {
+        "role": "user",
+        "content": "[User sent media without caption]",
+        "ts": "2026-07-21T15:02:50.768Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "IMAGE_PATH=/data/workspace/social/linkedin/547748231/images/upload-1784646177.jpg",
+        "ts": "2026-07-21T15:02:57.408Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "OK: https://www.linkedin.com/feed/update/urn:li:share:7485348649061904385/\nDISPLAY_NAME: Kateryna Miliutenko\nCHARS: 1982",
+        "ts": "2026-07-21T15:03:09.413Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 1630 bytes to /data/workspace/social/linkedin/547748231/posts/2026-07-21-mene-klonuvaly-bez-moho-vidoma.md",
+        "ts": "2026-07-21T15:03:18.948Z"
+      },
+      {
+        "role": "assistant",
+        "content": "✅ Опубліковано в LinkedIn (від імені Kateryna Miliutenko):\n→ https://www.linkedin.com/feed/update/urn:li:share:7485348649061904385/\n\nСимволів: 1982",
+        "ts": "2026-07-21T15:03:28.596Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"1223\"\n}",
+        "ts": "2026-07-21T15:03:28.627Z"
+      },
+      {
+        "role": "assistant",
+        "content": "NO_REPLY",
+        "ts": "2026-07-21T15:03:32.883Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

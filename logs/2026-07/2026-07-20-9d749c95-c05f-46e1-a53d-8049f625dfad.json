@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T00:50:24.426Z",
+  "exportedAt": "2026-07-21T01:20:45.321Z",
   "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
   "session": {
     "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
     "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
     "firstTs": "2026-07-20T12:38:12.249Z",
-    "lastTs": "2026-07-21T00:43:41.705Z",
+    "lastTs": "2026-07-21T01:13:41.438Z",
     "turns": [
       {
         "role": "assistant",
@@ -406,6 +406,16 @@
         "role": "assistant",
         "content": "Brief not sent yet — still night hours. Will run in the morning.",
         "ts": "2026-07-21T00:43:41.705Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T01:13:36.263Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brief pending, but it's night. Will send when you're active.",
+        "ts": "2026-07-21T01:13:41.438Z"
       }
     ],
     "toolCalls": [],

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-20T23:49:40.837Z",
+  "exportedAt": "2026-07-21T00:20:03.256Z",
   "sourceFile": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
   "session": {
     "file": "9d749c95-c05f-46e1-a53d-8049f625dfad.jsonl",
     "sessionKey": "9d749c95-c05f-46e1-a53d-8049f625dfad",
     "firstTs": "2026-07-20T12:38:12.249Z",
-    "lastTs": "2026-07-20T23:43:41.659Z",
+    "lastTs": "2026-07-21T00:13:48.761Z",
     "turns": [
       {
         "role": "assistant",
@@ -376,6 +376,26 @@
         "role": "assistant",
         "content": "Quiet night, all stable. Brief done. Will stay silent overnight.",
         "ts": "2026-07-20T23:43:41.659Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-21T00:13:36.236Z"
+      },
+      {
+        "role": "assistant",
+        "content": "New day check:",
+        "ts": "2026-07-21T00:13:42.825Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\n00",
+        "ts": "2026-07-21T00:13:42.909Z"
+      },
+      {
+        "role": "assistant",
+        "content": "New day, but it's midnight UTC — too early for the morning brief. Will trigger when you're active later.",
+        "ts": "2026-07-21T00:13:48.761Z"
       }
     ],
     "toolCalls": [],

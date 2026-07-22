@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-22T03:49:02.745Z",
+  "exportedAt": "2026-07-22T04:19:23.931Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-22T03:44:01.632Z",
+    "lastTs": "2026-07-22T04:14:25.969Z",
     "turns": [
       {
         "role": "user",
@@ -961,6 +961,56 @@
         "role": "assistant",
         "content": "Daily brief already sent today ✅\nCoach check done 30 min ago — you're on track ✅\nTrends flagged for next cron run ✅\n\nHEARTBEAT_OK",
         "ts": "2026-07-22T03:44:01.632Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-22T04:13:36.307Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Heartbeat Tasks\n\nRun 2-3 of these per session (rotate, don't run all every time).\n\n## Daily Brief Freshness (run once per day, morning sessions)\n\nCheck if today's morning brief has been sent for the owner (TELEGRAM_USER_ID=264468965):\n```bash\nTODAY=$(date +%Y-%m-%d)\nFLAG=\"/data/workspace/social/linkedin/264468965/pending/.brief-sent-$TODAY\"\n[ -f \"$FLAG\" ] && echo \"BRIEF_SENT=true\" || echo \"BRIEF_SENT=false\"\n```\n- If `BRIEF_SENT=false` AND it's before 10 AM: read `skills/linkedin-daily-brief/SKILL.md` and run Flow A immediately.\n- If `BRIEF_SENT=false` AND it's after 10 AM: note it so the user can request it manually — don't auto-fire.\n- If `BRIEF_SENT=true`: skip silently.\n\n## LinkedIn Coach Check (run every session for owner)\n\nCheck if the owner (TELEGRAM_USER_ID=264468965) is on track with their LinkedIn posting cadence.\nRead `skills/linkedin-coach/SKILL.md` and run the Daily Coach Check flow for user 264468965.\nIf they're behind: proactively send them a nudge in this chat (no separate DM needed — we're already talking).\nIf they're on track: brief acknowledgement only, don't interrupt.\n\n## Trend Research Freshness (run once per week max)\n\nCheck `/data/workspace/social/linkedin/264468965/content-calendar.md` — look at the date of the last \"Trend Proposals\" section.\nIf it's older than 7 days (or missing): note it here so next heartbeat can trigger `linkedin-trends` for a refresh.\nDo NOT run the full trend research during heartbeat — that's a background cron task. Just flag it.\n\n## State file\n\nTrack last checks in `/data/workspace/memory/heartbeat-state.json`:\n```json\n{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 0,\n    \"linkedin_coach\": 0,\n    \"linkedin_trends_flagged\": 0\n  }\n}\n```",
+        "ts": "2026-07-22T04:13:44.021Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nCURRENT_HOUR=04",
+        "ts": "2026-07-22T04:13:44.025Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-coach\ndescription: Proactive LinkedIn coach. Checks posting cadence, sends daily nudges, proposes next content idea. Run by cron or manually.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"coach me\"\n  - \"what should i post today\"\n  - \"am i on track\"\n  - \"linkedin check in\"\n  - \"how am i doing on linkedin\"\n  - \"push me to post\"\n  - \"content nudge\"\n---\n\n# LinkedIn Coach Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Never publish.** This skill motivates and proposes. Posting uses `linkedin-publish`.\n> 2. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID` (from env or cron prompt).\n> 3. **Always be a coach, not a reporter.** Don't just show stats — interpret them. Push the user to act.\n> 4. **DO NOT narrate steps.** Show results directly.\n\n---\n\n## When this skill runs\n\n- **Daily cron** (9 AM user timezone) — called with explicit `TELEGRAM_USER_ID` in prompt\n- **Heartbeat session** — owner gets a quick check each session\n- **User manually asks** — \"what should I post today?\", \"coach me\", etc.\n\n---\n\n## Flow: Daily Coach Check\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Strategy: extract cadence line\nCADENCE=\"unknown\"\nif [ -f \"$BASE/strategy.md\" ]; then\n  CADENCE=$(grep -i \"cadence\\|frequency\\|per week\\|posts/week\" \"$BASE/strategy.md\" | head -1 | sed 's/.*: //')\nfi\n\n# Posts in last 7 days\nPOST_COUNT=$(find \"$BASE/posts/\" -name \"*.md\" -newer \"$(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)\" 2>/dev/null | wc -l | tr -d ' ')\n\n# Days since last post\nLAST_POST_DATE=$(ls -t \"$BASE/posts/\"*.md 2>/dev/null | head -1 | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{",
+        "ts": "2026-07-22T04:13:44.030Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "NAME=Andrii Bidochko\nCADENCE=## Posting Cadence\nPOSTS_LAST_7=0\nLAST_POST=2026-07-21\nTODAY=2026-07-22\nNEXT_IDEA_BLOCK=",
+        "ts": "2026-07-22T04:13:54.414Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "LAST_TREND_SECTION=(no calendar file)",
+        "ts": "2026-07-22T04:13:54.417Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "total 20\ndrwxr-xr-x 2 root root 4096 Jul 21 17:59 .\ndrwxr-xr-x 5 root root 4096 Jul 20 13:07 ..\n-rw-r--r-- 1 root root 1318 Jun 25 15:55 2026-06-25-ai-isnt-coming-for-your.md\n-rw-r--r-- 1 root root 1500 Jun 25 17:40 2026-06-25-most-companies-are-building-ai.md\n-rw-r--r-- 1 root root 1773 Jul 21 17:59 2026-07-21-your-ai-pilot-didnt-fail.md",
+        "ts": "2026-07-22T04:14:09.419Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753140900,\n    \"linkedin_coach\": 1753163600,\n    \"linkedin_trends_flagged\": 1753223582\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\",\n    \"coach_check\": \"2026-07-22 03:13 UTC - Posted yesterday (1 day ago). 1 post in last 7 days. On track, no nudge needed.\"\n  }\n}",
+        "ts": "2026-07-22T04:14:09.423Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully replaced 1 block(s) in /data/workspace/memory/heartbeat-state.json.",
+        "ts": "2026-07-22T04:14:17.963Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-22T04:14:25.969Z"
       }
     ],
     "toolCalls": [],

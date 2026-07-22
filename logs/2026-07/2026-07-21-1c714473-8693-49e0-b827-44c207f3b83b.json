@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-22T10:23:54.060Z",
+  "exportedAt": "2026-07-22T10:44:09.351Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-22T10:14:17.973Z",
+    "lastTs": "2026-07-22T10:43:43.846Z",
     "turns": [
       {
         "role": "user",
@@ -1236,6 +1236,16 @@
         "role": "assistant",
         "content": "All good. You posted yesterday — 1 post this week, target 3-4. Still time to hit cadence.",
         "ts": "2026-07-22T10:14:17.973Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-22T10:43:36.349Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-22T10:43:43.846Z"
       }
     ],
     "toolCalls": [],

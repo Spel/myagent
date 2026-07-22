@@ -1,12 +1,12 @@
 {
   "lastChecks": {
     "linkedin_daily_brief": 1753140900,
-    "linkedin_coach": 1753195403,
-    "linkedin_trends_flagged": 1753010760
+    "linkedin_coach": 1753223582,
+    "linkedin_trends_flagged": 1753223582
   },
   "notes": {
     "trends_needed": true,
     "trends_reason": "No content-calendar.md exists - need to run linkedin-trends to create initial calendar",
-    "coach_check": "2026-07-22 01:43 UTC - Posted yesterday. Cadence OK, no nudge. (already checked at 01:13)"
+    "coach_check": "2026-07-22 02:13 UTC - Posted yesterday (1 day ago). 1 post in last 7 days. On track, no nudge needed."
   }
 }

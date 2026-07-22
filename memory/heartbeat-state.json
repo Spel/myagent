@@ -1,6 +1,6 @@
 {
   "lastChecks": {
-    "linkedin_daily_brief": 1753087200,
+    "linkedin_daily_brief": 1753140900,
     "linkedin_coach": 1753152180,
     "linkedin_trends_flagged": 1753010760
   },
@@ -8,6 +8,7 @@
     "trends_needed": true,
     "trends_reason": "No content-calendar.md exists - need to run linkedin-trends to create initial calendar",
     "coach_check": "2026-07-21 22:13 UTC - User posted 1x today, all checks current. Late night - quiet.",
-    "heartbeat_2026-07-21_late": "23:13 UTC - All checks current. Brief sent, coach done, user posted today (2x actually, accidental duplicate). Late night - quiet."
+    "heartbeat_2026-07-21_late": "23:13 UTC - All checks current. Brief sent, coach done, user posted today (2x actually, accidental duplicate). Late night - quiet.",
+    "heartbeat_2026-07-22_morning": "00:14 UTC - Daily brief sent for 2026-07-22. 3 drafts created from TechCrunch news. User can publish from buttons."
   }
 }

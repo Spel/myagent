@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-22T02:48:17.917Z",
+  "exportedAt": "2026-07-22T03:18:40.809Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-22T02:43:50.077Z",
+    "lastTs": "2026-07-22T03:14:17.165Z",
     "turns": [
       {
         "role": "user",
@@ -901,6 +901,41 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-22T02:43:50.077Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-22T03:13:36.272Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753140900,\n    \"linkedin_coach\": 1753223582,\n    \"linkedin_trends_flagged\": 1753223582\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to run linkedin-trends to create initial calendar\",\n    \"coach_check\": \"2026-07-22 02:13 UTC - Posted yesterday (1 day ago). 1 post in last 7 days. On track, no nudge needed.\"\n  }\n}",
+        "ts": "2026-07-22T03:13:47.368Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-22",
+        "ts": "2026-07-22T03:13:47.372Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-coach\ndescription: Proactive LinkedIn coach. Checks posting cadence, sends daily nudges, proposes next content idea. Run by cron or manually.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"coach me\"\n  - \"what should i post today\"\n  - \"am i on track\"\n  - \"linkedin check in\"\n  - \"how am i doing on linkedin\"\n  - \"push me to post\"\n  - \"content nudge\"\n---\n\n# LinkedIn Coach Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Never publish.** This skill motivates and proposes. Posting uses `linkedin-publish`.\n> 2. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID` (from env or cron prompt).\n> 3. **Always be a coach, not a reporter.** Don't just show stats — interpret them. Push the user to act.\n> 4. **DO NOT narrate steps.** Show results directly.\n\n---\n\n## When this skill runs\n\n- **Daily cron** (9 AM user timezone) — called with explicit `TELEGRAM_USER_ID` in prompt\n- **Heartbeat session** — owner gets a quick check each session\n- **User manually asks** — \"what should I post today?\", \"coach me\", etc.\n\n---\n\n## Flow: Daily Coach Check\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Strategy: extract cadence line\nCADENCE=\"unknown\"\nif [ -f \"$BASE/strategy.md\" ]; then\n  CADENCE=$(grep -i \"cadence\\|frequency\\|per week\\|posts/week\" \"$BASE/strategy.md\" | head -1 | sed 's/.*: //')\nfi\n\n# Posts in last 7 days\nPOST_COUNT=$(find \"$BASE/posts/\" -name \"*.md\" -newer \"$(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)\" 2>/dev/null | wc -l | tr -d ' ')\n\n# Days since last post\nLAST_POST_DATE=$(ls -t \"$BASE/posts/\"*.md 2>/dev/null | head -1 | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{",
+        "ts": "2026-07-22T03:13:47.377Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "NAME=Andrii Bidochko\nCADENCE=## Posting Cadence\nPOSTS_LAST_7=1\nLAST_POST=2026-07-21\nTODAY=2026-07-22\nDAYS_SINCE=1\nNEXT_IDEA_BLOCK=",
+        "ts": "2026-07-22T03:14:01.829Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 422 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-22T03:14:10.459Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-22T03:14:17.165Z"
       }
     ],
     "toolCalls": [],

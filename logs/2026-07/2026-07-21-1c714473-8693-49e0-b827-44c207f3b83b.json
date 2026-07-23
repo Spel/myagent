@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-23T04:47:09.740Z",
+  "exportedAt": "2026-07-23T05:17:30.887Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-23T04:43:52.978Z",
+    "lastTs": "2026-07-23T05:15:43.742Z",
     "turns": [
       {
         "role": "user",
@@ -1961,6 +1961,86 @@
         "role": "assistant",
         "content": "No changes. Quiet hours.",
         "ts": "2026-07-23T04:43:52.978Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-23T05:13:36.331Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-23",
+        "ts": "2026-07-23T05:14:06.716Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "POSTS_LAST_7=0\nLAST_POST=2026-07-21",
+        "ts": "2026-07-23T05:14:06.721Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Daily brief not sent yet and it's before 10 AM. Let me trigger the daily brief flow:",
+        "ts": "2026-07-23T05:14:14.225Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-daily-brief\ndescription: Morning brief: researches today's news, drafts 2-3 ready-to-publish posts in user's brand voice. User taps Publish → auto-posts.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"morning brief\"\n  - \"daily brief\"\n  - \"give me posts for today\"\n  - \"what should i post today\"\n  - \"ready posts\"\n  - \"draft posts for me\"\n  - \"what's happening in my industry\"\n  - \"brief me\"\n  - \"show me today's posts\"\n---\n\n# LinkedIn Daily Brief Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Draft COMPLETE posts — not angles or ideas.** Every draft must be publish-ready in the user's voice.\n> 2. **Approve = immediate publish.** When the user taps ✅ Publish, call `li-post.sh` right away. No extra confirmation.\n> 3. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID`.\n> 4. **Source everything.** Every draft must have a real, recent (≤48h) source URL.\n> 5. **DO NOT narrate steps.** Show results directly.\n> 6. **Max 3 drafts per day.** Quality over quantity.\n\n---\n\n## When this runs\n\n- **Daily cron** (8 AM user timezone) — fires before the coach check at 9 AM\n- **User manually asks** — \"give me posts for today\", \"morning brief\", etc.\n\n---\n\n## Flow A: Generate Morning Brief (cron or manual trigger)\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\nTODAY=$(date +%Y-%m-%d)\nPENDING_DIR=\"$BASE/pending\"\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Check if brief already sent today\nBRIEF_FLAG=\"$PENDING_DIR/.brief-sent-$TODAY\"\n[ -f \"$BRIEF_FLAG\" ] && echo \"ALREADY_SENT=true\" || echo \"ALREADY_SENT=false\"\n\n# Load brand voice pillars and tone\nPILLARS=\"\"\nTONE=\"\"\nif [ -f \"$BASE/profile.md\" ]; then\n  PILLARS=$(grep -A 10 \"Content Pi",
+        "ts": "2026-07-23T05:14:14.267Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "ALREADY_SENT=false\nUID=264468965\nNAME=Andrii Bidochko\nTODAY=2026-07-23\nPOSTS_TODAY=0\nPILLARS_BLOCK=## Content Pillars\n\n1. Business & entrepreneurship insights\n2. Technology & AI innovations\n3. Personal development & mindset\n\n## Company / Product Context\n\n- **Company:** UBOS (ubos.tech)\n- **What it does:** AI Agent Orchestration Platform - build, host, and manage AI Agents in minutes using open-source tools (Langchain, CrewAI, Autogen, Vertex AI), 100+ LLM models, one-click cloud/on-premise deployment\n- **Key differentiators:** No vendor lock-in (open-source, multi-cloud), unlimited agents as microservices, works with any LLM including self-hosted (Llama, Deepseek)\nTONE_BLOCK=# LinkedIn Brand Voice - Andrii Bidochko\n\n**Owner:** 264468965\n**Last updated:** 2026-06-25\n\n## Identity & Goals",
+        "ts": "2026-07-23T05:14:26.678Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"web_search\",\n  \"error\": \"web_search is disabled or no provider is available.\"\n}",
+        "ts": "2026-07-23T05:14:31.832Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"web_search\",\n  \"error\": \"web_search is disabled or no provider is available.\"\n}",
+        "ts": "2026-07-23T05:14:31.839Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"web_search\",\n  \"error\": \"web_search is disabled or no provider is available.\"\n}",
+        "ts": "2026-07-23T05:14:31.843Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: perplexity-research\nversion: 0.1.0\ndescription: Brain-augmented web research. Sends brain context about a topic to Perplexity, which searches the web with citations and returns what is NEW vs what the brain already knows. Use for entity enrichment, current-state checks, deal monitoring, and freshness deltas. NOT for simple URL fetches (use web_fetch) or brain-only queries (use gbrain query).\ntriggers:\n  - \"perplexity research\"\n  - \"perplexity-research\"\n  - \"what's new about\"\n  - \"current state of\"\n  - \"web research\"\n  - \"what changed about\"\n  - \"surface new developments\"\nmutating: true\nwrites_pages: true\nwrites_to:\n  - research/\n---\n\n# perplexity-research — Brain-Augmented Web Research\n\n> **Convention:** see [conventions/quality.md](../conventions/quality.md) for\n> citation rules; every claim from web research lands with a verifiable\n> citation, not a paraphrase.\n>\n> **Convention:** see [conventions/brain-first.md](../conventions/brain-first.md)\n> for the lookup chain. This skill ENFORCES brain-first by sending brain\n> context as part of the Perplexity prompt — the web search focuses on\n> the delta between brain knowledge and current web state.\n\n## What this does\n\nCombines existing brain knowledge with Perplexity's web search. The\nagent sends brain context about a topic into a Perplexity query;\nPerplexity searches + reads + synthesizes multiple pages with citations,\nfocused on what's NEW relative to the supplied context.\n\n**The key insight:** Perplexity doesn't just search — it reads and\nsynthesizes with citations. By sending brain context in the\ninstructions, it knows what you already know, so it surfaces the delta\ninstead of repeating settled fact.\n\n## When to use this vs other tools\n\n| Need | Use |\n|------|-----|\n| Deep research with citations | **This skill** — Perplexity + Opus |\n| Quick URL content | `web_fetch` |\n| Brain-only lookup | `gbrain query` / `gbrain search` |\n| Real-time social monitoring | external X / social-media collectors |\n| Structur",
+        "ts": "2026-07-23T05:14:51.571Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "PERPLEXITY_AVAILABLE=false",
+        "ts": "2026-07-23T05:14:55.794Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Morning, Andrii! ☀️\n\nQuick heads up — I can't generate today's news-based brief because web search and Perplexity aren't configured in this environment. The daily brief requires real, fresh sources to cite.\n\n**Options:**\n1. Give me a topic/angle you want to post about and I'll draft it in your voice\n2. Share a link to an article you found and I'll turn it into a post\n3. We can fix the research tools setup\n\nWhat works for you?",
+        "ts": "2026-07-23T05:15:19.334Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"689\"\n}",
+        "ts": "2026-07-23T05:15:19.398Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-23T05:15:19.403Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 377 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-23T05:15:29.366Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Sent morning brief note — no web research tools available, offered manual topic options. Awaiting your response.",
+        "ts": "2026-07-23T05:15:43.742Z"
       }
     ],
     "toolCalls": [],

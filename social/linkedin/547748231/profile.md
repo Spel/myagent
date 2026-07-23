@@ -6,8 +6,13 @@
 ## Identity & Goals
 
 - **Target audience:** B2B компанії (корпоративні тренінги), ТОПи та керівники (1:1 коучинг), амбітні люди, яким "все мало" — керівники напрямків, ТОПи, власники
-- **Primary goal:** отримати 5 лідів/місяць
-- **Posting cadence:** щодня
+- **Primary goal:** отримати 5 лідів/місяць (запити через LinkedIn у директ)
+- **Posting cadence:** щодня, 8:00 за Києвом (5:00 UTC)
+- **Post types mix:**
+  - 50% — думки/уроки (особистий досвід, кейси)
+  - 20% — особисті історії (рефлексії, behind the scenes)
+  - 20% — events/анонси (тренінги, курси BogushTime)
+  - 10% — реакція на тренди (AI новини, бізнес-новини)
 
 ## Buyer Personas
 
@@ -19,9 +24,10 @@
 
 ## Content Pillars
 
-1. Управління персоналом та менеджмент
-2. Цілепокладання і планування + досягнення
-3. AI-рішення для бізнесу та управління
+1. **Менеджмент та комунікації** — практичні кейси, типові помилки, рішення
+2. **Ефективність та цілепокладання** — планування, дисципліна, результати
+3. **AI для керівників** — інструменти, кейси впровадження
+4. **Особисті історії** — кейси клієнтів, рефлексії, "за лаштунками" роботи коуча
 
 ## Voice & Tone
 
@@ -36,8 +42,10 @@
 
 ## Upcoming Events
 
-- **13.07** — ТаймКвест: Тактика (онлайн-реаліті тренінг) — https://bogushtime.com/program/onlajn-realiti-trening-tajmkvest-taktyka/
-- **20.07** — TurboMoney онлайн-тренінг (управління фінансами) — https://bogushtime.com/program/onlajn-trening-turbomoney-upravlinnya-finansamy-dlya-vpevnenogo-majbutnogo/
+- **04.08.2026** — Як роздати 1000 задач AI (практикум)
+- **06.08.2026** — ТаймКвест: Тактика (онлайн-реаліті тренінг) — https://bogushtime.com/program/onlajn-realiti-trening-tajmkvest-taktyka/
+- **17.08.2026** — Управління Людьми через Мотивацію (тренінг)
+- **20.07–11.08.2026** — TurboMoney (онлайн-тренінг з управління фінансами) — https://bogushtime.com/program/onlajn-trening-turbomoney-upravlinnya-finansamy-dlya-vpevnenogo-majbutnogo/
 
 ## Philosophy
 

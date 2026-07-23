@@ -1,0 +1,129 @@
+{
+  "exportedAt": "2026-07-23T07:08:51.820Z",
+  "sourceFile": "286e1a1b-53c3-40c6-9fc8-e287962fc462-topic-695.jsonl",
+  "session": {
+    "file": "286e1a1b-53c3-40c6-9fc8-e287962fc462-topic-695.jsonl",
+    "sessionKey": "286e1a1b-53c3-40c6-9fc8-e287962fc462",
+    "firstTs": "2026-07-23T07:04:02.364Z",
+    "lastTs": "2026-07-23T07:08:45.362Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Так",
+        "ts": "2026-07-23T07:04:02.456Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Отлично, драфт готов! Публикуем или еще что-то поправить?",
+        "ts": "2026-07-23T07:04:15.301Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "IS_APPROVED=true",
+        "ts": "2026-07-23T07:04:15.408Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Публікую.",
+        "ts": "2026-07-23T07:04:18.692Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-publish\ndescription: Publish text or image posts to LinkedIn on behalf of multiple Telegram users. Handles per-user OAuth linking automatically.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\",\"LINKEDIN_CLIENT_SECRET\",\"LINKEDIN_REDIRECT_URI\"]}}}\ntriggers:\n  - \"publish to linkedin\"\n  - \"post to linkedin\"\n  - \"share on linkedin\"\n  - \"linkedin article\"\n  - \"publish article to linkedin\"\n  - \"post article on linkedin\"\n  - \"linkedin post\"\n  - \"share article linkedin\"\n  - \"cross-post to linkedin\"\n  - \"connect linkedin\"\n  - \"link linkedin account\"\n  - \"linkedin post with image\"\n  - \"post image to linkedin\"\n  - \"share image on linkedin\"\n---\n\n# LinkedIn Publish Skill\n\n> ⚠️ READ THIS FIRST — MANDATORY RULES:\n> 1. **NEVER write scripts to /tmp or anywhere else.** The helper already exists.\n> 2. **NEVER use grep/cut/sed/cat/read-tool to get the access token.** The helper handles it.\n> 3. **NEVER create a new bash script for LinkedIn.** Use ONLY `{baseDir}/li-post.sh`.\n> 4. **NEVER analyze or describe an attached image.** Pass its path directly to li-post.sh.\n> 5. **DO NOT narrate steps.** Run the command, show the result.\n> 6. **ONE PUBLISH PER REQUEST.** Call `li-post.sh` exactly once per confirmed\n>    request. The instant you get an `OK:` line, the post is LIVE and this flow\n>    is DONE — report the URL and STOP. Never call `li-post.sh` again to \"retry\",\n>    \"improve the image\", or \"use the real image\". Each call creates a brand-new\n>    LinkedIn post; LinkedIn has no edit-with-media API. If you couldn't get the\n>    image you wanted, do NOT silently post without it — ask the user first\n>    (see **Single-publish guard** below).\n\n---\n\n## Single-publish guard (READ BEFORE EVERY PUBLISH)\n\nPublishing is irreversible and creates a permanent post. To avoid the\nduplicate-post problem:\n\n- **Resolve the image BEFORE the single `li-post.sh` call.** Do all image\n  retrieval/generation first. Only call `li-post.sh` once everything",
+        "ts": "2026-07-23T07:04:18.734Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "STATUS: OK",
+        "ts": "2026-07-23T07:04:31.483Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "OK: https://www.linkedin.com/feed/update/urn:li:share:7485953023245193216/\nDISPLAY_NAME: Kateryna Miliutenko\nCHARS: 1650",
+        "ts": "2026-07-23T07:04:43.362Z"
+      },
+      {
+        "role": "user",
+        "content": "Публікуємо",
+        "ts": "2026-07-23T07:04:43.365Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 1395 bytes to /data/workspace/social/linkedin/547748231/posts/2026-07-23-bez-mene-tut-vse-rozvalitsya.md",
+        "ts": "2026-07-23T07:04:52.715Z"
+      },
+      {
+        "role": "assistant",
+        "content": "✅ Опубліковано (від імені Kateryna Miliutenko):\n→ https://www.linkedin.com/feed/update/urn:li:share:7485953023245193216/\n\nСимволів: 1650",
+        "ts": "2026-07-23T07:04:57.772Z"
+      },
+      {
+        "role": "user",
+        "content": "З 15 по 22 скільки було постів",
+        "ts": "2026-07-23T07:04:58.357Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "4",
+        "ts": "2026-07-23T07:05:01.676Z"
+      },
+      {
+        "role": "assistant",
+        "content": "✅ Опубліковано (від імені Kateryna Miliutenko):\n→ https://www.linkedin.com/feed/update/urn:li:share:7485953023245193216/\n\nСимволів: 1650",
+        "ts": "2026-07-23T07:05:07.233Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "2",
+        "ts": "2026-07-23T07:05:15.735Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "2026-07-20-polovyna-kerivnykiv-ne-znae.md\n2026-07-21-mene-klonuvaly-bez-moho-vidoma.md",
+        "ts": "2026-07-23T07:05:24.055Z"
+      },
+      {
+        "role": "assistant",
+        "content": "З 15 по 22 липня — 2 пости:\n- 20.07 — \"Половина керівників не знає...\"\n- 21.07 — \"Мене клонували без мого відома...\"\n\nСьогодні (23.07) — вже третій.",
+        "ts": "2026-07-23T07:05:30.782Z"
+      },
+      {
+        "role": "assistant",
+        "content": "З 15 по 22 липня — 2 пости:\n- 20.07 — \"Половина керівників не знає...\"\n- 21.07 — \"Мене клонували без мого відома...\"\n\nСьогодні (23.07) — вже третій.",
+        "ts": "2026-07-23T07:05:32.233Z"
+      },
+      {
+        "role": "user",
+        "content": "23.07 - що пишемо?",
+        "ts": "2026-07-23T07:08:24.507Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# LinkedIn Brand Voice — Catherine Miliutenko\n\n**Owner:** 547748231\n**Last updated:** 2026-07-03\n\n## Identity & Goals\n\n- **Target audience:** B2B компанії (корпоративні тренінги), ТОПи та керівники (1:1 коучинг), амбітні люди, яким \"все мало\" — керівники напрямків, ТОПи, власники\n- **Primary goal:** отримати 5 лідів/місяць\n- **Posting cadence:** щодня\n\n## Buyer Personas\n\n*(Who specifically should feel spoken to by every post)*\n\n- **Persona 1:** ТОП-менеджер у компанії 50+ людей — Pain: потреба в підвищенні особистої та командної ефективності, баланс work-life\n- **Persona 2:** Власник бізнесу — Pain: систематизація бізнес-процесів, делегування, ріст команди\n- **Persona 3:** Керівник напрямку — Pain: менеджмент, комунікації, досягнення цілей\n\n## Content Pillars\n\n1. Управління персоналом та менеджмент\n2. Цілепокладання і планування + досягнення\n3. AI-рішення для бізнесу та управління\n\n## Voice & Tone\n\n- **Style:** легкий і гумористичний + мотиваційний із практичними tips\n- **Avoid:** багато емодзі, продажні заклики — продаж має бути природнім, політичні теми\n\n## Company / Product Context\n\n- **Personal brand:** Catherine Miliutenko — сертифікована бізнес-тренерка компанії BogushTime, business/life-коуч\n- **Спеціалізація:** підвищення особистої та командної ефективності, систематизація бізнесу, делегування, AI-рішення\n- **Досвід:** 11+ років, 750+ випускників, клієнти: Київстар, MetLife, OVB, CreditWest Bank та ін.\n\n## Upcoming Events\n\n- **13.07** — ТаймКвест: Тактика (онлайн-реаліті тренінг) — https://bogushtime.com/program/onlajn-realiti-trening-tajmkvest-taktyka/\n- **20.07** — TurboMoney онлайн-тренінг (управління фінансами) — https://bogushtime.com/program/onlajn-trening-turbomoney-upravlinnya-finansamy-dlya-vpevnenogo-majbutnogo/\n\n## Philosophy\n\nБудь-хто може досягти все, що забажає — головне: ціль, дисципліна, гарний настрій, отримувати кайф від процесу, і не забувати про життя.\n\n## Hashtag Strategy\n\n- Always use: #yourcoachcatherine #коучинг #лідерство #coach\n- To",
+        "ts": "2026-07-23T07:08:30.030Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Content Strategy — Catherine Miliutenko\n\n**Owner:** 547748231  \n**Created:** 2026-07-20  \n**Last updated:** 2026-07-20\n\n---\n\n## Business Goals\n\n- **Primary:** Отримати 5 лідів/місяць через LinkedIn\n- **Secondary:** Побудувати особистий бренд як сертифікованого бізнес-тренера BogushTime\n- **Long-term:** Стати топ-голосом у темі ефективності та лідерства в Україні\n\n## Target Audience\n\n- ТОП-менеджери компаній 50+ людей (особиста та командна ефективність)\n- Власники бізнесу (систематизація, делегування, ріст)\n- Керівники напрямків (менеджмент, комунікації, цілі)\n\n## Content Pillars\n\n1. **Управління персоналом та менеджмент** — практичні кейси, типові помилки, рішення\n2. **Цілепокладання та досягнення** — планування, дисципліна, результати\n3. **AI-рішення для бізнесу** — як використовувати AI у роботі керівника\n\n## Posting Cadence\n\n- **Frequency:** Щодня (1 пост/день)\n- **Best posting times:** 8:00–10:00 за Києвом (ранковий трафік LinkedIn)\n- **Post types mix:**\n  - 60% — думки/уроки (особистий досвід, кейси)\n  - 25% — events/анонси (тренінги, курси BogushTime)\n  - 15% — реакція на тренди (AI новини, бізнес-новини)\n\n## Upcoming Events (промоція)\n\n- **13.07.2026** — ТаймКвест: Тактика (онлайн-реаліті тренінг)\n  Link: https://bogushtime.com/program/onlajn-realiti-trening-tajmkvest-taktyka/\n- **20.07.2026** — TurboMoney: Управління фінансами\n  Link: https://bogushtime.com/program/onlajn-trening-turbomoney-upravlinnya-finansamy-dlya-vpevnenogo-majbutnogo/\n\n## Key Messages\n\n1. \"Будь-хто може досягти всього — треба ціль, дисципліна і кайф від процесу\"\n2. \"Делегування — це не слабкість, це мультиплікатор ефективності\"\n3. \"AI не замінить керівника — але керівник із AI замінить без AI\"\n\n## Voice Rules (short version)\n\n- Мова: українська\n- Стиль: легкий + практичний + мотиваційний\n- Уникати: багато емодзі, прямих продажів, політики\n- Хештеги завжди: #yourcoachcatherine #коучинг #лідерство #coach",
+        "ts": "2026-07-23T07:08:30.034Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Content Calendar — Catherine Miliutenko\n\n**Owner:** 547748231  \n**Last updated:** 2026-07-20\n\n---\n\n## Published Posts\n\n| Date | Title / Hook | URL | Status |\n|------|-------------|-----|--------|\n| 2026-07-14 | \"14 липня — це ДРУГЕ СІЧНЯ\" | https://www.linkedin.com/feed/update/urn:li:share:7482834291794702336/ | ✅ published |\n\n---\n\n## Scheduled Posts\n\n| Date | Time (Kyiv) | Draft file | Status |\n|------|-------------|-----------|--------|\n| 2026-07-15 | 06:00 | pending/2026-07-15-team-photo.md | ⏰ scheduled (cron job set) |\n\n---\n\n## Draft Ideas (inbox)\n\n- **TurboMoney старт (20.07)** — пости серії про управління фінансами керівника (3-4 пости)\n- **\"Чому без мене нічого не рухається\"** — про делегування (черновик є в сесії від 13.07)\n- **Пост-рефлексія ТаймКвест** — після 13.07 тренінгу, що навчилися учасники\n- **AI для керівника** — практичний список інструментів для ТОПів\n\n---\n\n## Notes\n\n- Після 13.07 тренінгу ТаймКвест — написати рефлексивний пост\n- Після 20.07 TurboMoney — серія постів про фінансову дисципліну\n- Наступна подія після 20.07 — уточнити у Catherine",
+        "ts": "2026-07-23T07:08:30.037Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Сьогодні вже є пост про делегування + AI. За стратегією — 1 пост/день.\n\nАле якщо хочеш додатковий — є варіанти з календаря:\n\n**Пілар: AI-рішення для бізнесу**\n- Практичний список AI-інструментів для ТОПів (що справді економить час)\n- Як я використовую AI у коучингу — особистий кейс\n\n**Пілар: Цілепокладання**\n- Середина року — що ти зробив з тими цілями з січня?\n- Чому 90% новорічних резолюцій помирають до липня (і як бути в 10%)\n\n**Пілар: Менеджмент**\n- \"Команда не слухає\" — чи ти слухаєш їх?\n- Кейс: як систематизувати хаос у команді\n\nЯкий напрям зараз відгукується? Чи на сьогодні достатньо одного?",
+        "ts": "2026-07-23T07:08:42.811Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Сьогодні вже є пост про делегування + AI. За стратегією — 1 пост/день.\n\nАле якщо хочеш додатковий — є варіанти з календаря:\n\n**Пілар: AI-рішення для бізнесу**\n- Практичний список AI-інструментів для ТОПів (що справді економить час)\n- Як я використовую AI у коучингу — особистий кейс\n\n**Пілар: Цілепокладання**\n- Середина року — що ти зробив з тими цілями з січня?\n- Чому 90% новорічних резолюцій помирають до липня (і як бути в 10%)\n\n**Пілар: Менеджмент**\n- \"Команда не слухає\" — чи ти слухаєш їх?\n- Кейс: як систематизувати хаос у команді\n\nЯкий напрям зараз відгукується? Чи на сьогодні достатньо одного?",
+        "ts": "2026-07-23T07:08:45.362Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-25T21:44:54.252Z",
+  "exportedAt": "2026-07-25T22:15:16.639Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-25T21:44:00.331Z",
+    "lastTs": "2026-07-25T22:13:58.152Z",
     "turns": [
       {
         "role": "user",
@@ -126,6 +126,46 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-25T21:44:00.331Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-25T22:13:36.250Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753560780,\n    \"linkedin_coach\": 1753466580,\n    \"linkedin_trends_flagged\": 1753223582\n  },\n  \"notes\": {\n    \"trends_needed\": true,\n    \"trends_reason\": \"No content-calendar.md exists - need to create initial calendar via linkedin-trends\",\n    \"daily_brief\": \"2026-07-25 21:43 UTC - Brief not sent today. It's evening (21:43 UTC / 00:43 Kyiv). Saturday night. Not auto-firing. User can request manually.\",\n    \"coach\": \"2026-07-25 21:43 UTC - 0 posts in last 7 days. Last post July 21. User said 'later' previously - respecting space, no additional nudge.\"\n  }\n}",
+        "ts": "2026-07-25T22:13:43.989Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-25\n22",
+        "ts": "2026-07-25T22:13:43.995Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "drwxr-xr-x 2 root root 4096 Jul 21 17:59 .\ndrwxr-xr-x 5 root root 4096 Jul 20 13:07 ..\n-rw-r--r-- 1 root root 1318 Jun 25 15:55 2026-06-25-ai-isnt-coming-for-your.md\n-rw-r--r-- 1 root root 1500 Jun 25 17:40 2026-06-25-most-companies-are-building-ai.md\n-rw-r--r-- 1 root root 1773 Jul 21 17:59 2026-07-21-your-ai-pilot-didnt-fail.md",
+        "ts": "2026-07-25T22:13:43.999Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-25T22:13:44.003Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"read\",\n  \"error\": \"ENOENT: no such file or directory, access '/data/workspace/social/linkedin/264468965/content-calendar.md'\"\n}",
+        "ts": "2026-07-25T22:13:50.459Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully replaced 1 block(s) in /data/workspace/memory/heartbeat-state.json.",
+        "ts": "2026-07-25T22:13:50.464Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-25T22:13:58.152Z"
       }
     ],
     "toolCalls": [],

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-25T15:50:27.168Z",
+  "exportedAt": "2026-07-25T16:20:49.377Z",
   "sourceFile": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
   "session": {
     "file": "1c714473-8693-49e0-b827-44c207f3b83b.jsonl",
     "sessionKey": "1c714473-8693-49e0-b827-44c207f3b83b",
     "firstTs": "2026-07-21T17:49:37.140Z",
-    "lastTs": "2026-07-25T15:44:05.083Z",
+    "lastTs": "2026-07-25T16:14:22.185Z",
     "turns": [
       {
         "role": "user",
@@ -4456,6 +4456,31 @@
         "role": "assistant",
         "content": "All checks complete. Respecting user's space - no new nudges.",
         "ts": "2026-07-25T15:44:05.083Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-25T16:13:36.391Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-25\nPOSTS_LAST_7=1\nLAST_POST=2026-07-21",
+        "ts": "2026-07-25T16:13:52.790Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-25T16:14:09.196Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 494 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-25T16:14:09.250Z"
+      },
+      {
+        "role": "assistant",
+        "content": "All checks complete. Respecting user's space - no new nudges.",
+        "ts": "2026-07-25T16:14:22.185Z"
       }
     ],
     "toolCalls": [],

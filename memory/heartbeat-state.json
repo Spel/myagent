@@ -1,13 +1,13 @@
 {
   "lastChecks": {
-    "linkedin_daily_brief": 1753586000,
-    "linkedin_coach": 1753586000,
-    "linkedin_trends_flagged": 1753586000
+    "linkedin_daily_brief": 1753617780,
+    "linkedin_coach": 1753617780,
+    "linkedin_trends_flagged": 1753617780
   },
   "notes": {
-    "trends_needed": false,
-    "trends_reason": "Trend Proposals section exists in content-calendar.md",
-    "daily_brief": "2026-07-25 22:13 UTC - Saturday night (01:13 Kyiv). Brief not sent. Too late for morning brief.",
-    "coach": "2026-07-25 22:13 UTC - 0 posts in last 7 days. Last post July 21 (4 days ago). Respecting user's 'later' request."
+    "daily_brief": "2026-07-25 22:43 UTC - Saturday night (01:43 Kyiv). Brief not sent. Too late, skip until Monday.",
+    "coach": "2026-07-25 22:43 UTC - Last post July 21 (4 days ago). User previously said 'later'. No nudge tonight.",
+    "trends_needed": true,
+    "trends_reason": "content-calendar.md missing entirely. Flag for next session."
   }
 }

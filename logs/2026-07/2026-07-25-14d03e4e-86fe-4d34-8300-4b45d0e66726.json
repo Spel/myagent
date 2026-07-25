@@ -1,0 +1,29 @@
+{
+  "exportedAt": "2026-07-25T20:23:52.713Z",
+  "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
+  "session": {
+    "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
+    "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
+    "firstTs": "2026-07-25T20:22:13.972Z",
+    "lastTs": "2026-07-25T20:22:23.992Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Find me a hot topics to tweet about",
+        "ts": "2026-07-25T20:22:14.069Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Andrii — I'm built for LinkedIn, not Twitter. Different game, different rules.\n\nBut here's the thing: **good topics work everywhere**. The platform just changes how you package them.\n\nWant me to find you hot topics for **LinkedIn posts** instead? I can:\n\n1. **Research fresh angles** from your pillars (AI Agents, Automation for SMBs, Personal journey)\n2. **Surface trending conversations** in your space\n3. **Draft 2-3 posts** in your Gary Vee voice, ready to ship\n\nOr if you specifically need Twitter content — I can help brainstorm topics, but you'd need to post them yourself (I don't have Twitter integration).\n\nWhat's the play? LinkedIn posts, or just topic brainstorming you can adapt?",
+        "ts": "2026-07-25T20:22:22.358Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Andrii — I'm built for LinkedIn, not Twitter. Different game, different rules.\n\nBut here's the thing: **good topics work everywhere**. The platform just changes how you package them.\n\nWant me to find you hot topics for **LinkedIn posts** instead? I can:\n\n1. **Research fresh angles** from your pillars (AI Agents, Automation for SMBs, Personal journey)\n2. **Surface trending conversations** in your space\n3. **Draft 2-3 posts** in your Gary Vee voice, ready to ship\n\nOr if you specifically need Twitter content — I can help brainstorm topics, but you'd need to post them yourself (I don't have Twitter integration).\n\nWhat's the play? LinkedIn posts, or just topic brainstorming you can adapt?",
+        "ts": "2026-07-25T20:22:23.992Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

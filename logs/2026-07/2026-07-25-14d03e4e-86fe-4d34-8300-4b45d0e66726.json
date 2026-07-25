@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-25T23:15:59.993Z",
+  "exportedAt": "2026-07-25T23:46:22.236Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-25T23:14:05.619Z",
+    "lastTs": "2026-07-25T23:43:46.541Z",
     "turns": [
       {
         "role": "user",
@@ -236,6 +236,26 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-25T23:14:05.619Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-25T23:43:36.228Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753633988,\n    \"linkedin_coach\": 1753633988,\n    \"linkedin_trends_flagged\": 1753633988\n  },\n  \"notes\": {\n    \"daily_brief\": \"2026-07-25 23:13 UTC - Saturday night (02:13 Kyiv). Brief not sent. Too late, skip until Monday.\",\n    \"coach\": \"2026-07-25 23:13 UTC - Last post July 21 (4 days ago). User previously said 'later'. No nudge tonight.\",\n    \"trends_needed\": true,\n    \"trends_reason\": \"content-calendar.md missing entirely. Flag for next session.\"\n  }\n}",
+        "ts": "2026-07-25T23:43:40.515Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# Heartbeat Tasks\n\nRun 2-3 of these per session (rotate, don't run all every time).\n\n## Daily Brief Freshness (run once per day, morning sessions)\n\nCheck if today's morning brief has been sent for the owner (TELEGRAM_USER_ID=264468965):\n```bash\nTODAY=$(date +%Y-%m-%d)\nFLAG=\"/data/workspace/social/linkedin/264468965/pending/.brief-sent-$TODAY\"\n[ -f \"$FLAG\" ] && echo \"BRIEF_SENT=true\" || echo \"BRIEF_SENT=false\"\n```\n- If `BRIEF_SENT=false` AND it's before 10 AM: read `skills/linkedin-daily-brief/SKILL.md` and run Flow A immediately.\n- If `BRIEF_SENT=false` AND it's after 10 AM: note it so the user can request it manually — don't auto-fire.\n- If `BRIEF_SENT=true`: skip silently.\n\n## LinkedIn Coach Check (run every session for owner)\n\nCheck if the owner (TELEGRAM_USER_ID=264468965) is on track with their LinkedIn posting cadence.\nRead `skills/linkedin-coach/SKILL.md` and run the Daily Coach Check flow for user 264468965.\nIf they're behind: proactively send them a nudge in this chat (no separate DM needed — we're already talking).\nIf they're on track: brief acknowledgement only, don't interrupt.\n\n## Trend Research Freshness (run once per week max)\n\nCheck `/data/workspace/social/linkedin/264468965/content-calendar.md` — look at the date of the last \"Trend Proposals\" section.\nIf it's older than 7 days (or missing): note it here so next heartbeat can trigger `linkedin-trends` for a refresh.\nDo NOT run the full trend research during heartbeat — that's a background cron task. Just flag it.\n\n## State file\n\nTrack last checks in `/data/workspace/memory/heartbeat-state.json`:\n```json\n{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 0,\n    \"linkedin_coach\": 0,\n    \"linkedin_trends_flagged\": 0\n  }\n}\n```",
+        "ts": "2026-07-25T23:43:40.519Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-25T23:43:46.541Z"
       }
     ],
     "toolCalls": [],

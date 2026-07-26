@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-26T00:16:43.572Z",
+  "exportedAt": "2026-07-26T00:47:05.114Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-26T00:14:05.270Z",
+    "lastTs": "2026-07-26T00:43:47.768Z",
     "turns": [
       {
         "role": "user",
@@ -286,6 +286,26 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-26T00:14:05.270Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-26T00:43:36.236Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-26\n00",
+        "ts": "2026-07-26T00:43:42.572Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753662180,\n    \"linkedin_coach\": 1753662180,\n    \"linkedin_trends_flagged\": 1753662180\n  },\n  \"notes\": {\n    \"daily_brief\": \"2026-07-26 00:13 UTC - Sunday 03:13 Kyiv. Brief not sent. Too early, wait for Monday morning.\",\n    \"coach\": \"2026-07-26 00:13 UTC - Last post July 21 (5 days ago). Sunday night Kyiv. No nudge.\",\n    \"trends_needed\": true,\n    \"trends_reason\": \"content-calendar.md missing entirely. Flag for next session.\"\n  }\n}",
+        "ts": "2026-07-26T00:43:42.577Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-26T00:43:47.768Z"
       }
     ],
     "toolCalls": [],

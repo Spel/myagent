@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-26T07:21:50.715Z",
+  "exportedAt": "2026-07-26T07:52:11.577Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-26T07:13:57.788Z",
+    "lastTs": "2026-07-26T07:44:38.751Z",
     "turns": [
       {
         "role": "user",
@@ -646,6 +646,66 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-26T07:13:57.788Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-26T07:43:36.274Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-26\n07",
+        "ts": "2026-07-26T07:43:42.441Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753550580,\n    \"linkedin_coach\": 1753725811,\n    \"linkedin_trends_flagged\": 1753725216\n  },\n  \"notes\": {\n    \"daily_brief\": \"2026-07-26 07:13 UTC - Sunday. BRIEF_SENT=false, after 10 AM Kyiv. Wait for user request or Monday.\",\n    \"coach\": \"2026-07-26 07:13 UTC - Last post July 21 (5 days ago). Sunday - no nudge. Will nudge Monday.\",\n    \"trends_needed\": true,\n    \"trends_reason\": \"content-calendar.md missing. Run linkedin-trends skill when appropriate.\"\n  }\n}",
+        "ts": "2026-07-26T07:43:47.705Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-daily-brief\ndescription: Morning brief: researches today's news, drafts 2-3 ready-to-publish posts in user's brand voice. User taps Publish → auto-posts.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"morning brief\"\n  - \"daily brief\"\n  - \"give me posts for today\"\n  - \"what should i post today\"\n  - \"ready posts\"\n  - \"draft posts for me\"\n  - \"what's happening in my industry\"\n  - \"brief me\"\n  - \"show me today's posts\"\n---\n\n# LinkedIn Daily Brief Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Draft COMPLETE posts — not angles or ideas.** Every draft must be publish-ready in the user's voice.\n> 2. **Approve = immediate publish.** When the user taps ✅ Publish, call `li-post.sh` right away. No extra confirmation.\n> 3. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID`.\n> 4. **Source everything.** Every draft must have a real, recent (≤48h) source URL.\n> 5. **DO NOT narrate steps.** Show results directly.\n> 6. **Max 3 drafts per day.** Quality over quantity.\n\n---\n\n## When this runs\n\n- **Daily cron** (8 AM user timezone) — fires before the coach check at 9 AM\n- **User manually asks** — \"give me posts for today\", \"morning brief\", etc.\n\n---\n\n## Flow A: Generate Morning Brief (cron or manual trigger)\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\nTODAY=$(date +%Y-%m-%d)\nPENDING_DIR=\"$BASE/pending\"\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Check if brief already sent today\nBRIEF_FLAG=\"$PENDING_DIR/.brief-sent-$TODAY\"\n[ -f \"$BRIEF_FLAG\" ] && echo \"ALREADY_SENT=true\" || echo \"ALREADY_SENT=false\"\n\n# Load brand voice pillars and tone\nPILLARS=\"\"\nTONE=\"\"\nif [ -f \"$BASE/profile.md\" ]; then\n  PILLARS=$(grep -A 10 \"Content Pi",
+        "ts": "2026-07-26T07:43:47.712Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "---\nname: linkedin-coach\ndescription: Proactive LinkedIn coach. Checks posting cadence, sends daily nudges, proposes next content idea. Run by cron or manually.\nuser-invocable: true\nmetadata: {\"openclaw\":{\"requires\":{\"env\":[\"LINKEDIN_CLIENT_ID\"]}}}\ntriggers:\n  - \"coach me\"\n  - \"what should i post today\"\n  - \"am i on track\"\n  - \"linkedin check in\"\n  - \"how am i doing on linkedin\"\n  - \"push me to post\"\n  - \"content nudge\"\n---\n\n# LinkedIn Coach Skill\n\n> ⚠️ MANDATORY RULES:\n> 1. **Never publish.** This skill motivates and proposes. Posting uses `linkedin-publish`.\n> 2. **Per-user isolation.** All data keyed by `$TELEGRAM_USER_ID` (from env or cron prompt).\n> 3. **Always be a coach, not a reporter.** Don't just show stats — interpret them. Push the user to act.\n> 4. **DO NOT narrate steps.** Show results directly.\n\n---\n\n## When this skill runs\n\n- **Daily cron** (9 AM user timezone) — called with explicit `TELEGRAM_USER_ID` in prompt\n- **Heartbeat session** — owner gets a quick check each session\n- **User manually asks** — \"what should I post today?\", \"coach me\", etc.\n\n---\n\n## Flow: Daily Coach Check\n\n### Step 1 — Load user context (ONE bash block)\n\n```bash\nUID=\"${TELEGRAM_USER_ID}\"\nBASE=\"/data/workspace/social/linkedin/$UID\"\nTOKEN_STORE=/data/openclaw/linkedin-tokens.json\n\n# OAuth check\nACCESS_TOKEN=*** -r --arg u \"$UID\" '.[$u].access_token // empty' \"$TOKEN_STORE\" 2>/dev/null)\nDISPLAY_NAME=$(jq -r --arg u \"$UID\" '.[$u].display_name // \"there\"' \"$TOKEN_STORE\" 2>/dev/null)\n\n# Strategy: extract cadence line\nCADENCE=\"unknown\"\nif [ -f \"$BASE/strategy.md\" ]; then\n  CADENCE=$(grep -i \"cadence\\|frequency\\|per week\\|posts/week\" \"$BASE/strategy.md\" | head -1 | sed 's/.*: //')\nfi\n\n# Posts in last 7 days\nPOST_COUNT=$(find \"$BASE/posts/\" -name \"*.md\" -newer \"$(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)\" 2>/dev/null | wc -l | tr -d ' ')\n\n# Days since last post\nLAST_POST_DATE=$(ls -t \"$BASE/posts/\"*.md 2>/dev/null | head -1 | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{",
+        "ts": "2026-07-26T07:43:56.766Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "NAME=Andrii Bidochko\nCADENCE=## Posting Cadence\nPOSTS_LAST_7=1\nLAST_POST=2026-07-21\nTODAY=2026-07-26\nNEXT_IDEA_BLOCK=",
+        "ts": "2026-07-26T07:44:03.373Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "=== User Setup ===\nPROFILE=exists\nSTRATEGY=exists\nCALENDAR=missing\nPOSTS_DIR=exists\n\n=== Recent Posts ===\n-rw-r--r-- 1 root root 1773 Jul 21 17:59 /data/workspace/social/linkedin/264468965/posts/2026-07-21-your-ai-pilot-didnt-fail.md\n-rw-r--r-- 1 root root 1500 Jun 25 17:40 /data/workspace/social/linkedin/264468965/posts/2026-06-25-most-companies-are-building-ai.md\n-rw-r--r-- 1 root root 1318 Jun 25 15:55 /data/workspace/social/linkedin/264468965/posts/2026-06-25-ai-isnt-coming-for-your.md\n\n=== Strategy Cadence ===\n## Posting Cadence\n- **Frequency:** 2-3 times per day",
+        "ts": "2026-07-26T07:44:10.829Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully replaced 1 block(s) in /data/workspace/memory/heartbeat-state.json.",
+        "ts": "2026-07-26T07:44:20.172Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "# LinkedIn Brand Voice - Andrii Bidochko\n\n**Owner:** 264468965\n**Last updated:** 2026-06-25\n\n## Identity & Goals\n\n- **Target audience:** Business professionals, entrepreneurs, tech-savvy individuals seeking growth and insights\n- **Primary goal:** Maximum organic engagement (impressions, comments, shares) through thought leadership and value-driven content\n\n## Buyer Personas\n\n*(Who specifically should feel spoken to by every post)*\n\n- **Persona 1:** Enterprise Innovation Officer / CTO at 200+ person company (Financial Services, Healthcare, Retail) - Pain: Needs rapid AI solution development without vendor lock-in or heavy internal R&D\n- **Persona 2:** CTO / Software Architect at 75+ person IT consultancy or agency - Pain: Needs to deliver AI-powered client projects faster with reusable components\n- **Persona 3:** Founder / CEO / Head of Operations at 10-200 person SMB - Pain: Wants automation and AI competitiveness but lacks the engineering resources or budget\n\n## Content Pillars\n\n1. Business & entrepreneurship insights\n2. Technology & AI innovations\n3. Personal development & mindset\n\n## Company / Product Context\n\n- **Company:** UBOS (ubos.tech)\n- **What it does:** AI Agent Orchestration Platform - build, host, and manage AI Agents in minutes using open-source tools (Langchain, CrewAI, Autogen, Vertex AI), 100+ LLM models, one-click cloud/on-premise deployment\n- **Key differentiators:** No vendor lock-in (open-source, multi-cloud), unlimited agents as microservices, works with any LLM including self-hosted (Llama, Deepseek)\n- **Mission:** \"Help people build better software\"\n- **Key messages to reinforce:**\n  1. AI can be affordable and accessible - even for small businesses\n  2. Implementing AI doesn't require a big team or deep tech expertise\n  3. Every company will become AI-first - the question is when, not if\n\n## Voice & Tone\n\n- **Style:** Gary Vaynerchuk (Gary Vee) - Direct, energetic, bold, motivational, conversational. Short punchy lines, strong opinions, urge",
+        "ts": "2026-07-26T07:44:25.370Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Andrii — 5 days since your last post.\n\nYour target is 2-3 posts per day. You've posted once this week.\n\nThat's not a content strategy. That's invisibility.\n\nThe algorithm doesn't wait. Your audience doesn't wait. Every day you're quiet, someone else is showing up in their feed instead of you.\n\nHere's your topic for today: Most companies are still treating AI like a side project. The ones winning are making it core infrastructure. UBOS exists because this shift is happening whether you're ready or not.\n\nWrite about that — the companies getting it vs the ones still \"exploring.\"",
+        "ts": "2026-07-26T07:44:35.194Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"709\"\n}",
+        "ts": "2026-07-26T07:44:35.264Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-26T07:44:38.751Z"
       }
     ],
     "toolCalls": [],

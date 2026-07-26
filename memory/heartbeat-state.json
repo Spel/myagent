@@ -1,12 +1,12 @@
 {
   "lastChecks": {
     "linkedin_daily_brief": 1753550580,
-    "linkedin_coach": 1753725811,
+    "linkedin_coach": 1753818200,
     "linkedin_trends_flagged": 1753725216
   },
   "notes": {
     "daily_brief": "2026-07-26 07:13 UTC - Sunday. BRIEF_SENT=false, after 10 AM Kyiv. Wait for user request or Monday.",
-    "coach": "2026-07-26 07:13 UTC - Last post July 21 (5 days ago). Sunday - no nudge. Will nudge Monday.",
+    "coach": "2026-07-26 07:43 UTC - Last post July 21 (5 days ago). Target 2-3/day, actual 1/week. Sent gentle Sunday nudge.",
     "trends_needed": true,
     "trends_reason": "content-calendar.md missing. Run linkedin-trends skill when appropriate."
   }

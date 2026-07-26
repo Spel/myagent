@@ -5,8 +5,8 @@
     "linkedin_trends_flagged": 1753725216
   },
   "notes": {
-    "daily_brief": "2026-07-26 03:43 UTC - Sunday 06:43 Kyiv. Brief not sent. Sunday early morning - wait for Monday.",
-    "coach": "2026-07-26 03:43 UTC - Last post July 21 (5 days ago). Sunday early morning Kyiv - no nudge, let him rest. Will nudge Monday.",
+    "daily_brief": "2026-07-26 05:13 UTC - Sunday 08:13 Kyiv. Brief not sent. Sunday morning - wait for Monday or user request.",
+    "coach": "2026-07-26 05:13 UTC - Last post July 21 (5 days ago). Sunday morning Kyiv - no nudge, let him rest. Will nudge Monday.",
     "trends_needed": true,
     "trends_reason": "content-calendar.md missing. Run linkedin-trends skill to create it."
   }

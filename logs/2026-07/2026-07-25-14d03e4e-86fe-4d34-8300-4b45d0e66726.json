@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-25T23:46:22.236Z",
+  "exportedAt": "2026-07-26T00:16:43.572Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-25T23:43:46.541Z",
+    "lastTs": "2026-07-26T00:14:05.270Z",
     "turns": [
       {
         "role": "user",
@@ -256,6 +256,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-25T23:43:46.541Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-26T00:13:36.206Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753633988,\n    \"linkedin_coach\": 1753633988,\n    \"linkedin_trends_flagged\": 1753633988\n  },\n  \"notes\": {\n    \"daily_brief\": \"2026-07-25 23:13 UTC - Saturday night (02:13 Kyiv). Brief not sent. Too late, skip until Monday.\",\n    \"coach\": \"2026-07-25 23:13 UTC - Last post July 21 (4 days ago). User previously said 'later'. No nudge tonight.\",\n    \"trends_needed\": true,\n    \"trends_reason\": \"content-calendar.md missing entirely. Flag for next session.\"\n  }\n}",
+        "ts": "2026-07-26T00:13:42.939Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-26",
+        "ts": "2026-07-26T00:13:42.944Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "total 20\ndrwxr-xr-x 2 root root 4096 Jul 21 17:59 .\ndrwxr-xr-x 5 root root 4096 Jul 20 13:07 ..\n-rw-r--r-- 1 root root 1318 Jun 25 15:55 2026-06-25-ai-isnt-coming-for-your.md\n-rw-r--r-- 1 root root 1500 Jun 25 17:40 2026-06-25-most-companies-are-building-ai.md\n-rw-r--r-- 1 root root 1773 Jul 21 17:59 2026-07-21-your-ai-pilot-didnt-fail.md",
+        "ts": "2026-07-26T00:13:42.948Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully replaced 2 block(s) in /data/workspace/memory/heartbeat-state.json.",
+        "ts": "2026-07-26T00:14:00.750Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-26T00:14:05.270Z"
       }
     ],
     "toolCalls": [],

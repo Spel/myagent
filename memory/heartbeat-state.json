@@ -1,13 +1,13 @@
 {
   "lastChecks": {
-    "linkedin_daily_brief": 1753662180,
-    "linkedin_coach": 1753662180,
-    "linkedin_trends_flagged": 1753662180
+    "linkedin_daily_brief": 1753681406,
+    "linkedin_coach": 1753681406,
+    "linkedin_trends_flagged": 1753681406
   },
   "notes": {
-    "daily_brief": "2026-07-26 00:13 UTC - Sunday 03:13 Kyiv. Brief not sent. Too early, wait for Monday morning.",
-    "coach": "2026-07-26 00:13 UTC - Last post July 21 (5 days ago). Sunday night Kyiv. No nudge.",
+    "daily_brief": "2026-07-26 01:43 UTC - Sunday 04:43 Kyiv. Brief not sent. Too early, wait for Monday morning.",
+    "coach": "2026-07-26 01:43 UTC - Last post July 21 (5 days ago). Sunday early morning Kyiv. No nudge needed.",
     "trends_needed": true,
-    "trends_reason": "content-calendar.md missing entirely. Flag for next session."
+    "trends_reason": "content-calendar.md missing entirely. Run linkedin-trends skill to create it."
   }
 }

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-26T01:17:27.911Z",
+  "exportedAt": "2026-07-26T01:47:49.573Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-26T01:13:48.482Z",
+    "lastTs": "2026-07-26T01:44:00.954Z",
     "turns": [
       {
         "role": "user",
@@ -321,6 +321,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-26T01:13:48.482Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-26T01:43:36.248Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753662180,\n    \"linkedin_coach\": 1753662180,\n    \"linkedin_trends_flagged\": 1753662180\n  },\n  \"notes\": {\n    \"daily_brief\": \"2026-07-26 00:13 UTC - Sunday 03:13 Kyiv. Brief not sent. Too early, wait for Monday morning.\",\n    \"coach\": \"2026-07-26 00:13 UTC - Last post July 21 (5 days ago). Sunday night Kyiv. No nudge.\",\n    \"trends_needed\": true,\n    \"trends_reason\": \"content-calendar.md missing entirely. Flag for next session.\"\n  }\n}",
+        "ts": "2026-07-26T01:43:48.461Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-26",
+        "ts": "2026-07-26T01:43:48.472Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"read\",\n  \"error\": \"ENOENT: no such file or directory, access '/data/workspace/social/linkedin/264468965/content-calendar.md'\"\n}",
+        "ts": "2026-07-26T01:43:48.480Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 519 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-26T01:43:56.145Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-26T01:44:00.954Z"
       }
     ],
     "toolCalls": [],

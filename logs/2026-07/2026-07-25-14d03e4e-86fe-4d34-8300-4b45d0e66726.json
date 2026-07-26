@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-26T10:44:16.350Z",
+  "exportedAt": "2026-07-26T11:14:37.794Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-26T10:43:54.859Z",
+    "lastTs": "2026-07-26T11:13:44.616Z",
     "turns": [
       {
         "role": "user",
@@ -921,6 +921,16 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-26T10:43:54.859Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-26T11:13:36.278Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Daily brief sent ✓ — you have 3 drafts waiting. Coach check done ✓. Nothing urgent.",
+        "ts": "2026-07-26T11:13:44.616Z"
       }
     ],
     "toolCalls": [],

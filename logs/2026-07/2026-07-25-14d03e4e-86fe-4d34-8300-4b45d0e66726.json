@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-26T01:47:49.573Z",
+  "exportedAt": "2026-07-26T02:18:11.429Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-26T01:44:00.954Z",
+    "lastTs": "2026-07-26T02:13:57.597Z",
     "turns": [
       {
         "role": "user",
@@ -351,6 +351,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-26T01:44:00.954Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-26T02:13:36.248Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Let me check the heartbeat tasks.",
+        "ts": "2026-07-26T02:13:43.759Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1753681406,\n    \"linkedin_coach\": 1753681406,\n    \"linkedin_trends_flagged\": 1753681406\n  },\n  \"notes\": {\n    \"daily_brief\": \"2026-07-26 01:43 UTC - Sunday 04:43 Kyiv. Brief not sent. Too early, wait for Monday morning.\",\n    \"coach\": \"2026-07-26 01:43 UTC - Last post July 21 (5 days ago). Sunday early morning Kyiv. No nudge needed.\",\n    \"trends_needed\": true,\n    \"trends_reason\": \"content-calendar.md missing entirely. Run linkedin-trends skill to create it.\"\n  }\n}",
+        "ts": "2026-07-26T02:13:43.900Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-26\n02",
+        "ts": "2026-07-26T02:13:43.905Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 534 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-26T02:13:52.643Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-26T02:13:57.597Z"
       }
     ],
     "toolCalls": [],

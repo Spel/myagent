@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-21T18:06:39.092Z",
+  "exportedAt": "2026-07-27T20:28:55.479Z",
   "sourceFile": "7d21a980-8666-47be-9cb7-7c67b0d63000.jsonl",
   "session": {
     "file": "7d21a980-8666-47be-9cb7-7c67b0d63000.jsonl",
     "sessionKey": "7d21a980-8666-47be-9cb7-7c67b0d63000",
     "firstTs": "2026-07-21T17:51:57.831Z",
-    "lastTs": "2026-07-21T17:54:00.599Z",
+    "lastTs": "2026-07-27T20:28:41.618Z",
     "turns": [
       {
         "role": "user",
@@ -111,6 +111,11 @@
         "role": "assistant",
         "content": "What's the topic? Give me a quick idea, a few bullet points, or just a direction — and I'll draft it in your Gary Vee voice.\n\nOr if you want ideas:\n\n**From your pillars:**\n\n1. **AI Agents** — \"Every company will become AI-first — here's what that actually means for your team\"\n2. **Automation for SMBs** — \"The #1 mistake small businesses make with AI (it's not what you think)\"\n3. **Personal journey** — \"I've been quiet for a month. Here's what I learned about showing up.\"\n\nPick one, or throw me your own angle. Let's write.",
         "ts": "2026-07-21T17:54:00.599Z"
+      },
+      {
+        "role": "assistant",
+        "content": "𝗧𝗵𝗲 𝗯𝗶𝗴𝗴𝗲𝘀𝘁 𝗰𝗼𝗺𝗽𝗲𝘁𝗶𝘁𝗶𝘃𝗲 𝗮𝗱𝘃𝗮𝗻𝘁𝗮𝗴𝗲 𝗿𝗶𝗴𝗵𝘁 𝗻𝗼𝘄? 𝗕𝗲𝗶𝗻𝗴 𝘀𝗺𝗮𝗹𝗹.\n\nNot always. Not forever. But right now? Absolutely.\n\nLarge enterprises have budget, talent, and infrastructure. They also have:\n\n• 6-month procurement cycles\n• 47 approval layers\n• Legacy systems that break if you sneeze\n• Committees that debate while markets shift\n\nSmall teams? They decide on Tuesday and ship on Friday.\n\nI've watched 8-person companies outpace 800-person companies in AI deployment. Not because they're smarter. Because they're faster.\n\nThe window is open. Speed beats scale. Execution beats planning.\n\nThis won't last forever. The giants will figure it out eventually.\n\nBut today? Being small is an unfair advantage.\n\nAre you using it or wasting it?\n\n#StartupLife #AIadoption #SpeedWins #SmallTeams\n\nReady to publish?",
+        "ts": "2026-07-27T20:28:41.618Z"
       }
     ],
     "toolCalls": [],

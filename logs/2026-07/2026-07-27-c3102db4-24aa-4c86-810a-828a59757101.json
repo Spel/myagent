@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-27T20:28:55.494Z",
+  "exportedAt": "2026-07-27T20:39:04.330Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-27T20:28:51.835Z",
+    "lastTs": "2026-07-27T20:30:19.955Z",
     "turns": [
       {
         "role": "user",
@@ -206,6 +206,41 @@
         "role": "assistant",
         "content": "Waiting for your confirmation. Tap a button or reply!",
         "ts": "2026-07-27T20:28:51.835Z"
+      },
+      {
+        "role": "user",
+        "content": "Publish this one:\n\n📝 Post 3/3 — Business\n\n𝗧𝗵𝗲 𝗰𝗼𝗺𝗽𝗮𝗻𝗶𝗲𝘀 𝘄𝗶𝗻𝗻𝗶𝗻𝗴 𝘄𝗶𝘁𝗵 𝗔𝗜 𝗮𝗿𝗲𝗻'𝘁 𝘁𝗵𝗲 𝗼𝗻𝗲𝘀 𝘄𝗶𝘁𝗵 𝘁𝗵𝗲 𝗯𝗶𝗴𝗴𝗲𝘀𝘁 𝗯𝘂𝗱𝗴𝗲𝘁𝘀.\n\nThey're the ones with the tightest feedback loops.\n\nI see it constantly:\n\nCompany A spends $2M on an AI transformation initiative. 18-month roadmap. External consultants. Perfect slides.\n\nCompany B assigns one engineer to ship one AI-powered workflow this month. Ugly but functional. Learns from users. Iterates.\n\nSix months later, Company A is still \"planning.\" Company B has 12 shipped features and real revenue impact.\n\nSpeed beats perfection. Every time.\n\nWhat's one AI experiment you could ship this week?\n\n#AIadoption #BusinessStrategy #StartupGrowth #Execution",
+        "ts": "2026-07-27T20:29:36.273Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Got it — publishing the Business post with your image.",
+        "ts": "2026-07-27T20:29:52.590Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "OK: https://www.linkedin.com/feed/update/urn:li:share:7487605208785604610/\nDISPLAY_NAME: Andrii Bidochko\nCHARS: 814",
+        "ts": "2026-07-27T20:29:55.245Z"
+      },
+      {
+        "role": "assistant",
+        "content": "✅ Published to LinkedIn (as Andrii Bidochko):\n→ https://www.linkedin.com/feed/update/urn:li:share:7487605208785604610/\n\n**Characters:** 814",
+        "ts": "2026-07-27T20:30:08.527Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 1344 bytes to /data/workspace/social/linkedin/264468965/posts/2026-07-27-companies-winning-with-ai-arent.md",
+        "ts": "2026-07-27T20:30:08.593Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Done! Post is live and saved. 🚀",
+        "ts": "2026-07-27T20:30:19.629Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Done! Post is live and saved. 🚀",
+        "ts": "2026-07-27T20:30:19.955Z"
       }
     ],
     "toolCalls": [],

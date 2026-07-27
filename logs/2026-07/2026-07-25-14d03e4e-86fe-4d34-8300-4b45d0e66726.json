@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-27T06:48:39.897Z",
+  "exportedAt": "2026-07-27T07:19:02.622Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-27T06:45:26.510Z",
+    "lastTs": "2026-07-27T07:13:57.315Z",
     "turns": [
       {
         "role": "user",
@@ -1396,6 +1396,21 @@
         "role": "assistant",
         "content": "Monday brief sent — 3 fresh posts queued. Tap ✅ to ship. 🧠",
         "ts": "2026-07-27T06:45:26.510Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-27T07:13:36.334Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "LAST_POST=2026-07-21\nDAYS_AGO=6\nDRAFTS_QUEUED=3",
+        "ts": "2026-07-27T07:13:50.776Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brief sent ✓. 6 days since last post. 3 drafts queued — waiting for you. 🧠",
+        "ts": "2026-07-27T07:13:57.315Z"
       }
     ],
     "toolCalls": [],

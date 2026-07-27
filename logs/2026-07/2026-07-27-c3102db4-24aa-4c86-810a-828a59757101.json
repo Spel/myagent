@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-27T20:39:04.330Z",
+  "exportedAt": "2026-07-27T20:49:14.384Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-27T20:30:19.955Z",
+    "lastTs": "2026-07-27T20:44:07.870Z",
     "turns": [
       {
         "role": "user",
@@ -241,6 +241,31 @@
         "role": "assistant",
         "content": "Done! Post is live and saved. 🚀",
         "ts": "2026-07-27T20:30:19.955Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-27T20:43:36.330Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1785059024,\n    \"linkedin_coach\": 1795670440,\n    \"linkedin_trends_flagged\": 0\n  }\n}",
+        "ts": "2026-07-27T20:43:42.979Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\n\n=== Checking last post date for coach check ===\n-rw-r--r-- 1 root root 1586 Jul 27 20:30 /data/workspace/social/linkedin/264468965/posts/2026-07-27-companies-winning-with-ai-arent.md\n-rw-r--r-- 1 root root 1773 Jul 21 17:59 /data/workspace/social/linkedin/264468965/posts/2026-07-21-your-ai-pilot-didnt-fail.md\n-rw-r--r-- 1 root root 1500 Jun 25 17:40 /data/workspace/social/linkedin/264468965/posts/2026-06-25-most-companies-are-building-ai.md",
+        "ts": "2026-07-27T20:43:49.876Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 132 bytes to /data/workspace/memory/heartbeat-state.json",
+        "ts": "2026-07-27T20:44:04.430Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-27T20:44:07.870Z"
       }
     ],
     "toolCalls": [],

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-27T00:13:48.835Z",
+  "exportedAt": "2026-07-27T00:23:57.742Z",
   "sourceFile": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
   "session": {
     "file": "14d03e4e-86fe-4d34-8300-4b45d0e66726.jsonl",
     "sessionKey": "14d03e4e-86fe-4d34-8300-4b45d0e66726",
     "firstTs": "2026-07-25T20:22:13.972Z",
-    "lastTs": "2026-07-27T00:13:45.068Z",
+    "lastTs": "2026-07-27T00:13:55.647Z",
     "turns": [
       {
         "role": "user",
@@ -1196,6 +1196,11 @@
         "role": "toolResult",
         "content": "BRIEF_SENT=false\nYESTERDAY_DRAFTS_LEFT=3\nTODAY=2026-07-27",
         "ts": "2026-07-27T00:13:45.068Z"
+      },
+      {
+        "role": "assistant",
+        "content": "New day — Monday. Brief fires at morning hours, not midnight. Yesterday's drafts expired. 🌙",
+        "ts": "2026-07-27T00:13:55.647Z"
       }
     ],
     "toolCalls": [],

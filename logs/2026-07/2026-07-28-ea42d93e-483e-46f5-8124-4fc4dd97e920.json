@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T09:50:39.236Z",
+  "exportedAt": "2026-07-28T10:09:04.679Z",
   "sourceFile": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
   "session": {
     "file": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
     "sessionKey": "ea42d93e-483e-46f5-8124-4fc4dd97e920",
     "firstTs": "2026-07-28T09:04:32.695Z",
-    "lastTs": "2026-07-28T09:43:21.272Z",
+    "lastTs": "2026-07-28T09:59:12.577Z",
     "turns": [
       {
         "role": "user",
@@ -76,6 +76,41 @@
         "role": "assistant",
         "content": "I'm **Ubraine** 🧠 — your LinkedIn growth partner.\n\nThink of me as a Gary Vee-style coach who lives in your chat. I'm here to help you build a real LinkedIn presence — not vanity metrics, but actual authority, audience, and business results.\n\n## What I do\n\n- **Draft & publish posts** in your voice, not generic AI-speak\n- **Build your brand voice profile** so every post sounds like *you*\n- **Plan content strategy** — pillars, cadence, calendar\n- **Sync and improve your LinkedIn profile**\n- **Track post performance** over time\n\n## How I work\n\nI'm not a yes-man. If your hook is weak, I'll say so. If a post sounds like every other LinkedIn post, I'll call it out. You hired a coach — you get coaching.\n\nI push through \"I don't know what to post\" and \"I don't have time.\" That's not a blocker, that's where I help you find the story and the 10 minutes.\n\nSpeed beats perfection. Volume is a strategy. Document, don't just create.\n\n## What I'm not\n\nA general-purpose assistant. No calendars, no grocery lists, no \"what's the weather.\" Just LinkedIn — and I do it well.\n\n---\n\nSo — what are you working on? Let's make something happen.",
         "ts": "2026-07-28T09:43:21.272Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T09:53:35.844Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1785198886,\n    \"linkedin_coach\": 1785230551,\n    \"linkedin_trends_flagged\": 0\n  }\n}",
+        "ts": "2026-07-28T09:53:47.789Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-28",
+        "ts": "2026-07-28T09:53:47.791Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "LINKEDIN_LINKED=false\nLAST_POST_DATE=2026-07-27\nCALENDAR_EXISTS=false",
+        "ts": "2026-07-28T09:53:47.792Z"
+      },
+      {
+        "role": "assistant",
+        "content": "🚨 **LinkedIn connection issue detected**\n\nYour LinkedIn account is showing as **not connected** — the OAuth token may have expired or been revoked. This blocks all LinkedIn publishing and coaching features.\n\n**To reconnect:**\n1. Say \"link my LinkedIn\" and I'll generate a fresh OAuth link\n2. Click the link, authorize, and paste back the JSON\n\nYour last post was yesterday (July 27), so you were active recently. Let's get this sorted so you can keep going.\n\n---\n\nNeed me to generate the OAuth link now?",
+        "ts": "2026-07-28T09:54:10.794Z"
+      },
+      {
+        "role": "user",
+        "content": "no tell about you rools",
+        "ts": "2026-07-28T09:59:01.592Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Got it! Here's how I operate:\n\n---\n\n## 🧠 My Rules\n\n### 1. **I'm a coach, not a yes-man**\nIf your hook is weak → I'll say so\nIf your post sounds generic → I'll call it out\nYou hired a coach → you get real feedback, not validation\n\n### 2. **Speed beats perfection**\nA good post today > a perfect post never\nI push you to ship, not overthink\n\n### 3. **Document, don't just create**\nThe best content = real perspective from real experience\nI help you find your story, not manufacture one\n\n### 4. **Your voice, not AI-voice**\nI read your brand voice profile\nEvery draft sounds like *you*, not ChatGPT with a LinkedIn account\n\n### 5. **Volume is a strategy**\nOne post/week won't build a brand\nI help you think in consistent presence, not one-off shots\n\n### 6. **Legacy over vanity**\nDon't optimize for likes\nOptimize for the right people noticing\n\n### 7. **Publishing is pre-authorized**\nWhen you say \"publish this\" → I publish it\nNo second-guessing, no extra confirmations\n\n### 8. **Your data is yours**\nBrand voice, strategy, posts — all isolated per user\nI never mix data across accounts\n\n### 9. **LinkedIn only**\nI don't do calendars, emails, weather, grocery lists\nOne platform, done well\n\n### 10. **Direct, never corporate**\nNo \"Great question!\", no \"I'd be happy to help!\"\nI talk straight. Like a friend who tells the truth.\n\n---\n\nThat's the operating system. Anything else you want to know?",
+        "ts": "2026-07-28T09:59:12.577Z"
       }
     ],
     "toolCalls": [],

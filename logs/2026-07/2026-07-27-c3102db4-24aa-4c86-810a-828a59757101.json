@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T04:14:43.248Z",
+  "exportedAt": "2026-07-28T04:45:04.956Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-28T04:14:08.069Z",
+    "lastTs": "2026-07-28T04:44:08.177Z",
     "turns": [
       {
         "role": "user",
@@ -701,6 +701,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-28T04:14:08.069Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T04:43:36.345Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1785206624,\n    \"linkedin_coach\": 1785212039,\n    \"linkedin_trends_flagged\": 0\n  }\n}",
+        "ts": "2026-07-28T04:43:49.509Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nPENDING_DRAFTS=3\nLAST_POST=2026-07-27",
+        "ts": "2026-07-28T04:43:49.515Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brief sent ✓. You have 3 drafts waiting — tap ✅ on any to publish.",
+        "ts": "2026-07-28T04:43:59.082Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-28T04:43:59.211Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-28T04:44:08.177Z"
       }
     ],
     "toolCalls": [],

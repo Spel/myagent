@@ -12,11 +12,19 @@ NOW=$(date +%s)
 
 for file in *.md; do
   [ -f "$file" ] || continue
+  [ "$file" = ".gitkeep" ] && continue
   
   # Extract scheduled time from filename: YYYY-MM-DD-HHMM.md
-  FILETIME=$(echo "$file" | sed 's/\.md$//' | xargs -I {} date -d "{}" +%s 2>/dev/null) || continue
+  # Parse: 2026-07-28-0500 -> 2026-07-28 05:00
+  BASENAME=$(echo "$file" | sed 's/\.md$//')
+  DATE_PART=$(echo "$BASENAME" | cut -d'-' -f1-3)
+  TIME_PART=$(echo "$BASENAME" | cut -d'-' -f4)
+  HOUR=$(echo "$TIME_PART" | cut -c1-2)
+  MIN=$(echo "$TIME_PART" | cut -c3-4)
   
-  # Check if within next 5 minutes (or past due)
+  FILETIME=$(date -d "${DATE_PART} ${HOUR}:${MIN}:00" +%s 2>/dev/null) || continue
+  
+  # Check if within next 5 minutes (or past due but within last 24h)
   DIFF=$((FILETIME - NOW))
   if [ $DIFF -le 300 ] && [ $DIFF -gt -86400 ]; then
     POST_TEXT=$(cat "$file")
@@ -24,7 +32,8 @@ for file in *.md; do
     $SCRIPT "$TELEGRAM_USER_ID" text "$POST_TEXT"
     
     # Move to published
-    mv "$file" "../published/$(date +%Y-%m-%d)-$(basename "$file")"
+    mkdir -p "$PENDING_DIR/../published"
+    mv "$file" "$PENDING_DIR/../published/$(date +%Y-%m-%d)-$(basename "$file")"
     echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) Published: $file" >> "$PENDING_DIR/../publish-log.txt"
   fi
 done

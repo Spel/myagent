@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T20:46:44.500Z",
+  "exportedAt": "2026-07-28T21:17:06.815Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-28T20:43:43.618Z",
+    "lastTs": "2026-07-28T21:13:45.240Z",
     "turns": [
       {
         "role": "user",
@@ -1196,6 +1196,16 @@
         "role": "assistant",
         "content": "Brief sent, drafts ready. Quiet until you need me.",
         "ts": "2026-07-28T20:43:43.618Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T21:13:36.432Z"
+      },
+      {
+        "role": "assistant",
+        "content": "(No updates — drafts are there when you want them.)",
+        "ts": "2026-07-28T21:13:45.240Z"
       }
     ],
     "toolCalls": [],

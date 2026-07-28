@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T04:45:04.956Z",
+  "exportedAt": "2026-07-28T05:15:26.758Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-28T04:44:08.177Z",
+    "lastTs": "2026-07-28T05:13:59.444Z",
     "turns": [
       {
         "role": "user",
@@ -731,6 +731,21 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-28T04:44:08.177Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T05:13:36.424Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nPOSTS_TODAY=0\nLAST_POST=2026-07-27\n{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1785206624,\n    \"linkedin_coach\": 1785213839,\n    \"linkedin_trends_flagged\": 0\n  }\n}",
+        "ts": "2026-07-28T05:13:49.487Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-07-28T05:13:59.444Z"
       }
     ],
     "toolCalls": [],

@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T07:47:18.103Z",
+  "exportedAt": "2026-07-28T08:17:39.701Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-28T07:43:56.914Z",
+    "lastTs": "2026-07-28T08:14:03.393Z",
     "turns": [
       {
         "role": "user",
@@ -851,6 +851,21 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-28T07:43:56.914Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T08:13:36.424Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1785198886,\n    \"linkedin_coach\": 1785224629,\n    \"linkedin_trends_flagged\": 0\n  }\n}\nLAST_POST=2026-07-27\nTODAY=2026-07-28\nPENDING_TODAY=3",
+        "ts": "2026-07-28T08:13:47.445Z"
+      },
+      {
+        "role": "assistant",
+        "content": "All good! You have 3 drafts waiting from this morning. No urgent items.\n\nHEARTBEAT_OK",
+        "ts": "2026-07-28T08:14:03.393Z"
       }
     ],
     "toolCalls": [],

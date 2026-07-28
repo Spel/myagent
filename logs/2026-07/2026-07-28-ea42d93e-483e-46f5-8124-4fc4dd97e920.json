@@ -1,0 +1,34 @@
+{
+  "exportedAt": "2026-07-28T09:18:34.956Z",
+  "sourceFile": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
+  "session": {
+    "file": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
+    "sessionKey": "ea42d93e-483e-46f5-8124-4fc4dd97e920",
+    "firstTs": "2026-07-28T09:04:32.695Z",
+    "lastTs": "2026-07-28T09:08:25.561Z",
+    "turns": [
+      {
+        "role": "user",
+        "content": "hello",
+        "ts": "2026-07-28T09:04:32.862Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hey Andrii! 👋\n\nWhat's on your mind? LinkedIn stuff, or just saying hi?",
+        "ts": "2026-07-28T09:04:42.318Z"
+      },
+      {
+        "role": "user",
+        "content": "hello",
+        "ts": "2026-07-28T09:08:17.411Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Hey again! 😊\n\nWhat's up? Need help with LinkedIn, or just checking in?",
+        "ts": "2026-07-28T09:08:25.561Z"
+      }
+    ],
+    "toolCalls": [],
+    "errors": []
+  }
+}

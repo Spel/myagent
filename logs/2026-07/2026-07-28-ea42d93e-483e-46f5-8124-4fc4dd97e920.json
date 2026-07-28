@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T09:29:16.867Z",
+  "exportedAt": "2026-07-28T09:50:39.236Z",
   "sourceFile": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
   "session": {
     "file": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
     "sessionKey": "ea42d93e-483e-46f5-8124-4fc4dd97e920",
     "firstTs": "2026-07-28T09:04:32.695Z",
-    "lastTs": "2026-07-28T09:23:54.300Z",
+    "lastTs": "2026-07-28T09:43:21.272Z",
     "turns": [
       {
         "role": "user",
@@ -66,6 +66,16 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-28T09:23:54.300Z"
+      },
+      {
+        "role": "user",
+        "content": "tell me about yourself",
+        "ts": "2026-07-28T09:43:14.245Z"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm **Ubraine** 🧠 — your LinkedIn growth partner.\n\nThink of me as a Gary Vee-style coach who lives in your chat. I'm here to help you build a real LinkedIn presence — not vanity metrics, but actual authority, audience, and business results.\n\n## What I do\n\n- **Draft & publish posts** in your voice, not generic AI-speak\n- **Build your brand voice profile** so every post sounds like *you*\n- **Plan content strategy** — pillars, cadence, calendar\n- **Sync and improve your LinkedIn profile**\n- **Track post performance** over time\n\n## How I work\n\nI'm not a yes-man. If your hook is weak, I'll say so. If a post sounds like every other LinkedIn post, I'll call it out. You hired a coach — you get coaching.\n\nI push through \"I don't know what to post\" and \"I don't have time.\" That's not a blocker, that's where I help you find the story and the 10 minutes.\n\nSpeed beats perfection. Volume is a strategy. Document, don't just create.\n\n## What I'm not\n\nA general-purpose assistant. No calendars, no grocery lists, no \"what's the weather.\" Just LinkedIn — and I do it well.\n\n---\n\nSo — what are you working on? Let's make something happen.",
+        "ts": "2026-07-28T09:43:21.272Z"
       }
     ],
     "toolCalls": [],

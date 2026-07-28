@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T10:49:30.552Z",
+  "exportedAt": "2026-07-28T11:19:52.865Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-28T10:44:04.549Z",
+    "lastTs": "2026-07-28T11:14:13.863Z",
     "turns": [
       {
         "role": "user",
@@ -956,6 +956,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-28T10:44:04.549Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T11:13:36.373Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nPOSTS_TODAY=0\nPENDING_DRAFTS=3",
+        "ts": "2026-07-28T11:13:47.975Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Brief sent ✅ | 3 drafts waiting | 0 published today\n\nQuick nudge: You've got 3 ready posts from this morning. Want to knock one out?",
+        "ts": "2026-07-28T11:14:02.601Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Quick check-in 👊\n\nYou've got 3 drafts from this morning still waiting.\n\nPick one and ship it:\n\n**1.** AI agents that \"just work\" (Tech)\n**2.** Your competitor isn't who you think (Business)\n**3.** The silence is the hardest part (Mindset)\n\nReply with the number or tap one of the earlier posts to publish.",
+        "ts": "2026-07-28T11:14:02.980Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"763\"\n}",
+        "ts": "2026-07-28T11:14:03.115Z"
+      },
+      {
+        "role": "assistant",
+        "content": "(Heartbeat check complete — nudge sent!)",
+        "ts": "2026-07-28T11:14:13.863Z"
       }
     ],
     "toolCalls": [],

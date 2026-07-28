@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T18:55:50.571Z",
+  "exportedAt": "2026-07-28T19:28:14.504Z",
   "sourceFile": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
   "session": {
     "file": "ea42d93e-483e-46f5-8124-4fc4dd97e920.jsonl",
     "sessionKey": "ea42d93e-483e-46f5-8124-4fc4dd97e920",
     "firstTs": "2026-07-28T09:04:32.695Z",
-    "lastTs": "2026-07-28T18:54:13.319Z",
+    "lastTs": "2026-07-28T19:24:28.136Z",
     "turns": [
       {
         "role": "user",
@@ -351,6 +351,26 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-07-28T18:54:13.319Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-28T19:23:52.401Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true\nTODAY=2026-07-28\n1785266647",
+        "ts": "2026-07-28T19:24:07.711Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "LINKEDIN_LINKED=false\nLAST_POST_DATE=2026-07-27\nPROFILE_EXISTS=true\nSTRATEGY_EXISTS=true",
+        "ts": "2026-07-28T19:24:14.945Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Still seeing that **LinkedIn connection issue** — your OAuth token is missing or expired.\n\nLast post: July 27 (yesterday) ✅ — you were active recently.\n\nWhen you're ready to reconnect, just say **\"link my LinkedIn\"** and I'll generate a fresh OAuth link. Takes 30 seconds.\n\n---\n\nOtherwise, everything else looks good. Your brand voice and strategy profiles are in place.",
+        "ts": "2026-07-28T19:24:28.136Z"
       }
     ],
     "toolCalls": [],

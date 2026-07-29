@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-28T23:48:56.586Z",
+  "exportedAt": "2026-07-29T00:19:19.235Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-28T23:43:44.186Z",
+    "lastTs": "2026-07-29T00:14:37.990Z",
     "turns": [
       {
         "role": "user",
@@ -1256,6 +1256,71 @@
         "role": "assistant",
         "content": "Brief done | Drafts ready | Late night. No action needed.",
         "ts": "2026-07-28T23:43:44.186Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-29T00:13:36.389Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-29\nPOSTS_YESTERDAY=0\nPOSTS_TODAY=0",
+        "ts": "2026-07-29T00:13:47.523Z"
+      },
+      {
+        "role": "assistant",
+        "content": "New day — running morning brief for July 29.",
+        "ts": "2026-07-29T00:14:09.396Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "DONE\n-rw-r--r-- 1 root root    0 Jul 29 00:14 .brief-sent-2026-07-29\n-rw-r--r-- 1 root root  912 Jul 29 00:14 2026-07-29-draft-1.md\n-rw-r--r-- 1 root root  902 Jul 29 00:14 2026-07-29-draft-2.md\n-rw-r--r-- 1 root root  848 Jul 29 00:14 2026-07-29-draft-3.md",
+        "ts": "2026-07-29T00:14:09.557Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Good morning, Andrii! ☀️\n\nFresh posts for July 29. Tap ✅ to publish any.",
+        "ts": "2026-07-29T00:14:25.792Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 1/3 — Technology & AI innovations\n\n𝗔𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗰𝗵𝗮𝗻𝗴𝗲 𝘆𝗼𝘂𝗿 𝗷𝗼𝗯. 𝗜𝘁 𝗰𝗵𝗮𝗻𝗴𝗲𝗱 𝘁𝗵𝗲 𝗱𝗲𝗳𝗶𝗻𝗶𝘁𝗶𝗼𝗻 𝗼𝗳 𝘄𝗵𝗮𝘁 𝘆𝗼𝘂𝗿 𝗷𝗼𝗯 𝗰𝗼𝘂𝗹𝗱 𝗯𝗲.\n\nMost people are still waiting for AI to \"replace\" tasks.\n\nThat's the wrong frame.\n\nThe shift isn't about doing less. It's about what becomes possible when the boring stuff disappears.\n\nYou used to spend 4 hours on research. Now it's 20 minutes.\n\nThat's not 3.5 hours saved. That's 3.5 hours of strategic thinking you never had before.\n\nThe winners aren't the ones who automate. They're the ones who reinvest.\n\nWhat would you build with 3 extra hours this week?\n\n#AIAgents #FutureOfWork #Productivity #ThinkBigger",
+        "ts": "2026-07-29T00:14:26.331Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 2/3 — Business & entrepreneurship insights\n\n𝗧𝗵𝗲 𝗿𝗶𝗰𝗵𝗲𝘀𝘁 𝗳𝗲𝗲𝗱𝗯𝗮𝗰𝗸 𝗹𝗼𝗼𝗽 𝗶𝘀 𝘀𝗺𝗮𝗹𝗹𝗲𝗿 𝘁𝗵𝗮𝗻 𝘆𝗼𝘂 𝘁𝗵𝗶𝗻𝗸.\n\nYou don't need 10,000 customers to know if you're on track.\n\nYou need 10.\n\nTen people who tell you the truth. Ten who complain when something's broken. Ten who stick around when you fix it.\n\nMost founders chase scale before signal. They want the vanity metrics before the product-market fit.\n\nBut the real data? It's in the small conversations. The DMs. The churn you can explain. The repeat purchases that surprise you.\n\nStop looking for the big number. Start listening to the small ones.\n\nWho are your 10?\n\n#StartupLife #ProductMarketFit #CustomerFeedback #BuildTheRightThing",
+        "ts": "2026-07-29T00:14:27.234Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 3/3 — Personal development & mindset\n\n𝗦𝘁𝗼𝗽 𝘄𝗮𝗶𝘁𝗶𝗻𝗴 𝗳𝗼𝗿 𝗺𝗼𝘁𝗶𝘃𝗮𝘁𝗶𝗼𝗻. 𝗦𝘁𝗮𝗿𝘁 𝗯𝘂𝗶𝗹𝗱𝗶𝗻𝗴 𝗺𝗼𝗺𝗲𝗻𝘁𝘂𝗺.\n\nMotivation is a mood. It shows up when it wants. Leaves when you need it most.\n\nMomentum is different. You build it. You control it. It compounds.\n\nThe difference? Action.\n\nOne small win creates the next. One post leads to the next idea. One call leads to the next opportunity.\n\nYou don't need to feel like it. You need to do it anyway.\n\nThat's the secret no one wants to hear: the feeling follows the action. Not the other way around.\n\nWhat's one small win you can create today?\n\n#Mindset #Momentum #JustStart #DoItAnyway",
+        "ts": "2026-07-29T00:14:28.177Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"764\"\n}",
+        "ts": "2026-07-29T00:14:28.289Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"765\"\n}",
+        "ts": "2026-07-29T00:14:28.295Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"766\"\n}",
+        "ts": "2026-07-29T00:14:28.302Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-29T00:14:28.310Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Done — 3 fresh drafts for July 29 ready. 🚀",
+        "ts": "2026-07-29T00:14:37.990Z"
       }
     ],
     "toolCalls": [],

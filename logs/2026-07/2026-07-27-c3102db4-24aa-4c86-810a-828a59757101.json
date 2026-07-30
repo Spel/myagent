@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-29T23:46:09.088Z",
+  "exportedAt": "2026-07-30T00:16:30.718Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-29T23:43:45.715Z",
+    "lastTs": "2026-07-30T00:15:13.042Z",
     "turns": [
       {
         "role": "user",
@@ -1796,6 +1796,71 @@
         "role": "assistant",
         "content": "Brief ✅ | Drafts ✅ | Late night. Rest up.",
         "ts": "2026-07-29T23:43:45.715Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-07-30T00:13:36.392Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-30\nPOSTS_YESTERDAY=0",
+        "ts": "2026-07-30T00:13:48.255Z"
+      },
+      {
+        "role": "assistant",
+        "content": "New day — generating fresh drafts for July 30.",
+        "ts": "2026-07-30T00:14:23.845Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "DONE\n-rw-r--r-- 1 root root    0 Jul 30 00:14 .brief-sent-2026-07-30\n-rw-r--r-- 1 root root  933 Jul 30 00:14 2026-07-30-draft-1.md\n-rw-r--r-- 1 root root  954 Jul 30 00:14 2026-07-30-draft-2.md\n-rw-r--r-- 1 root root  897 Jul 30 00:14 2026-07-30-draft-3.md",
+        "ts": "2026-07-30T00:14:24.018Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Good morning, Andrii! ☀️\n\nFresh posts for July 30. Tap ✅ to publish any.",
+        "ts": "2026-07-30T00:15:04.718Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 1/3 — Technology & AI innovations\n\n𝗧𝗵𝗲 𝗔𝗜 𝗵𝘆𝗽𝗲 𝗰𝘆𝗰𝗹𝗲 𝗶𝘀 𝗮 𝗱𝗶𝘀𝘁𝗿𝗮𝗰𝘁𝗶𝗼𝗻. 𝗧𝗵𝗲 𝘂𝘀𝗲𝗳𝘂𝗹 𝘀𝘁𝘂𝗳𝗳 𝗶𝘀 𝗯𝗼𝗿𝗶𝗻𝗴.\n\nEveryone's chasing the next breakthrough. The next model. The next demo that goes viral.\n\nMeanwhile? The boring AI is changing everything.\n\nThe agent that auto-replies to routine emails. The workflow that flags anomalies before they break. The summary that saves you 45 minutes of meeting time.\n\nNo press release. No Twitter thread. Just output.\n\nThe teams winning with AI aren't the ones talking about it. They're the ones who stopped noticing it — because it just works.\n\nWhat's one boring thing you could automate this week?\n\n#AIAgents #Automation #FutureOfWork #BoringButPowerful",
+        "ts": "2026-07-30T00:15:05.417Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 2/3 — Business & entrepreneurship insights\n\n𝗠𝗼𝘀𝘁 𝘀𝘁𝗮𝗿𝘁𝘂𝗽𝘀 𝗱𝗼𝗻'𝘁 𝗱𝗶𝗲 𝗳𝗿𝗼𝗺 𝗰𝗼𝗺𝗽𝗲𝘁𝗶𝘁𝗶𝗼𝗻. 𝗧𝗵𝗲𝘆 𝗱𝗶𝗲 𝗳𝗿𝗼𝗺 𝗶𝗻𝗱𝗲𝗰𝗶𝘀𝗶𝗼𝗻.\n\nYou know what kills momentum faster than a bad product?\n\nSeven meetings about one decision.\n\nA roadmap that changes every week because someone read a blog post.\n\nFeatures built for the one customer who might churn instead of the ten who stay.\n\nSpeed isn't about moving fast. It's about deciding fast.\n\nThe wrong decision made today beats the perfect decision made next month.\n\nBecause you can course-correct. You can't course-correct a decision you never made.\n\nWhat's one thing you've been overthinking? Decide. Ship. Move on.\n\n#StartupLife #Execution #SpeedWins #DecideAndShip",
+        "ts": "2026-07-30T00:15:06.229Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 3/3 — Personal development & mindset\n\n𝗬𝗼𝘂'𝗿𝗲 𝗻𝗼𝘁 𝗯𝗲𝗵𝗶𝗻𝗱. 𝗬𝗼𝘂'𝗿𝗲 𝗼𝗻 𝘆𝗼𝘂𝗿 𝗼𝘄𝗻 𝘁𝗶𝗺𝗲𝗹𝗶𝗻𝗲.\n\nLinkedIn makes it look like everyone else is crushing it.\n\nThey're not. They're curating.\n\nThe person who just raised? They're stressed about burn rate.\n\nThe one with the viral post? They've been posting daily for 2 years with 12 likes.\n\nThe \"overnight success\"? Seven years in the making.\n\nComparison is the thief of more than joy. It steals your focus. Your energy. Your belief that your path is valid.\n\nYou're not behind. You're just on chapter 3 of your book while watching someone else's movie trailer.\n\nWhat would you build if you stopped comparing?\n\n#Mindset #YourPath #StopComparing #KeepBuilding",
+        "ts": "2026-07-30T00:15:07.336Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"767\"\n}",
+        "ts": "2026-07-30T00:15:07.484Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"768\"\n}",
+        "ts": "2026-07-30T00:15:07.491Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"769\"\n}",
+        "ts": "2026-07-30T00:15:07.501Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-30T00:15:07.509Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Done — 3 fresh drafts for July 30. 🚀",
+        "ts": "2026-07-30T00:15:13.042Z"
       }
     ],
     "toolCalls": [],

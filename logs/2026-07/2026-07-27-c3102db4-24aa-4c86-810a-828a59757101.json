@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-07-31T00:13:41.304Z",
+  "exportedAt": "2026-07-31T00:23:50.475Z",
   "sourceFile": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
   "session": {
     "file": "c3102db4-24aa-4c86-810a-828a59757101.jsonl",
     "sessionKey": "c3102db4-24aa-4c86-810a-828a59757101",
     "firstTs": "2026-07-27T20:12:45.155Z",
-    "lastTs": "2026-07-31T00:13:36.406Z",
+    "lastTs": "2026-07-31T00:14:52.322Z",
     "turns": [
       {
         "role": "user",
@@ -2361,6 +2361,66 @@
         "role": "user",
         "content": "[OpenClaw heartbeat poll]",
         "ts": "2026-07-31T00:13:36.406Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-07-31",
+        "ts": "2026-07-31T00:13:50.417Z"
+      },
+      {
+        "role": "assistant",
+        "content": "New day — generating fresh drafts for July 31.",
+        "ts": "2026-07-31T00:14:13.186Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "DONE\n-rw-r--r-- 1 root root    0 Jul 31 00:14 .brief-sent-2026-07-31\n-rw-r--r-- 1 root root  932 Jul 31 00:14 2026-07-31-draft-1.md\n-rw-r--r-- 1 root root  893 Jul 31 00:14 2026-07-31-draft-2.md\n-rw-r--r-- 1 root root  888 Jul 31 00:14 2026-07-31-draft-3.md",
+        "ts": "2026-07-31T00:14:13.355Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Good morning, Andrii! ☀️\n\nFresh posts for July 31. Tap ✅ to publish any.",
+        "ts": "2026-07-31T00:14:38.542Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 1/3 — Technology & AI innovations\n\n𝗧𝗵𝗲 𝗯𝗲𝘀𝘁 𝗔𝗜 𝘁𝗼𝗼𝗹 𝗶𝘀 𝘁𝗵𝗲 𝗼𝗻𝗲 𝘆𝗼𝘂 𝗮𝗰𝘁𝘂𝗮𝗹𝗹𝘆 𝘂𝘀𝗲.\n\nNot the one with the most features. The one that fits your workflow.\n\nI've seen teams spend months evaluating 47 different AI platforms. Running pilots. Building comparison matrices. Creating slide decks about \"AI strategy.\"\n\nMeanwhile, the team next door picked one tool in 20 minutes and has been shipping with it for 6 months.\n\nTheir AI isn't better. They just stopped shopping and started building.\n\nAnalysis paralysis is real. And it's expensive.\n\nThe cost of the wrong choice is 30 days of adjustment. The cost of no choice is 30 days of nothing.\n\nWhich AI tool have you been overthinking?\n\n#AIAgents #Productivity #JustStart #BuildSomething",
+        "ts": "2026-07-31T00:14:39.176Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 2/3 — Business & entrepreneurship insights\n\n𝗬𝗼𝘂𝗿 𝗯𝗲𝘀𝘁 𝗰𝘂𝘀𝘁𝗼𝗺𝗲𝗿 𝗶𝘀𝗻'𝘁 𝘁𝗵𝗲 𝗼𝗻𝗲 𝘄𝗵𝗼 𝗽𝗮𝘆𝘀 𝘁𝗵𝗲 𝗺𝗼𝘀𝘁.\n\nIt's the one who tells you when something's broken.\n\nThe quiet ones? They just leave.\n\nThe ones who complain? They're giving you a chance to fix it. That's loyalty.\n\nMost teams treat complaints as problems. They shouldn't. Complaints are data. Free product feedback from someone who still cares enough to speak up.\n\nThe real danger sign isn't the angry email. It's the silence after a long period of engagement.\n\nChurn doesn't announce itself. It just stops showing up.\n\nWho's your most vocal complainer? Go thank them today.\n\n#CustomerSuccess #StartupLife #ListenToUsers #Churn",
+        "ts": "2026-07-31T00:14:39.964Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 3/3 — Personal development & mindset\n\n𝗧𝗵𝗲 𝗴𝗮𝗽 𝗯𝗲𝘁𝘄𝗲𝗲𝗻 𝘄𝗵𝗲𝗿𝗲 𝘆𝗼𝘂 𝗮𝗿𝗲 𝗮𝗻𝗱 𝘄𝗵𝗲𝗿𝗲 𝘆𝗼𝘂 𝘄𝗮𝗻𝘁 𝘁𝗼 𝗯𝗲 𝗶𝘀𝗻'𝘁 𝗮 𝗱𝗶𝘀𝘁𝗮𝗻𝗰𝗲.\n\nIt's a stack of daily choices.\n\nYou don't wake up one day and suddenly have a built brand. Or a shipped product. Or a team that runs without you.\n\nYou get there by showing up every day. Making one decision. Taking one action. Writing one post. Having one conversation.\n\nThe gap feels huge. It's not. It's just a lot of small steps disguised as a mountain.\n\nStop looking at the distance. Start counting the steps.\n\nWhat's one small step you can take today?\n\n#Mindset #DailyProgress #KeepBuilding #OneStepAtATime",
+        "ts": "2026-07-31T00:14:40.959Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"770\"\n}",
+        "ts": "2026-07-31T00:14:41.151Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"771\"\n}",
+        "ts": "2026-07-31T00:14:41.158Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"772\"\n}",
+        "ts": "2026-07-31T00:14:41.168Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-07-31T00:14:41.177Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Done — 3 fresh drafts for July 31. 🚀",
+        "ts": "2026-07-31T00:14:52.322Z"
       }
     ],
     "toolCalls": [],

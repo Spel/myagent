@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-08-11T11:20:52.136Z",
+  "exportedAt": "2026-08-11T11:51:13.606Z",
   "sourceFile": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
   "session": {
     "file": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
     "sessionKey": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed",
     "firstTs": "2026-08-11T09:22:20.460Z",
-    "lastTs": "2026-08-11T11:13:59.661Z",
+    "lastTs": "2026-08-11T11:43:59.990Z",
     "turns": [
       {
         "role": "user",
@@ -256,6 +256,36 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-08-11T11:13:59.661Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-08-11T11:43:36.673Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"lastChecks\": {\n    \"linkedin_daily_brief\": 1786450383,\n    \"linkedin_coach\": 1786450383,\n    \"linkedin_trends_flagged\": 1786443224\n  }\n}",
+        "ts": "2026-08-11T11:43:45.222Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=true",
+        "ts": "2026-08-11T11:43:45.238Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"read\",\n  \"error\": \"ENOENT: no such file or directory, access '/data/workspace/social/linkedin/264468965/content-calendar.md'\"\n}",
+        "ts": "2026-08-11T11:43:45.254Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "State updated",
+        "ts": "2026-08-11T11:43:51.668Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Heartbeat check done ✅\n\n**Status:**\n- ✅ **Daily brief** — already sent this morning\n- ✅ **LinkedIn coach** — you published a post ~2 hours ago, on track\n- ⚠️ **Content calendar** — doesn't exist yet (trend research freshness can't be checked)\n\nAll good. You're ahead of the game today. 🧠",
+        "ts": "2026-08-11T11:43:59.990Z"
       }
     ],
     "toolCalls": [],

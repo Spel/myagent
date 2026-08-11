@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-08-11T16:14:28.971Z",
+  "exportedAt": "2026-08-11T16:44:50.003Z",
   "sourceFile": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
   "session": {
     "file": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
     "sessionKey": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed",
     "firstTs": "2026-08-11T09:22:20.460Z",
-    "lastTs": "2026-08-11T16:14:07.298Z",
+    "lastTs": "2026-08-11T16:43:58.124Z",
     "turns": [
       {
         "role": "user",
@@ -436,6 +436,21 @@
         "role": "assistant",
         "content": "HEARTBEAT_OK",
         "ts": "2026-08-11T16:14:07.298Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-08-11T16:43:36.652Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "State updated",
+        "ts": "2026-08-11T16:43:52.251Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-08-11T16:43:58.124Z"
       }
     ],
     "toolCalls": [],

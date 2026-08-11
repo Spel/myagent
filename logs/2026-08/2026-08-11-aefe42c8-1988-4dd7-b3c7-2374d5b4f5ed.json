@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-08-11T11:51:13.606Z",
+  "exportedAt": "2026-08-11T12:21:34.059Z",
   "sourceFile": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
   "session": {
     "file": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
     "sessionKey": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed",
     "firstTs": "2026-08-11T09:22:20.460Z",
-    "lastTs": "2026-08-11T11:43:59.990Z",
+    "lastTs": "2026-08-11T12:13:49.494Z",
     "turns": [
       {
         "role": "user",
@@ -286,6 +286,21 @@
         "role": "assistant",
         "content": "Heartbeat check done ✅\n\n**Status:**\n- ✅ **Daily brief** — already sent this morning\n- ✅ **LinkedIn coach** — you published a post ~2 hours ago, on track\n- ⚠️ **Content calendar** — doesn't exist yet (trend research freshness can't be checked)\n\nAll good. You're ahead of the game today. 🧠",
         "ts": "2026-08-11T11:43:59.990Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-08-11T12:13:36.657Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "State updated",
+        "ts": "2026-08-11T12:13:44.824Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-08-11T12:13:49.494Z"
       }
     ],
     "toolCalls": [],

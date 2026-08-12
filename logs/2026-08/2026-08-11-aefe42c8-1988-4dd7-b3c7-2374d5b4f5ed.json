@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-08-12T11:17:43.385Z",
+  "exportedAt": "2026-08-12T11:48:04.295Z",
   "sourceFile": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
   "session": {
     "file": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
     "sessionKey": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed",
     "firstTs": "2026-08-11T09:22:20.460Z",
-    "lastTs": "2026-08-12T11:14:29.225Z",
+    "lastTs": "2026-08-12T11:44:15.956Z",
     "turns": [
       {
         "role": "user",
@@ -1216,6 +1216,16 @@
         "role": "assistant",
         "content": "You've got 3 drafts from this morning still waiting to be published. \n\n**Last post:** Yesterday (Aug 11, 09:24 UTC)\n**Time since:** ~26 hours\n\nThe morning brief posts are ready — just scroll up and tap ✅ on whichever resonates. Or I can suggest a different angle if none of them feel right.\n\nNeed a nudge, or should I stay quiet? 🧠",
         "ts": "2026-08-12T11:14:29.225Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-08-12T11:43:36.749Z"
+      },
+      {
+        "role": "assistant",
+        "content": "HEARTBEAT_OK",
+        "ts": "2026-08-12T11:44:15.956Z"
       }
     ],
     "toolCalls": [],

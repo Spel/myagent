@@ -1,11 +1,11 @@
 {
-  "exportedAt": "2026-08-17T23:48:48.433Z",
+  "exportedAt": "2026-08-18T00:19:10.938Z",
   "sourceFile": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
   "session": {
     "file": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed.jsonl",
     "sessionKey": "aefe42c8-1988-4dd7-b3c7-2374d5b4f5ed",
     "firstTs": "2026-08-11T09:22:20.460Z",
-    "lastTs": "2026-08-17T23:43:53.804Z",
+    "lastTs": "2026-08-18T00:15:28.391Z",
     "turns": [
       {
         "role": "user",
@@ -5561,6 +5561,91 @@
         "role": "assistant",
         "content": "All quiet. 🧠",
         "ts": "2026-08-17T23:43:53.804Z"
+      },
+      {
+        "role": "user",
+        "content": "[OpenClaw heartbeat poll]",
+        "ts": "2026-08-18T00:13:37.232Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "BRIEF_SENT=false\nTODAY=2026-08-18",
+        "ts": "2026-08-18T00:14:18.109Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"web_fetch\",\n  \"error\": \"request timed out\"\n}",
+        "ts": "2026-08-18T00:14:18.140Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"status\": \"error\",\n  \"tool\": \"web_search\",\n  \"error\": \"web_search is disabled or no provider is available.\"\n}",
+        "ts": "2026-08-18T00:14:26.429Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 909 bytes to /data/workspace/social/linkedin/264468965/pending/2026-08-18-draft-1.md",
+        "ts": "2026-08-18T00:14:47.426Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 963 bytes to /data/workspace/social/linkedin/264468965/pending/2026-08-18-draft-2.md",
+        "ts": "2026-08-18T00:14:47.463Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Successfully wrote 974 bytes to /data/workspace/social/linkedin/264468965/pending/2026-08-18-draft-3.md",
+        "ts": "2026-08-18T00:14:47.498Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "Brief flag set for 2026-08-18",
+        "ts": "2026-08-18T00:14:47.535Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Good morning, Andrii! ☀️\n\nHere are 3 fresh posts for today — tap ✅ to publish any immediately.",
+        "ts": "2026-08-18T00:15:07.474Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 1/3 — Business & entrepreneurship\n\n𝗧𝗵𝗲 𝗯𝗲𝘀𝘁 𝗳𝗼𝘂𝗻𝗱𝗲𝗿𝘀 𝗱𝗼𝗻'𝘁 𝘀𝗲𝗹𝗹. 𝗧𝗵𝗲𝘆 𝘁𝗲𝗮𝗰𝗵.\n\nEvery scroll-stopping post has the same structure: a lesson wrapped in a story.\n\nNot a pitch. Not a humblebrag. A genuine insight that makes the reader smarter.\n\nWhy does teaching work better than selling?\n\nBecause teaching positions you as the expert without you having to say it. Because teaching gives before asking. Because teaching builds trust — and trust is the currency of influence.\n\nThe founders who win on LinkedIn aren't the ones shouting about their wins. They're the ones sharing what they learned from their losses.\n\nYour scar tissue is your content strategy.\n\nWhat did you learn the hard way this month? That's your next post.\n\n#ThoughtLeadership #ContentStrategy #TeachDontSell #FounderLessons\n\n━━━━━━━━━━━\nSource: General insight",
+        "ts": "2026-08-18T00:15:08.756Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 2/3 — Personal development & mindset\n\n𝗬𝗼𝘂'𝗿𝗲 𝗻𝗼𝘁 𝗯𝘂𝘀𝘆. 𝗬𝗼𝘂'𝗿𝗲 𝗱𝗶𝘀𝘁𝗿𝗮𝗰𝘁𝗲𝗱 𝗯𝘆 𝘁𝗵𝗲 𝘄𝗿𝗼𝗻𝗴 𝘁𝗵𝗶𝗻𝗴𝘀.\n\nEvery founder says they don't have time. But track where the hours actually go:\n\n- Responding to emails that could wait\n- In meetings that should have been memos\n- Optimizing things that don't move the needle\n- Doom-scrolling competitor updates\n\nThe real constraint isn't time. It's clarity.\n\nThe founders who move fast aren't working more hours. They're saying no to more things. They've decided what matters and everything else is noise.\n\nHere's the test: If you had 2 hours today with zero interruptions, would you know exactly what to work on?\n\nIf the answer is \"it depends\" — you don't have a time problem. You have a priorities problem.\n\nWhat would you do with those 2 hours?\n\n#FounderMindset #TimeManagement #Priorities #DeepWork\n\n━━━━━━━━━━━\nSource: General insight",
+        "ts": "2026-08-18T00:15:10.547Z"
+      },
+      {
+        "role": "assistant",
+        "content": "📝 Post 3/3 — Technology & AI innovations\n\n𝗔𝗜 𝗱𝗶𝗱𝗻'𝘁 𝗿𝗲𝗽𝗹𝗮𝗰𝗲 𝘆𝗼𝘂𝗿 𝗷𝗼𝗯. 𝗜𝘁 𝗿𝗮𝗶𝘀𝗲𝗱 𝘁𝗵𝗲 𝗳𝗹𝗼𝗼𝗿.\n\nTwo years ago, everyone was panicking about AI taking jobs.\n\nNow the picture is clearer: AI didn't eliminate work. It eliminated the lower half of the skill curve.\n\nThe bar for \"good enough\" is now higher. The average is free. If you're not bringing judgment, taste, strategy, or relationships — you're competing with a machine that works 24/7 for pennies.\n\nBut here's the flip side: the ceiling is also higher. AI amplifies what you're already good at. If you have taste, you can produce more. If you have strategy, you can test faster. If you have relationships, you can serve better.\n\nThe winners aren't fighting AI. They're using it to 10x their edge.\n\nWhat's your edge — and how are you amplifying it?\n\n#AIandWork #FutureOfWork #SkillCeiling #AmplifyYourEdge\n\n━━━━━━━━━━━\nSource: General insight",
+        "ts": "2026-08-18T00:15:14.462Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"839\"\n}",
+        "ts": "2026-08-18T00:15:16.218Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"840\"\n}",
+        "ts": "2026-08-18T00:15:16.253Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "{\n  \"ok\": true,\n  \"messageId\": \"841\"\n}",
+        "ts": "2026-08-18T00:15:16.290Z"
+      },
+      {
+        "role": "toolResult",
+        "content": "(no output)",
+        "ts": "2026-08-18T00:15:20.131Z"
+      },
+      {
+        "role": "assistant",
+        "content": "Morning brief delivered. 3 fresh posts ready for action. 🧠",
+        "ts": "2026-08-18T00:15:28.391Z"
       }
     ],
     "toolCalls": [],
